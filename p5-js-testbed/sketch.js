@@ -30,15 +30,7 @@ function draw() {
         c = color(255 - x, 255 - y, 255); // change color of rect based on position
     }
 
-    if (keyIsDown(RIGHT_ARROW) && x < 400) {
-        x += 5;
-    } else if (keyIsDown(LEFT_ARROW) && x > 0) {
-        x -= 5;
-    } else if (keyIsDown(DOWN_ARROW) && y < 400) {
-        y += 5;
-    } else if (keyIsDown(UP_ARROW) && y > 0) {
-        y -= 5;
-    }
+    //keyIsDown statements
 
     print("x = " + x);
     print("y = " + y);
@@ -51,6 +43,18 @@ function keyPressed() {
     if (keyCode === 32) { // keyCode == 32 is the ASCII Code for SPACEBAR
         x = 0;
         y = 0;
+    } else if (keyIsDown(RIGHT_ARROW) && x < 400) {
+        x += 5;
+        return false;
+    } else if (keyIsDown(LEFT_ARROW) && x > 0) {
+        x -= 5;
+        return false;
+    } else if (keyIsDown(DOWN_ARROW) && y < 400) {
+        y += 5;
+        return false;
+    } else if (keyIsDown(UP_ARROW) && y > 0) {
+        y -= 5;
+        return false;
     }
     return false; // Stop browser from other behavior (e.g. scrolling)
 }
