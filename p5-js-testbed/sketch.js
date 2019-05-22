@@ -14,7 +14,7 @@ let y = 0;
 window.addEventListener("keydown", function(e) {
     // space and arrow keys
     if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
+        e.preventDefault(); // prevents default browser behaviour when interacting with p5.js
     }
 }, false);
 
