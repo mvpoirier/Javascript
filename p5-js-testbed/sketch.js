@@ -52,4 +52,5 @@ function keyPressed() {
         x = 0;
         y = 0;
     }
+    return false; // Stop browser from other behavior (e.g. scrolling)
 }
