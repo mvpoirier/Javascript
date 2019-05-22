@@ -1,10 +1,4 @@
-/
-p5 - js - testbed -
-    This is a p5.js Javascript Testbed with Events(keyboard & mouse) -
-    Easily output code to a local server using the 'Live Server'
-extension in vscode(open entire folder) /
-
-    let x = 0;
+let x = 0;
 let y = 0;
 
 function setup() {
@@ -45,7 +39,7 @@ function draw() {
     print("y = " + y);
 
     fill(c);
-    rect(30 + x, 30 + y, 50, 50, (x + y) 0.03); //last term adds rounded corners based on position
+    rect(30 + x, 30 + y, 50, 50, (x + y) * 0.03); //last term adds rounded corners based on position
 }
 
 function keyPressed() {
