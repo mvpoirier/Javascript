@@ -1,3 +1,9 @@
+/*
+    p5-js-testbed
+    - This is a p5.js Javascript Testbed with Events (keyboard & mouse)
+    - Easily output code to a local server using the 'Live Server' extension in vscode (open entire folder)
+*/
+
 let x = 0;
 let y = 0;
 
