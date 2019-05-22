@@ -33,12 +33,16 @@ function draw() {
     //keyIsDown statements
     if (keyIsDown(RIGHT_ARROW) && x < 400) {
         x += 5;
+        event.stopPropagation();
     } else if (keyIsDown(LEFT_ARROW) && x > 0) {
         x -= 5;
+        event.stopPropagation();
     } else if (keyIsDown(DOWN_ARROW) && y < 400) {
         y += 5;
+        event.stopPropagation();
     } else if (keyIsDown(UP_ARROW) && y > 0) {
         y -= 5;
+        event.stopPropagation();
     }
 
     print("x = " + x);
