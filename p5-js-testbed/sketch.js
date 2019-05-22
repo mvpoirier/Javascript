@@ -7,6 +7,17 @@
 let x = 0;
 let y = 0;
 
+/*
+    Disable user keys from scrolling from browser
+    https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+*/
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+
 function setup() {
     //createCanvas(windowWidth, windowHeight);
     createCanvas(500, 500);
@@ -33,23 +44,17 @@ function draw() {
     //keyIsDown statements
     if (keyIsDown(RIGHT_ARROW) && x < 400) {
         x += 5;
-        event.stopPropagation();
     } else if (keyIsDown(LEFT_ARROW) && x > 0) {
         x -= 5;
-        event.stopPropagation();
     } else if (keyIsDown(DOWN_ARROW) && y < 400) {
         y += 5;
-        event.stopPropagation();
     } else if (keyIsDown(UP_ARROW) && y > 0) {
         y -= 5;
-        event.stopPropagation();
     }
-
-    print("x = " + x);
-    print("y = " + y);
 
     fill(c);
     rect(30 + x, 30 + y, 50, 50, (x + y) * 0.03); //last term adds rounded corners based on position
+    //event.stopPropagation();
 }
 
 function keyPressed() {
@@ -57,6 +62,7 @@ function keyPressed() {
         x = 0;
         y = 0;
     }
+    //print(event);
     return false; // Stop browser from other behavior (e.g. scrolling)
 }
 
