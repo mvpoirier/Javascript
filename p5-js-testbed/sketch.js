@@ -41,25 +41,25 @@ function draw() {
             fill(255, 255 - (i * 100), 255 - (i * 100));
             text('Go Jets Go!', 150, 200 + i * 40);
         }
-    } else if (x1 < 5 && y1 < 5) {
+    } else if (x1 < 5 && y1 < 5) { //top left corner
         textSize(64);
         fill(255, 255, 255);
         text('SQUARE!', 100, 250);
         textSize(24);
         fill(0, 0, 0);
         text("Use Arrow Keys & Mouse Clicks!", 70, 280)
-    } else if (x1 > 395 && y1 > 395) {
+    } else if (x1 > 395 && y1 > 395) { // bottom right corner
         textSize(64);
         fill(0, 0, 0);
-        text('CIRCLE!', 100, 250);
+        text('CIRCLE!', 110, 250);
         textSize(24);
         fill(0, 200, 0);
-        text("Pretty cool, right?", 130, 280);
+        text("Pretty cool, right?", 140, 280);
     } else {
         c = color(255 - x1, 255 - y1, 255); // change color of rect based on position
     }
 
-    // Player 1 - arrow keys
+    // Player 1 - arrow keys: move the square around the screen
     if (keyIsDown(RIGHT_ARROW) && x1 < 400) {
         x1 += 5;
     }
