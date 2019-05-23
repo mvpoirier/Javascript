@@ -4,8 +4,13 @@
     - Easily output code to a local server using the 'Live Server' extension in vscode (open entire folder)
 */
 
-let x = 0;
-let y = 0;
+//Player 1
+var x1 = 0;
+var y1 = 0;
+
+//Player2
+var x2 = 250;
+var y2 = 250;
 
 /*
     Disable user keys from scrolling from browser
@@ -24,43 +29,60 @@ function setup() {
 }
 
 function draw() {
-    background(0 + x, 200, 0 + y); // change backgound based on position
-    let c = color(255, 255, 255);
+    //background(0 + x1, 200, 0 + y1); // change backgound based on position
+    var c = color(255, 255, 255);
 
     if (mouseIsPressed) {
         c = color(255, 0, 0); // red rect on mouse click
         background(0, 0, 0);
         textSize(32);
-        fill(255, 255, 255);
-        text('Go Jets Go!', 180, 200);
-        fill(0, 102, 153);
-        text('Go Jets Go!', 180, 240);
-        fill(0, 102, 153, 51);
-        text('Go Jets Go!', 180, 280);
+        for (let i = 0; i < 3; i++){
+            fill(255, 255, 255);
+            text('Go Jets Go!', 180, 200 + i*40);
+        }
     } else {
-        c = color(255 - x, 255 - y, 255); // change color of rect based on position
+        c = color(255 - x1, 255 - y1, 255); // change color of rect based on position
     }
 
-    //keyIsDown statements
-    if (keyIsDown(RIGHT_ARROW) && x < 400) {
-        x += 5;
-    } else if (keyIsDown(LEFT_ARROW) && x > 0) {
-        x -= 5;
-    } else if (keyIsDown(DOWN_ARROW) && y < 400) {
-        y += 5;
-    } else if (keyIsDown(UP_ARROW) && y > 0) {
-        y -= 5;
+    // Player 1 - arrow keys
+    if (keyIsDown(RIGHT_ARROW) && x1 < 400) {
+        x1 += 5;
+    } if (keyIsDown(LEFT_ARROW) && x1 > 0) {
+        x1 -= 5;
+    } if (keyIsDown(DOWN_ARROW) && y1 < 400) {
+        y1 += 5;
+    } if (keyIsDown(UP_ARROW) && y1 > 0) {
+        y1 -= 5;
     }
+
+    /*
+    // Player 2 - wasd keys
+    if (keyIsDown(68) && x2 < 400) {
+        x2 += 5; //right with 'd'
+    } if (keyIsDown(65) && x2 > 0) {
+        x2 -= 5; //left with 'a'
+    } if (keyIsDown(83) && y2 < 400) {
+        y2 += 5; //up with 'w'
+    } if (keyIsDown(87) && y2 > 0) {
+        y2 -= 5; //down with 's'
+    }
+    */
 
     fill(c);
-    rect(30 + x, 30 + y, 50, 50, (x + y) * 0.03); //last term adds rounded corners based on position
-    //event.stopPropagation();
+    rect(30 + x1, 30 + y1, 50, 50, (x1 + y1) * 0.03); //last term adds rounded corners based on position
+    
+    x2 = mouseX;
+    y2 = mouseY;
+    ellipse(x2, y2, 60, 30); // player 2
 }
 
 function keyPressed() {
     if (keyCode === 32) { // keyCode == 32 is the ASCII Code for SPACEBAR
-        x = 0;
-        y = 0;
+        x1 = 0;
+        y1 = 0;
+        x2 = 250;
+        y2 = 250;
+        background(0 + x1, 200, 0 + y1);
     }
     //print(event);
     return false; // Stop browser from other behavior (e.g. scrolling)
