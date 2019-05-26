@@ -1,12 +1,14 @@
 # p5.js
- A collection of p5.js Javascript Projects  
- https://p5js.org/  
- https://p5js.org/reference/
+ A collection of p5.js Javascript Projects, using the p5.js framework:
+ - <https://p5js.org/>
+ - <https://p5js.org/reference/>
  
 # p5.js Template
-The Coding Train and p5-manager: https://www.youtube.com/watch?v=HZ4D3wDRaec
+A generated p5.js template builder using node.js, npm, and p5-manager:
+- [Coding Train workflow YouTube video](https://www.youtube.com/watch?v=HZ4D3wDRaec)
+- [node.js npm page about p5-manager](https://www.npmjs.com/package/p5-manager)
 
 # How to Run
-Easily output code to a local server using the 'Live Server' extension in vscode (open entire folder)  
-https://code.visualstudio.com/  
-https://github.com/ritwickdey/vscode-live-server  
+Easily output code to a local server using the 'Live Server' extension in vscode:
+- [Visual Studio Code](https://code.visualstudio.com/)  
+- [vscode-live-server Extension](https://github.com/ritwickdey/vscode-live-server)
