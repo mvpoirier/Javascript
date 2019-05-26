@@ -9,6 +9,7 @@ A generated p5.js template builder using node.js, npm, and p5-manager:
 - [node.js npm page about p5-manager](https://www.npmjs.com/package/p5-manager)
 
 # How to Run
-Easily output code to a local server using the 'Live Server' extension in vscode:
+1. Output code to a local server using the 'Live Server' extension in vscode:
 - [Visual Studio Code](https://code.visualstudio.com/)  
 - [vscode-live-server Extension](https://github.com/ritwickdey/vscode-live-server)
+2. Choose a local file hosted on GitHub, and access content using [GitHack](https://raw.githack.com/)
