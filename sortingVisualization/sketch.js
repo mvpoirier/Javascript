@@ -9,6 +9,7 @@ var w = 10;
 
 function setup() {
     createCanvas(800, 200);
+
     values = new Array(floor(width / w));
 
     for (let i = 0; i < values.length; i++) {
@@ -16,6 +17,25 @@ function setup() {
     }
 
     frameRate(5);
+    //bubbleSort(values);
+}
+
+function bubbleSort(arr) {
+    var temp = 0;
+    var finished = false;
+
+    while (!finished) {
+        finished = true;
+        for (let index = 0; index < (arr.length - 1); index++) {
+            // if two adjacent elements are not in correct order, swap them
+            if (arr[index] > arr[index + 1]) {
+                temp = arr[index];
+                arr[index] = arr[index + 1];
+                arr[index + 1] = temp;
+                finished = false;
+            }
+        }
+    }
 }
 
 function draw() {
