@@ -1,13 +1,9 @@
 /*
-    Visualized sorting algorithms in Javascript and p5.js, inspired by:
+    Visualized Bubble Sort in Javascript and p5.js, inspired by:
     Coding Train - Bubblesort: https://www.youtube.com/watch?v=67k3I2GxTH8
     Coding Train - Quicksort: https://www.youtube.com/watch?v=eqo2LxRADhU
     Visualizing Algorithms: https://bost.ocks.org/mike/algorithms/
     async & await for asynchronous functions: https://www.youtube.com/watch?v=XO77Fib9tSI
-*/
-
-/*
-    BUBBLE SORT
 */
 
 let w = 5;
