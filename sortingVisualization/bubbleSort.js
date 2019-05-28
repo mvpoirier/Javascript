@@ -6,9 +6,11 @@
     async & await for asynchronous functions: https://www.youtube.com/watch?v=XO77Fib9tSI
 */
 
-let w = 5;
+let w = 20;
 let values = [];
-let i = 0
+let bubble = 0;
+let i = 0;
+let complete = false;
 
 function setup() {
     createCanvas(800, 200);
@@ -20,37 +22,61 @@ function setup() {
     }
 
     frameRate(30);
+    bubbleSort(values);
 }
 
-function bubbleSort(arr) {
+async function bubbleSort(arr) {
+    let finished = false;
     let temp = 0;
-    for (let index = 0; index < (arr.length - 1 - i); index++) {
-        if (arr[index] > arr[index + 1]) {
-            temp = arr[index];
-            arr[index] = arr[index + 1];
-            arr[index + 1] = temp;
+    while (!finished) {
+        finished = true;
+        for (let index = 0; index < arr.length - i; index++) {
+            if (arr[index] > arr[index + 1]) {
+                temp = arr[index];
+                arr[index] = arr[index + 1];
+                arr[index + 1] = temp;
+                bubble = index + 1;
+                finished = false;
+            }
+            await sleep(30);
         }
+        i++;
     }
+    complete = true;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 function draw() {
     background(0);
 
-    if (i < values.length) {
-        bubbleSort(values);
-    } else {
-        console.log("Bubble Sort is finished.");
-        noLoop();
-    }
-    i++;
-
-    for (let j = 0; j < values.length; j++) {
-        stroke(0);
-        if (j == (values.length - i)) {
+    for (let j = 0; j < values.length - i; j++) {
+        if (j == bubble) {
             fill(255, 0, 0);
         } else {
             fill(255);
         }
+        stroke(0);
         rect(j * w, height - values[j], w, values[j]);
+    }
+
+    for (let j = values.length - 1 - i; j < values.length; j++) {
+        fill(0, 255, 0);
+        stroke(0);
+        rect(j * w, height - values[j], w, values[j]);
+    }
+
+    if (complete) {
+
+        for (let j = 0; j < values.length - i; j++) {
+            fill(0, 255, 0);
+            stroke(0);
+            rect(j * w, height - values[j], w, values[j]);
+        }
+
+        console.log("Bubble Sort Completed.");
+        noLoop();
     }
 }
