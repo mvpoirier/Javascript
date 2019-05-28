@@ -10,7 +10,7 @@
     BUBBLE SORT
 */
 
-let w = 10;
+let w = 5;
 let values = [];
 let i = 0
 
