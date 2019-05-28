@@ -4,6 +4,7 @@
     Coding Train - Quicksort: https://www.youtube.com/watch?v=eqo2LxRADhU
     Visualizing Algorithms: https://bost.ocks.org/mike/algorithms/
     async & await for asynchronous functions: https://www.youtube.com/watch?v=XO77Fib9tSI
+    Reset sketch with a button: https://www.youtube.com/watch?v=lm8Y8TD4CTM
 */
 
 let w = 20;
@@ -11,18 +12,36 @@ let values = [];
 let bubble = 0;
 let i = 0;
 let complete = false;
+let speed = 30;
 
 function setup() {
     createCanvas(800, 200);
-
-    values = new Array(floor(width / w));
-
-    for (let i = 0; i < values.length; i++) {
-        values[i] = random(height);
-    }
-
     frameRate(30);
-    bubbleSort(values);
+
+    resetSketch();
+
+    var button = createButton("Accelerate or Reset");
+    button.mousePressed(resetSketch);
+}
+
+function resetSketch() {
+    if (i == 0 || complete) {
+        bubble = 0;
+        i = 0;
+        complete = false;
+        speed = 30;
+        values = new Array(floor(width / w));
+
+        for (let i = 0; i < values.length; i++) {
+            values[i] = random(height);
+        }
+
+        bubbleSort(values);
+        loop();
+    } else {
+        console.log("Need to wait for sort to finish, speeding it up...");
+        speed = 1;
+    }
 }
 
 async function bubbleSort(arr) {
@@ -38,7 +57,7 @@ async function bubbleSort(arr) {
                 bubble = index + 1;
                 finished = false;
             }
-            await sleep(30);
+            await sleep(speed);
         }
         i++;
     }
