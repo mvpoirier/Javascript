@@ -44,6 +44,7 @@ function resetSketch() {
     }
 }
 
+// asyncronous Bubble Sort function: will run independent of draw()
 async function bubbleSort(arr) {
     let finished = false;
     let temp = 0;
@@ -54,16 +55,25 @@ async function bubbleSort(arr) {
                 temp = arr[index];
                 arr[index] = arr[index + 1];
                 arr[index + 1] = temp;
-                bubble = index + 1;
+
+                // if there is a swap in the array, we're not finished
                 finished = false;
+
+                // keep track of 'bubbling' value for identification
+                bubble = index + 1;
             }
+
+            // asyncronously wait specificed millisconds (speed) before next iteration
             await sleep(speed);
         }
+
+        // global variable to keep track of how many iterations have completed
         i++;
     }
     complete = true;
 }
 
+// asyncronous sleep function (in milliseconds)
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -73,15 +83,18 @@ function draw() {
 
     for (let j = 0; j < values.length - i; j++) {
         if (j == bubble) {
+            // color the 'bubbled' value red
             fill(255, 0, 0);
         } else {
+            // color unsorted values white
             fill(255);
         }
         stroke(0);
         rect(j * w, height - values[j], w, values[j]);
     }
 
-    for (let j = values.length - 1 - i; j < values.length; j++) {
+    // color already sorted cells green
+    for (let j = values.length - i; j < values.length; j++) {
         fill(0, 255, 0);
         stroke(0);
         rect(j * w, height - values[j], w, values[j]);
@@ -89,12 +102,14 @@ function draw() {
 
     if (complete) {
 
+        // color all bars green on complete (to be sure of any that were sorted by default)
         for (let j = 0; j < values.length - i; j++) {
             fill(0, 255, 0);
             stroke(0);
             rect(j * w, height - values[j], w, values[j]);
         }
 
+        // output completion to console, stop looping
         console.log("Bubble Sort Completed.");
         noLoop();
     }
