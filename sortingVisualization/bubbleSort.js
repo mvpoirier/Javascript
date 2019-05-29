@@ -18,7 +18,7 @@ const w = 20;
 var values = [];
 var speed = 30;
 var i = 0;
-var bubble = 0;
+var bubble = -1;
 var complete = false;
 
 function setup() {
@@ -32,7 +32,7 @@ function setup() {
 }
 
 function resetSketch() {
-    if (i > 0 || complete) {
+    if (bubble == -1 || complete) {
         bubble = 0;
         i = 0;
         complete = false;
