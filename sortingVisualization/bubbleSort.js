@@ -1,18 +1,25 @@
 /*
     Visualized Bubble Sort in Javascript and p5.js, inspired by:
+
     Coding Train - Bubblesort: https://www.youtube.com/watch?v=67k3I2GxTH8
     Coding Train - Quicksort: https://www.youtube.com/watch?v=eqo2LxRADhU
+    
     Visualizing Algorithms: https://bost.ocks.org/mike/algorithms/
+    
     async & await for asynchronous functions: https://www.youtube.com/watch?v=XO77Fib9tSI
+    
     Reset sketch with a button: https://www.youtube.com/watch?v=lm8Y8TD4CTM
 */
 
-let w = 20;
-let values = [];
-let bubble = 0;
-let i = 0;
-let complete = false;
-let speed = 30;
+// define global constants
+const w = 20;
+
+// define global variables
+var values = [];
+var speed = 30;
+var i = 0;
+var bubble = 0;
+var complete = false;
 
 function setup() {
     createCanvas(800, 200);
