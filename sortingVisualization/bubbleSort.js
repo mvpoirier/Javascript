@@ -13,31 +13,40 @@
 
 // define global constants
 const w = 20;
+const spd = 30;
+const spd_change = 10;
+const fps = 30;
 
 // define global variables
 var values = [];
-var speed = 30;
+var speed = spd;
 var i = 0;
 var bubble = -1;
 var complete = false;
+var startTime = 0;
+var endTime = 0;
 
 function setup() {
     createCanvas(800, 200);
-    frameRate(30);
+    frameRate(fps);
 
     resetSketch();
 
-    var button = createButton("Accelerate or Reset");
+    var button = createButton("Speed Up or Reset");
     button.mousePressed(resetSketch);
 }
 
 function resetSketch() {
     if (bubble == -1 || complete) {
-        bubble = 0;
-        i = 0;
-        complete = false;
-        speed = 30;
+        console.log("Bubble Sort starting...");
+
         values = new Array(floor(width / w));
+        speed = spd;
+        i = 0;
+        bubble = 0;
+        complete = false;
+        startTime = millis();
+        endTime = 0;
 
         for (let i = 0; i < values.length; i++) {
             values[i] = random(height);
@@ -45,9 +54,14 @@ function resetSketch() {
 
         bubbleSort(values);
         loop();
+
     } else {
-        console.log("Need to wait for sort to finish, speeding it up...");
-        speed = 1;
+        if (speed > spd_change) {
+            speed = speed - spd_change;
+        } else {
+            speed = 1;
+        }
+        console.log("New speed: " + speed + " ms.");
     }
 }
 
@@ -78,6 +92,7 @@ async function bubbleSort(arr) {
         i++;
     }
     complete = true;
+    endTime = millis();
 }
 
 // asyncronous sleep function (in milliseconds)
@@ -116,8 +131,15 @@ function draw() {
             rect(j * w, height - values[j], w, values[j]);
         }
 
+        // text output of total time
+        fill(200);
+        textSize(16);
+        text("Bubble Sort Completed.\nTotal Time: " + (endTime - startTime) + " ms.", 10, 30);
+
         // output completion to console, stop looping
-        console.log("Bubble Sort Completed.");
+        console.log("Start time: " + startTime + " ms.");
+        console.log("End time: " + endTime + " ms.");
+        console.log("*** Bubble Sort Completed. ***");
         noLoop();
     }
 }
