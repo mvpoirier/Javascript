@@ -25,7 +25,7 @@ function setup() {
 }
 
 function resetSketch() {
-    if (i == 0 || complete) {
+    if (i > 0 || complete) {
         bubble = 0;
         i = 0;
         complete = false;
