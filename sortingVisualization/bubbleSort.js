@@ -20,8 +20,8 @@ const fps = 30;
 // define global variables
 var values = [];
 var speed = spd;
-var i = 0;
-var bubble = -1;
+var index = 0;
+var selection = -1;
 var complete = false;
 var startTime = 0;
 var endTime = 0;
@@ -37,19 +37,19 @@ function setup() {
 }
 
 function resetSketch() {
-    if (bubble == -1 || complete) {
+    if (selection == -1 || complete) {
         console.log("Bubble Sort starting...");
 
         values = new Array(floor(width / w));
         speed = spd;
-        i = 0;
-        bubble = 0;
+        index = 0;
+        selection = 0;
         complete = false;
         startTime = millis();
         endTime = 0;
 
-        for (let i = 0; i < values.length; i++) {
-            values[i] = random(height);
+        for (let j = 0; j < values.length; j++) {
+            values[j] = random(height-10);
         }
 
         bubbleSort(values);
@@ -61,7 +61,6 @@ function resetSketch() {
         } else {
             speed = 1;
         }
-        console.log("New speed: " + speed + " ms.");
     }
 }
 
@@ -71,17 +70,17 @@ async function bubbleSort(arr) {
     let temp = 0;
     while (!finished) {
         finished = true;
-        for (let index = 0; index < arr.length - i; index++) {
-            if (arr[index] > arr[index + 1]) {
-                temp = arr[index];
-                arr[index] = arr[index + 1];
-                arr[index + 1] = temp;
+        for (let j = 0; j < arr.length - index; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
 
                 // if there is a swap in the array, we're not finished
                 finished = false;
 
                 // keep track of 'bubbling' value for identification
-                bubble = index + 1;
+                selection = j + 1;
             }
 
             // asyncronously wait specificed millisconds (speed) before next iteration
@@ -89,7 +88,7 @@ async function bubbleSort(arr) {
         }
 
         // global variable to keep track of how many iterations have completed
-        i++;
+        index++;
     }
     complete = true;
     endTime = millis();
@@ -103,8 +102,9 @@ function sleep(ms) {
 function draw() {
     background(0);
 
-    for (let j = 0; j < values.length - i; j++) {
-        if (j == bubble) {
+    // iterate from 0 to last unsorted value (index - 1)
+    for (let j = 0; j < values.length - index; j++) {
+        if (j == selection) {
             // color the 'bubbled' value red
             fill(255, 0, 0);
         } else {
@@ -115,8 +115,8 @@ function draw() {
         rect(j * w, height - values[j], w, values[j]);
     }
 
-    // color already sorted cells green
-    for (let j = values.length - i; j < values.length; j++) {
+    // iterate and color sorted cells green (index to length)
+    for (let j = values.length - index; j < values.length; j++) {
         fill(0, 255, 0);
         stroke(0);
         rect(j * w, height - values[j], w, values[j]);
@@ -125,7 +125,7 @@ function draw() {
     if (complete) {
 
         // color all bars green on complete (to be sure of any that were sorted by default)
-        for (let j = 0; j < values.length - i; j++) {
+        for (let j = 0; j < values.length - index; j++) {
             fill(0, 255, 0);
             stroke(0);
             rect(j * w, height - values[j], w, values[j]);
@@ -134,12 +134,8 @@ function draw() {
         // text output of total time
         fill(200);
         textSize(16);
-        text("Bubble Sort Completed.\nTotal Time: " + (endTime - startTime) + " ms.", 10, 30);
+        text("Bubble Sort Completed!\nTotal Time: " + (endTime - startTime) + " ms.", 10, 25);
 
-        // output completion to console, stop looping
-        console.log("Start time: " + startTime + " ms.");
-        console.log("End time: " + endTime + " ms.");
-        console.log("*** Bubble Sort Completed. ***");
         noLoop();
     }
 }
