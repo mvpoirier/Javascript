@@ -38,8 +38,6 @@ function setup() {
 
 function resetSketch() {
     if (selection == -1 || complete) {
-        console.log("Bubble Sort starting...");
-
         values = new Array(floor(width / w));
         speed = spd;
         index = 0;
@@ -49,6 +47,7 @@ function resetSketch() {
         endTime = 0;
 
         for (let j = 0; j < values.length; j++) {
+            //randomSeed(j*j*random(j));
             values[j] = random(height-10);
         }
 
