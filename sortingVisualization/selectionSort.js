@@ -48,7 +48,7 @@ function resetSketch() {
 
         for (let j = 0; j < values.length; j++) {
             //randomSeed(j*j*random(j));
-            values[j] = random(height-10);
+            values[j] = random(height - 10);
         }
 
         selectionSort(values);
@@ -72,7 +72,7 @@ async function selectionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
         temp = arr[i];
 
-        for (let j = i + 1; j < arr.length; j++){
+        for (let j = i + 1; j < arr.length; j++) {
 
             selection = j;
             //await sleep(speed);
@@ -86,7 +86,7 @@ async function selectionSort(arr) {
         }
         index++;
     }
-    
+
     complete = true;
     endTime = millis();
 }
@@ -104,7 +104,10 @@ function draw() {
         if (j == selection) {
             // color the 'bubbled' value red
             fill(255, 0, 0);
-        }  else{
+        } else if (j == index) {
+            // color current index value yellow
+            fill(255, 255, 0);
+        } else {
             // color unsorted values white
             fill(255);
         }
