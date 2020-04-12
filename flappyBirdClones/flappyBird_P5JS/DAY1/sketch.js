@@ -25,3 +25,14 @@ function keyPressed() {
         bird.up();
     }
 }
+
+/*
+    Disable user keys from scrolling from browser
+    https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+*/
+window.addEventListener("keydown", function (e) {
+    // spacebar = 32
+    if ([32].indexOf(e.keyCode) > -1) {
+        e.preventDefault(); // prevents default browser behaviour when interacting with p5.js
+    }
+}, false);
