@@ -7,12 +7,13 @@
 
 class Bird {
 
-    constructor() {
+    constructor(num) {
         this.y = height / 2;
         this.x = 48;
+        this.num = num;
 
-        this.gravity = 0.4;
-        this.lift = -12;
+        this.gravity = 0.3;
+        this.lift = -8;
         this.velocity = 0;
 
         this.width = 36;
@@ -35,10 +36,15 @@ class Bird {
 
     show() {
         //change colour of bird based on vertical location
-        fill(255 - (this.y * 0.1), 0 + (this.y * 0.5), 0 + (this.y * 0.2));
-
+        if (this.num == 1) {
+            fill(255 - (this.y * 0.1), 0 + (this.y * 0.5), 0 + (this.y * 0.2));
+            ellipse(this.x, this.y, this.width, this.height);
+        } else {
+            fill(0 + (this.y * 0.5), 0 + (this.y * 0.2), 255 - (this.y * 0.1));
+            rect(this.x, this.y, this.width, this.height);
+        }
         //draw circle of bird object
-        ellipse(this.x, this.y, this.width, this.height);
+
     }
 
     up() {
