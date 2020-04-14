@@ -1,28 +1,30 @@
 /*
-    Michael Poirier
-    April 2020
+    Mike Poirier
     Flappy Bird Clone
     Main Sketch
+    Updated: April 14, 2020
 */
 
 var bird;
 
 function setup() {
-    //createCanvas(windowWidth, windowHeight);
     createCanvas(800, 500);
     bird = new Bird();
+    pipe = new Pipe();
 }
 
 function draw() {
-    //background (R, G, B)
     background(0, 200, 0);
     bird.update();
     bird.show();
+    pipe.update();
+    pipe.show();
 }
 
 function keyPressed() {
     if (key === ' ') {
         bird.up();
+        console.log(round(random(0, 10))); //print a random number 1-10 to console, for fun.
     }
 }
 
