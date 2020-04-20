@@ -1,16 +1,16 @@
 /*
-    Michael Poirier
-    Flappy Bird Clone
-    Bird Class
-    Updated: April 14, 2020
+    Mike Poirier
+    https://mvpoirier.github.io/
+
+    Flappy Bird Clone - Week 3 Progress
+    Updated: April 20, 2020
 */
 
 class Bird {
 
-    constructor(num) {
+    constructor() {
         this.y = height / 2;
         this.x = 48;
-        this.num = num;
 
         this.gravity = 0.3;
         this.lift = -8;
@@ -21,6 +21,7 @@ class Bird {
     }
 
     update() {
+        //gravitational acceleration
         this.velocity += this.gravity;
         this.y += this.velocity;
 
@@ -36,15 +37,8 @@ class Bird {
 
     show() {
         //change colour of bird based on vertical location
-        if (this.num == 1) { // Player 1 = Circle
-            fill(255 - (this.y * 0.1), 0 + (this.y * 0.5), 0 + (this.y * 0.2));
-            ellipse(this.x, this.y, this.width, this.height);
-        } else { // Player 2 = Square
-            fill(0 + (this.y * 0.5), 0 + (this.y * 0.2), 255 - (this.y * 0.1));
-            rect(this.x, this.y, this.width, this.height);
-        }
-        //draw circle of bird object
-
+        fill((255 * (this.y / height)), 0, 255 - (255 * (this.y / height)));
+        ellipse(this.x, this.y, this.width, this.height);
     }
 
     up() {

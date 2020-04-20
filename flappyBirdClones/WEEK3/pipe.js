@@ -1,16 +1,15 @@
 /*
     Mike Poirier
-    Flappy Bird Clone
-    Pipe Class
-    Updated: April 14, 2020
+    https://mvpoirier.github.io/
+
+    Flappy Bird Clone - Week 3 Progress
+    Updated: April 20, 2020
 */
 
 class Pipe {
     constructor() {
-        this.r = round(random(0, 3));
-
-        this.highlight = false;
-
+        //randomly decide if spacing is above or below midpoint (33% of the time)
+        this.r = round(random(1, 3));
         if (this.r < 3) {
             this.spacing = round(random(105, 175));
             this.top = random(height / 10, height / 2);
@@ -20,33 +19,28 @@ class Pipe {
             this.top = random(height / 2, height - this.spacing);
             this.bottom = this.top + this.spacing;
         }
-        //console.log(this.r);
-        //console.log(this.spacing);
 
+        //set pipe parameters
         this.x = width;
         this.w = 20;
         this.speed = -1.5;
     }
 
     show() {
-        if (!this.highlight) {
-            fill(0, 150, 255);
-            //fill(0, 255 * (1 - (this.x / width)), 255 * (1 - (this.x / width)));
-        } else {
-            fill(255, 0, 0);
-        }
-
-        rect(this.x, 0, this.w, this.top); //top rectangle
-        rect(this.x, this.bottom, this.w, height - this.bottom); //bottom rectangle
+        //draw the top and bottom of the rectangle (with spacing)
+        fill(255 * (this.x / width), 255 * (this.x / width), 255 * (this.x / width));
+        rect(this.x, 0, this.w, this.top);
+        rect(this.x, this.bottom, this.w, height - this.bottom);
     }
 
     update() {
+        //translate rectangle left by speed value
         this.x = this.x + this.speed;
     }
 
     hit(bird) {
+        //if bird is between is NOT between y-spacing, AND *IS* between x-width -- it's a hit.
         if (((bird.y - bird.width / 2) < this.top || (bird.y + bird.width / 2) > this.top + this.spacing) && (bird.x >= this.x && bird.x <= this.x + this.w)) {
-            this.highlight = true;
             return true;
         } else {
             return false;
@@ -54,6 +48,7 @@ class Pipe {
     }
 
     pass(bird) {
+        //determine if the rectangle has moved past the bird 
         return (bird.x > this.x + this.w)
     }
 }
