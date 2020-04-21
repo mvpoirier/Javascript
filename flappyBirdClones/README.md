@@ -7,8 +7,8 @@
 - Document my weeky progress in a 'Coding Journal' on my personal [Github Page](https://mvpoirier.github.io/).
 
 ## Flappy Bird Clone
-- Inspired by *flappyBird.html*, written in pure Javascript [(Source)](https://www.w3schools.com/graphics/game_gravity.asp).
-- Based on [Coding Train Challenge #31: Flappy Bird Clone](https://www.youtube.com/watch?v=cXgA1d_E-jY)
+- Inspired by [Gravity Game](https://www.w3schools.com/graphics/game_gravity.asp), written in pure Javascript.
+- My version is based on [Coding Train Challenge #31: Flappy Bird Clone](https://www.youtube.com/watch?v=cXgA1d_E-jY).
 
 ## Progress
 - As of April 20, 2020 completed a fully functional Flappy Bird Clone (WEEK 3).
