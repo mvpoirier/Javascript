@@ -12,6 +12,7 @@
 
 ## Progress
 - As of April 20, 2020 completed a fully functional Flappy Bird Clone (WEEK 3).
+- You can [run the WEEK 3 version here](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html).
 
-## Other ABA Student Projects
+## Student Projects
 - Stay tuned...
