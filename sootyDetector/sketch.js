@@ -74,7 +74,7 @@ function gotDetections(error, results){
         text("CAN'T FIND SOOTY :-(", 10, 48);
     }
     fill(0,0,0);
-    text("Time taken: " + round(((millis()-time)/1000), 1) + " seconds. New image every 10 seconds!", 10, 72);
+    text("Time taken: " + round(((millis()-time)/1000), 1) + " seconds. New image in 10 seconds...", 10, 72);
 }
 
 function setup() {
