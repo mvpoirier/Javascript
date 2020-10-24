@@ -12,7 +12,7 @@
 */
 
 const img = [];
-const NUM = 8; // number of total images
+const NUM = 9; // number of total images
 let detector;
 let time;
 let choice;
