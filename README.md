@@ -5,7 +5,7 @@
  - <https://brm.io/matter-js/>
  
 # TEMPLATE
-A default p5.js-based template builder using node.js, npm, and p5-manager:
+A Javascript template with p5.js (visuals), matter.js (physics), and ml5.js (machine learning):
 - [Coding Train workflow YouTube video](https://www.youtube.com/watch?v=HZ4D3wDRaec)
 - [node.js npm page about p5-manager](https://www.npmjs.com/package/p5-manager)
 - [UNPKG Content Delivery Network](https://unpkg.com/)
