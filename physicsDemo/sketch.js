@@ -1,7 +1,7 @@
 /*
-    NAME:
-    DATE:
-    PURPOSE:
+    NAME:       Mike Poirier
+    DATE:       October 24, 2020
+    PURPOSE:    Develop a physics demonstration with p5.js and matter.js
 */
 
 function setup() {
