@@ -13,22 +13,24 @@
 
 const img = [];
 const NUM = 9; // number of total images
+let choice = 0;
 let detector;
 let time;
-let choice;
-let currentChoice; // to avoid choosing same image twice
+//let currentChoice;
 
 function preload() {
 
-    // load all images from 1 to NUM
+    // Load all sooty#.jpg images from 1 to NUM
     for (let i = 0; i < NUM; i++){
         img[i] = loadImage('sooty'  + (i + 1) + '.jpg');
     }
 
+    // Initiate COCO-SSD object detector through ml5.js framework
     detector = ml5.objectDetector('cocossd');
 }
 
 function gotDetections(error, results){
+    
     let foundSooty = false;
     
     if (error){
@@ -36,6 +38,7 @@ function gotDetections(error, results){
     }
     console.log(results);
 
+    // Iterate through each found object (results) and check if we found a cat (Sooty)
     for (let i = 0; i < results.length; i++){
         let object = results[i];
         
@@ -65,6 +68,7 @@ function gotDetections(error, results){
         }
     }
 
+    // Display results based on what was in the image
     if (foundSooty){
         fill(0,0,255);
         text("SOOTY FOUND! :-)", 10, 48);
@@ -78,16 +82,18 @@ function gotDetections(error, results){
 }
 
 function setup() {
-    //console.log('ml5.js version:', ml5.version, "(March 13, 2020)");
-    //console.log('p5.js version: 1.1.9 (July 22, 2020)');
-    //console.log('COCO-SSSD:', detector);
+    /*
+    console.log('ml5.js version:', ml5.version, "(March 13, 2020)");
+    console.log('p5.js version: 1.1.9 (July 22, 2020)');
+    console.log('COCO-SSSD:', detector);
     
     choice = int(random(0, img.length)); //choose random index from img[] array
     currentChoice = choice;
+    */
 
     createCanvas(800, 600);
-    background(0, 0, 0);
     img[choice].resize(0,600);
+    background(0, 0, 0);
     image(img[choice], 0, 0);
 
     noStroke();
@@ -96,35 +102,40 @@ function setup() {
     
     fill(0,0,0);
     textSize(14);
-    text("Where's Sooty? Detecting...", 10, 24);
+    text("Where's Sooty? Detecting (Image " + (choice + 1) + " out of " + NUM + ")...", 10, 24);
     
     time = millis();
     detector.detect(img[choice], gotDetections);
 }
 
 function draw() {
-    if (((millis()-time) / 10000) > 1){ //change image after every 10 seconds (15000 ms)
+    if (((millis()-time) / 10000) > 1){ // Change image after every 10 seconds (10000 ms)
         time = millis();
-        background(0, 0, 0);
         
-        // Avoid choosing the same image twice
+        // Iterate from 0 to NUM-1 and loop back to 0 once completed.
+        choice = (choice + 1) % NUM
+
+        /*
+        // Avoid choosing the same random image twice
         choice = int(random(0, img.length));
         while (choice == currentChoice){
             choice = int(random(0, img.length));
         }
-        currentChoice = choice; 
+        currentChoice = choice;
+        */
 
-        //img[choice].resize(img[choice].width/6,img[choice].height/6);
         img[choice].resize(0,600);
+        background(0, 0, 0);
         image(img[choice], 0, 0);
-    
-        //noStroke();
+        
+        noStroke();
         fill(255,255,255);
         rect(0, 0, window.width, 80);
         
         fill(0,0,0);
         textSize(14);
-        text("Where's Sooty? Detecting...", 10, 24);
+        text("Where's Sooty? Detecting (Image " + (choice + 1) + " out of " + NUM + ")...", 10, 24);
+        
         detector.detect(img[choice], gotDetections);
     }
 }
