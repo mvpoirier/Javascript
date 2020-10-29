@@ -3,6 +3,10 @@
     DATE:       October 24, 2020
     PURPOSE:    Develop a physics demonstration with p5.js and matter.js
                 Based on Coding Train episode: https://www.youtube.com/watch?v=TDQzoe9nslY
+                
+                Additional Links:
+                https://www.youtube.com/watch?v=urR596FsU68 
+                https://www.youtube.com/watch?v=TDQzoe9nslY 
 */
 
 let myBox;
