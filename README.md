@@ -5,7 +5,7 @@
  - [p5.js](https://p5js.org/) for visuals
  - [ml5.js](https://ml5js.org/) for machine learning
  - [matter.js](https://brm.io/matter-js/) for physics simulations
- - Some simulations (Sep 2025 and later) were developed with AI-assisted code, such as [Canva AI](https://www.canva.com/ai)
+ - Projects shared in [Canva AI](https://www.canva.com/ai) were developed with AI-assisted code
  
 ## TEMPLATE
 A Javascript template with p5.js, ml5.js, and matter.js built-in, inspired by:
