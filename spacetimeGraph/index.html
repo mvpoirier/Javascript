@@ -1,0 +1,1053 @@
+
+<!--
+================================================================================
+SPACETIME INTERVAL SIMULATOR - DP PHYSICS A5 RELATIVITY
+================================================================================
+
+Created with: Canva AI (Canva Code)
+Author: Mike Poirier (https://github.com/mvpoirier/)
+Date: September 9, 2025
+
+Prompts used in development:
+1. "Create an interactive spacetime interval simulator for DP Physics A5 Relativity. 
+   Include a spacetime diagram where users can place events and calculate intervals, 
+   with controls for reference frame velocity and physics examples like twin paradox."
+
+2. "is it possible to use Latex to show proper equation formatting?"
+
+3. "what language is this coded in?"
+
+4. "add a comment at the top of the code that this was made using canva ai, 
+   the prompts used, and the date"
+
+Features:
+- Interactive spacetime diagram with click/drag event placement
+- Real-time spacetime interval calculations with LaTeX formatting
+- Lorentz transformation visualizations
+- Physics examples: Twin Paradox, Simultaneity, Length Contraction, Time Dilation
+- Zoom controls and responsive design
+- Light cone and world line drawing tools
+- Moving reference frame axis visualization
+
+Technologies: HTML5 Canvas, CSS3, JavaScript, MathJax for LaTeX rendering
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spacetime Interval Simulator - DP Physics A5 Relativity</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            chtml: {
+                scale: 1.0,
+                minScale: 0.5,
+                matchFontHeight: false
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .diagram-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .controls-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+        }
+        
+        .canvas-container {
+            position: relative;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        .zoom-btn {
+            width: 35px;
+            height: 35px;
+            background: rgba(79, 172, 254, 0.8);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .zoom-btn:hover {
+            background: rgba(79, 172, 254, 1);
+            transform: scale(1.1);
+        }
+        
+        .zoom-level {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        #spacetimeCanvas {
+            display: block;
+            cursor: crosshair;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+        }
+        
+        .control-group h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .slider-container {
+            margin-bottom: 15px;
+        }
+        
+        .slider-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4facfe;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4facfe;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .value-display {
+            color: #00f2fe;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .button {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .calculations {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .calculations h4 {
+            color: #4facfe;
+            margin-bottom: 10px;
+        }
+        
+        .formula {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .info-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+        }
+        
+        .tab.active {
+            background: #4facfe;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Spacetime Interval Simulator</h1>
+            <p>Interactive tool for DP Physics A5 Relativity - Understanding spacetime diagrams and intervals</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="diagram-container">
+                <h3 style="margin-bottom: 15px; color: #4facfe;">Spacetime Diagram</h3>
+                <div class="canvas-container">
+                    <canvas id="spacetimeCanvas" width="800" height="600"></canvas>
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+                        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+                        <div class="zoom-level" id="zoomLevel">100%</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Click and drag to create spacetime intervals. Click existing events to select them. Use controls to adjust reference frame velocity.</p>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="control-group">
+                    <h3>Reference Frame</h3>
+                    <div class="slider-container">
+                        <label>Velocity (v/c): <span class="value-display" id="velocityValue">0.00</span></label>
+                        <input type="range" class="slider" id="velocitySlider" min="0" max="0.95" step="0.05" value="0">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Events & Intervals</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 15px;">
+                        <button class="button" onclick="clearEvents()">Clear All</button>
+                        <button class="button" onclick="addCustomEvent()">Add Event</button>
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label>Event Position (x): <span class="value-display" id="eventXValue">0.0</span></label>
+                        <input type="range" class="slider" id="eventXSlider" min="-5" max="5" step="0.1" value="0">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label>Event Time (ct): <span class="value-display" id="eventTValue">0.0</span></label>
+                        <input type="range" class="slider" id="eventTSlider" min="-5" max="5" step="0.1" value="0">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Physics Examples</h3>
+                    <button class="button" onclick="loadTwinParadox()" style="width: 100%; margin-bottom: 5px;">Twin Paradox</button>
+                    <button class="button" onclick="loadSimultaneity()" style="width: 100%; margin-bottom: 5px;">Simultaneity</button>
+                    <button class="button" onclick="loadLengthContraction()" style="width: 100%; margin-bottom: 5px;">Length Contraction</button>
+                    <button class="button" onclick="loadTimeDilation()" style="width: 100%; margin-bottom: 5px;">Time Dilation</button>
+                </div>
+                
+                <div class="calculations">
+                    <h4>Spacetime Interval</h4>
+                    <div class="formula">
+                        $$\Delta s^2 = c^2\Delta t^2 - \Delta x^2$$
+                    </div>
+                    <div id="intervalCalculation">
+                        Select two events to calculate interval
+                    </div>
+                    <button class="button" onclick="drawLightCone()" style="width: 100%; margin-top: 10px; font-size: 0.9rem;">Draw Light Cone</button>
+                    <button class="button" onclick="drawWorldLine()" style="width: 100%; margin-top: 5px; font-size: 0.9rem;">Draw World Line</button>
+                </div>
+                
+                <div class="calculations">
+                    <h4>Lorentz Transformation</h4>
+                    <div class="formula">
+                        $$t' = \gamma\left(t - \frac{vx}{c^2}\right)$$
+                        $$x' = \gamma(x - vt)$$
+                    </div>
+                    <div id="lorentzCalculation">
+                        $\gamma = $ <span id="gammaValue">1.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('theory')">Theory</button>
+                <button class="tab" onclick="showTab('interpretation')">Interpretation</button>
+                <button class="tab" onclick="showTab('examples')">Examples</button>
+            </div>
+            
+            <div id="theory" class="tab-content active">
+                <h3 style="color: #4facfe; margin-bottom: 15px;">Spacetime Interval Theory</h3>
+                <p><strong>The spacetime interval</strong> is invariant under Lorentz transformations:</p>
+                <div class="formula">$$\Delta s^2 = c^2\Delta t^2 - \Delta x^2 = \text{invariant}$$</div>
+                <p>This means all observers measure the same spacetime interval between two events, regardless of their relative motion.</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Timelike:</strong> $\Delta s^2 > 0$ (events can be causally connected)</li>
+                    <li><strong>Spacelike:</strong> $\Delta s^2 < 0$ (events cannot be causally connected)</li>
+                    <li><strong>Lightlike:</strong> $\Delta s^2 = 0$ (events connected by light signal)</li>
+                </ul>
+            </div>
+            
+            <div id="interpretation" class="tab-content">
+                <h3 style="color: #4facfe; margin-bottom: 15px;">Reading Spacetime Diagrams</h3>
+                <p><strong>Axes:</strong></p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Vertical axis: time (ct)</li>
+                    <li>Horizontal axis: position (x)</li>
+                    <li>Light rays travel at 45° angles</li>
+                </ul>
+                <p><strong>Moving Reference Frames:</strong></p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Time axis rotates toward light cone</li>
+                    <li>Space axis rotates toward light cone</li>
+                    <li>Simultaneity changes between frames</li>
+                </ul>
+            </div>
+            
+            <div id="examples" class="tab-content">
+                <h3 style="color: #4facfe; margin-bottom: 15px;">DP Physics Examples</h3>
+                
+                <p><strong>Twin Paradox:</strong> Shows how proper time differs from coordinate time. The traveling twin ages less due to time dilation during acceleration phases.</p>
+                
+                <p><strong>Simultaneity:</strong> Events simultaneous in one frame are not simultaneous in another. The relativity of simultaneity depends on the relative velocity between frames.</p>
+                
+                <p><strong>Length Contraction:</strong> A rod's length appears contracted when measured in a frame where it's moving. The proper length is measured in the rod's rest frame.</p>
+                
+                <p><strong>Time Dilation:</strong> Moving clocks run slower. The proper time (τ) is always less than the coordinate time (t) by a factor of γ.</p>
+                
+                <p><strong>Key formulas for FE2025:</strong></p>
+                <div class="formula">
+                    $$\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$$
+                    $$\Delta\tau = \frac{\Delta t}{\gamma} \text{ (proper time)}$$
+                    $$L_0 = \gamma L \text{ (proper length)}$$
+                    $$\Delta s^2 = c^2\Delta t^2 - \Delta x^2 \text{ (invariant)}$$
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('spacetimeCanvas');
+        const ctx = canvas.getContext('2d');
+        const velocitySlider = document.getElementById('velocitySlider');
+        const velocityValue = document.getElementById('velocityValue');
+        const gammaValue = document.getElementById('gammaValue');
+        const intervalCalculation = document.getElementById('intervalCalculation');
+        const lorentzCalculation = document.getElementById('lorentzCalculation');
+        const eventXSlider = document.getElementById('eventXSlider');
+        const eventTSlider = document.getElementById('eventTSlider');
+        const eventXValue = document.getElementById('eventXValue');
+        const eventTValue = document.getElementById('eventTValue');
+        
+        let events = [];
+        let selectedEvents = [];
+        let velocity = 0;
+        let gamma = 1;
+        let lightCones = [];
+        let worldLines = [];
+        let currentExample = '';
+        let isDragging = false;
+        let dragStart = null;
+        let dragEnd = null;
+        let zoomLevel = 1;
+        
+        // Constants
+        const c = 1; // Speed of light in natural units
+        const baseScale = 50; // base pixels per unit
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        // Dynamic scale based on zoom
+        function getScale() {
+            return baseScale * zoomLevel;
+        }
+        
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            
+            const scale = getScale();
+            const gridRange = Math.ceil(10 / zoomLevel);
+            
+            // Grid lines
+            for (let i = -gridRange; i <= gridRange; i++) {
+                // Vertical lines
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                
+                // Horizontal lines
+                ctx.beginPath();
+                ctx.moveTo(0, centerY + i * scale);
+                ctx.lineTo(canvas.width, centerY + i * scale);
+                ctx.stroke();
+            }
+        }
+        
+        function drawAxes() {
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            
+            // Original axes (stationary frame)
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+            
+            // Moving frame axes
+            if (velocity > 0) {
+                ctx.strokeStyle = '#4facfe';
+                ctx.lineWidth = 2;
+                
+                const angle = Math.atan(velocity);
+                
+                // Time axis (t')
+                ctx.beginPath();
+                ctx.moveTo(centerX - 300 * Math.sin(angle), centerY + 300 * Math.cos(angle));
+                ctx.lineTo(centerX + 300 * Math.sin(angle), centerY - 300 * Math.cos(angle));
+                ctx.stroke();
+                
+                // Space axis (x')
+                ctx.beginPath();
+                ctx.moveTo(centerX - 300 * Math.cos(angle), centerY - 300 * Math.sin(angle));
+                ctx.lineTo(centerX + 300 * Math.cos(angle), centerY + 300 * Math.sin(angle));
+                ctx.stroke();
+            }
+            
+            // Light cones
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            
+            // Light rays at 45 degrees
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width, 0);
+            ctx.lineTo(0, canvas.height);
+            ctx.stroke();
+            
+            ctx.setLineDash([]);
+        }
+        
+        function drawLabels() {
+            ctx.fillStyle = 'white';
+            ctx.font = '14px Arial';
+            
+            // Axis labels
+            ctx.fillText('ct', centerX + 10, 20);
+            ctx.fillText('x', canvas.width - 20, centerY - 10);
+            
+            if (velocity > 0) {
+                ctx.fillStyle = '#4facfe';
+                ctx.fillText("ct'", centerX + 20, 40);
+                ctx.fillText("x'", canvas.width - 40, centerY - 30);
+            }
+            
+            // Scale markers
+            const scale = getScale();
+            const labelRange = Math.ceil(5 / zoomLevel);
+            const step = zoomLevel < 0.5 ? 2 : 1; // Show fewer labels when zoomed out
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '10px Arial';
+            for (let i = -labelRange; i <= labelRange; i += step) {
+                if (i !== 0 && Math.abs(i * scale) < canvas.width / 2) {
+                    ctx.fillText(i.toString(), centerX + i * scale + 5, centerY - 5);
+                    ctx.fillText(i.toString(), centerX + 5, centerY - i * scale - 5);
+                }
+            }
+        }
+        
+        function drawEvents() {
+            const scale = getScale();
+            events.forEach((event, index) => {
+                const x = centerX + event.x * scale;
+                const y = centerY - event.t * scale;
+                
+                // Event point
+                ctx.fillStyle = selectedEvents.includes(index) ? '#ff6b6b' : '#00f2fe';
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Event label
+                ctx.fillStyle = 'white';
+                ctx.font = '12px Arial';
+                ctx.fillText(`E${index + 1}`, x + 10, y - 10);
+                
+                // Coordinates
+                ctx.font = '10px Arial';
+                ctx.fillText(`(${event.x.toFixed(1)}, ${event.t.toFixed(1)})`, x + 10, y + 5);
+            });
+        }
+        
+        function drawInterval() {
+            if (selectedEvents.length === 2) {
+                const scale = getScale();
+                const event1 = events[selectedEvents[0]];
+                const event2 = events[selectedEvents[1]];
+                
+                const x1 = centerX + event1.x * scale;
+                const y1 = centerY - event1.t * scale;
+                const x2 = centerX + event2.x * scale;
+                const y2 = centerY - event2.t * scale;
+                
+                // Draw line between events
+                ctx.strokeStyle = '#ff6b6b';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+        
+        function drawDragPreview() {
+            if (isDragging && dragStart && dragEnd) {
+                ctx.strokeStyle = 'rgba(255, 107, 107, 0.7)';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([10, 5]);
+                ctx.beginPath();
+                ctx.moveTo(dragStart.x, dragStart.y);
+                ctx.lineTo(dragEnd.x, dragEnd.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // Draw temporary events at drag points
+                ctx.fillStyle = 'rgba(255, 107, 107, 0.8)';
+                ctx.beginPath();
+                ctx.arc(dragStart.x, dragStart.y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(dragEnd.x, dragEnd.y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+        
+        function drawLightCones() {
+            const scale = getScale();
+            lightCones.forEach(cone => {
+                const x = centerX + cone.x * scale;
+                const y = centerY - cone.t * scale;
+                
+                ctx.strokeStyle = 'rgba(255, 255, 0, 0.6)';
+                ctx.lineWidth = 2;
+                
+                const coneSize = 150 * zoomLevel;
+                
+                // Future light cone
+                ctx.beginPath();
+                ctx.moveTo(x - coneSize, y + coneSize);
+                ctx.lineTo(x, y);
+                ctx.lineTo(x + coneSize, y + coneSize);
+                ctx.stroke();
+                
+                // Past light cone
+                ctx.beginPath();
+                ctx.moveTo(x - coneSize, y - coneSize);
+                ctx.lineTo(x, y);
+                ctx.lineTo(x + coneSize, y - coneSize);
+                ctx.stroke();
+            });
+        }
+        
+        function drawWorldLines() {
+            const scale = getScale();
+            worldLines.forEach(line => {
+                ctx.strokeStyle = '#00ff88';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([]);
+                
+                ctx.beginPath();
+                for (let i = 0; i < line.points.length - 1; i++) {
+                    const p1 = line.points[i];
+                    const p2 = line.points[i + 1];
+                    const x1 = centerX + p1.x * scale;
+                    const y1 = centerY - p1.t * scale;
+                    const x2 = centerX + p2.x * scale;
+                    const y2 = centerY - p2.t * scale;
+                    
+                    if (i === 0) ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                }
+                ctx.stroke();
+            });
+        }
+        
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            drawGrid();
+            drawAxes();
+            drawLabels();
+            drawLightCones();
+            drawWorldLines();
+            drawEvents();
+            drawInterval();
+            drawDragPreview();
+        }
+        
+        function updateCalculations() {
+            // Update gamma
+            gamma = 1 / Math.sqrt(1 - velocity * velocity);
+            gammaValue.textContent = gamma.toFixed(3);
+            
+            // Update interval calculation
+            if (selectedEvents.length === 2) {
+                const event1 = events[selectedEvents[0]];
+                const event2 = events[selectedEvents[1]];
+                
+                const dt = event2.t - event1.t;
+                const dx = event2.x - event1.x;
+                const interval = c * c * dt * dt - dx * dx;
+                
+                let intervalType = '';
+                if (interval > 0) intervalType = 'Timelike';
+                else if (interval < 0) intervalType = 'Spacelike';
+                else intervalType = 'Lightlike';
+                
+                intervalCalculation.innerHTML = `
+                    $\\Delta t = ${dt.toFixed(2)}$, $\\Delta x = ${dx.toFixed(2)}$<br>
+                    $\\Delta s^2 = ${interval.toFixed(3)}$<br>
+                    <strong>${intervalType}</strong> separation
+                `;
+                
+                // Lorentz transformation
+                const dt_prime = gamma * (dt - velocity * dx);
+                const dx_prime = gamma * (dx - velocity * dt);
+                
+                lorentzCalculation.innerHTML = `
+                    $\\gamma = ${gamma.toFixed(3)}$<br>
+                    $\\Delta t' = ${dt_prime.toFixed(3)}$<br>
+                    $\\Delta x' = ${dx_prime.toFixed(3)}$
+                `;
+                
+                // Re-render MathJax for dynamic content
+                if (window.MathJax) {
+                    MathJax.typesetPromise([intervalCalculation, lorentzCalculation]);
+                }
+            } else {
+                intervalCalculation.textContent = 'Select two events to calculate interval';
+                lorentzCalculation.innerHTML = `$\\gamma = ${gamma.toFixed(3)}$`;
+                
+                // Re-render MathJax for dynamic content
+                if (window.MathJax) {
+                    MathJax.typesetPromise([lorentzCalculation]);
+                }
+            }
+        }
+        
+        // Event listeners
+        velocitySlider.addEventListener('input', (e) => {
+            velocity = parseFloat(e.target.value);
+            velocityValue.textContent = velocity.toFixed(2);
+            updateCalculations();
+            render();
+        });
+        
+        eventXSlider.addEventListener('input', (e) => {
+            eventXValue.textContent = parseFloat(e.target.value).toFixed(1);
+        });
+        
+        eventTSlider.addEventListener('input', (e) => {
+            eventTValue.textContent = parseFloat(e.target.value).toFixed(1);
+        });
+        
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            const scale = getScale();
+            
+            // Check if clicking on existing event first
+            let clickedEvent = false;
+            events.forEach((event, index) => {
+                const x = centerX + event.x * scale;
+                const y = centerY - event.t * scale;
+                const distance = Math.sqrt((clickX - x) ** 2 + (clickY - y) ** 2);
+                
+                if (distance < 15) {
+                    clickedEvent = true;
+                    if (selectedEvents.includes(index)) {
+                        selectedEvents = selectedEvents.filter(i => i !== index);
+                    } else if (selectedEvents.length < 2) {
+                        selectedEvents.push(index);
+                    } else {
+                        selectedEvents = [index];
+                    }
+                    updateCalculations();
+                    render();
+                }
+            });
+            
+            // If not clicking on event, prepare for drag or single click
+            if (!clickedEvent) {
+                isDragging = true;
+                dragStart = { x: clickX, y: clickY };
+                dragEnd = { x: clickX, y: clickY };
+                canvas.style.cursor = 'crosshair';
+            }
+        });
+        
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const rect = canvas.getBoundingClientRect();
+                dragEnd = { 
+                    x: e.clientX - rect.left, 
+                    y: e.clientY - rect.top 
+                };
+                render();
+            }
+        });
+        
+        canvas.addEventListener('mouseup', (e) => {
+            if (isDragging) {
+                const rect = canvas.getBoundingClientRect();
+                const scale = getScale();
+                
+                // Convert drag points to spacetime coordinates
+                const x1 = (dragStart.x - centerX) / scale;
+                const t1 = -(dragStart.y - centerY) / scale;
+                const x2 = (dragEnd.x - centerX) / scale;
+                const t2 = -(dragEnd.y - centerY) / scale;
+                
+                // Check if this was a drag or just a click
+                const distance = Math.sqrt((dragEnd.x - dragStart.x) ** 2 + (dragEnd.y - dragStart.y) ** 2);
+                if (distance > 10) {
+                    // This was a drag - create two events and an interval
+                    events.push({ x: x1, t: t1 });
+                    events.push({ x: x2, t: t2 });
+                    selectedEvents = [events.length - 2, events.length - 1];
+                } else {
+                    // This was a single click - create one event
+                    events.push({ x: x1, t: t1 });
+                    selectedEvents = [events.length - 1];
+                }
+                
+                updateCalculations();
+                isDragging = false;
+                dragStart = null;
+                dragEnd = null;
+                canvas.style.cursor = 'crosshair';
+                render();
+            }
+        });
+        
+        // Prevent context menu on right click
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+        
+        function zoomIn() {
+            if (zoomLevel < 3) {
+                zoomLevel *= 1.5;
+                updateZoomDisplay();
+                render();
+            }
+        }
+        
+        function zoomOut() {
+            if (zoomLevel > 0.2) {
+                zoomLevel /= 1.5;
+                updateZoomDisplay();
+                render();
+            }
+        }
+        
+        function updateZoomDisplay() {
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+        }
+        
+        function clearEvents() {
+            events = [];
+            selectedEvents = [];
+            lightCones = [];
+            worldLines = [];
+            currentExample = '';
+            updateCalculations();
+            render();
+        }
+        
+        function addCustomEvent() {
+            const x = parseFloat(eventXSlider.value);
+            const t = parseFloat(eventTSlider.value);
+            events.push({ x: x, t: t });
+            selectedEvents = [];
+            updateCalculations();
+            render();
+        }
+        
+        function drawLightCone() {
+            if (events.length > 0) {
+                const lastEvent = events[events.length - 1];
+                lightCones.push({ x: lastEvent.x, t: lastEvent.t });
+                render();
+            }
+        }
+        
+        function drawWorldLine() {
+            if (selectedEvents.length === 2) {
+                const event1 = events[selectedEvents[0]];
+                const event2 = events[selectedEvents[1]];
+                worldLines.push({
+                    points: [
+                        { x: event1.x, t: event1.t },
+                        { x: event2.x, t: event2.t }
+                    ]
+                });
+                render();
+            }
+        }
+        
+        function loadTwinParadox() {
+            clearEvents();
+            currentExample = 'twin';
+            velocity = 0.6;
+            velocitySlider.value = velocity;
+            velocityValue.textContent = velocity.toFixed(2);
+            
+            // Earth twin stays at origin, space twin travels
+            events = [
+                { x: 0, t: 0 },     // Departure
+                { x: 3, t: 5 },     // Turnaround point
+                { x: 0, t: 10 }     // Return
+            ];
+            
+            // Add world lines for both twins
+            worldLines = [
+                { points: [{ x: 0, t: 0 }, { x: 0, t: 10 }] }, // Earth twin
+                { points: [{ x: 0, t: 0 }, { x: 3, t: 5 }, { x: 0, t: 10 }] } // Space twin
+            ];
+            
+            selectedEvents = [0, 2];
+            updateCalculations();
+            render();
+        }
+        
+        function loadSimultaneity() {
+            clearEvents();
+            currentExample = 'simultaneity';
+            velocity = 0.5;
+            velocitySlider.value = velocity;
+            velocityValue.textContent = velocity.toFixed(2);
+            
+            // Events that are simultaneous in one frame
+            events = [
+                { x: -2, t: 2 },
+                { x: 2, t: 2 },
+                { x: 0, t: 0 }
+            ];
+            
+            selectedEvents = [0, 1];
+            updateCalculations();
+            render();
+        }
+        
+        function loadLengthContraction() {
+            clearEvents();
+            currentExample = 'length';
+            velocity = 0.8;
+            velocitySlider.value = velocity;
+            velocityValue.textContent = velocity.toFixed(2);
+            
+            // Rod endpoints at same time in lab frame
+            events = [
+                { x: -2, t: 3 },    // Left end
+                { x: 2, t: 3 },     // Right end
+                { x: -2, t: 0 },    // Left end earlier
+                { x: 2, t: 0 }      // Right end earlier
+            ];
+            
+            // World lines for rod endpoints
+            worldLines = [
+                { points: [{ x: -2, t: 0 }, { x: -2, t: 5 }] },
+                { points: [{ x: 2, t: 0 }, { x: 2, t: 5 }] }
+            ];
+            
+            selectedEvents = [0, 1];
+            updateCalculations();
+            render();
+        }
+        
+        function loadTimeDilation() {
+            clearEvents();
+            currentExample = 'time';
+            velocity = 0.6;
+            velocitySlider.value = velocity;
+            velocityValue.textContent = velocity.toFixed(2);
+            
+            // Clock ticks for moving observer
+            events = [
+                { x: 0, t: 0 },
+                { x: 1.8, t: 3 },   // After time dilation
+                { x: 3.6, t: 6 }
+            ];
+            
+            // World line for moving clock
+            worldLines = [
+                { points: events }
+            ];
+            
+            // Light cone to show causality
+            lightCones = [{ x: 0, t: 0 }];
+            
+            selectedEvents = [0, 1];
+            updateCalculations();
+            render();
+        }
+        
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Initialize
+        eventXValue.textContent = eventXSlider.value;
+        eventTValue.textContent = eventTSlider.value;
+        updateZoomDisplay();
+        render();
+        updateCalculations();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97c328b531b99f89',t:'MTc1NzM4MzkyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
