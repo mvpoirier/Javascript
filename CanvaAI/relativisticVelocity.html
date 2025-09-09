@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Relativistic Velocity Simulator</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .slider-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #4ecdc4);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #4ecdc4);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .value-display {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-top: 5px;
+        }
+
+        .direction-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .direction-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .direction-btn.active {
+            background: linear-gradient(45deg, #00d4ff, #4ecdc4);
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .direction-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .result-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .result-formula {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            font-style: italic;
+        }
+
+        .visualization {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .spaceship-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            font-size: 1.5rem;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Relativistic Velocity Simulator</h1>
+            <p>Explore the fascinating world of special relativity with interactive velocity calculations</p>
+        </div>
+
+        <div class="main-grid">
+            <div class="panel">
+                <h2>🚀 Spaceship Parameters</h2>
+                <div class="input-group">
+                    <label>Spaceship Velocity (fraction of c)</label>
+                    <div class="slider-container">
+                        <input type="range" id="spaceshipVelocity" class="slider" min="0" max="0.99" step="0.01" value="0.50">
+                    </div>
+                    <div class="value-display" id="spaceshipVelocityDisplay">0.50c</div>
+                </div>
+                <div class="input-group">
+                    <label>Direction relative to Earth</label>
+                    <div class="direction-buttons">
+                        <button class="direction-btn" id="spaceshipToward" onclick="setSpaceshipDirection('toward')">🌍 Toward Earth</button>
+                        <button class="direction-btn active" id="spaceshipAway" onclick="setSpaceshipDirection('away')">🚀 Away from Earth</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>⚡ Projectile Parameters</h2>
+                <div class="input-group">
+                    <label>Projectile Velocity in Spaceship Frame (fraction of c)</label>
+                    <div class="slider-container">
+                        <input type="range" id="projectileVelocity" class="slider" min="0" max="0.99" step="0.01" value="0.30">
+                    </div>
+                    <div class="value-display" id="projectileVelocityDisplay">0.30c</div>
+                </div>
+                <div class="input-group">
+                    <label>Direction relative to Spaceship</label>
+                    <div class="direction-buttons">
+                        <button class="direction-btn" id="projectileToward" onclick="setProjectileDirection('toward')">🌍 Toward Earth</button>
+                        <button class="direction-btn active" id="projectileAway" onclick="setProjectileDirection('away')">🚀 Away from Earth</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <h2>🌍🚀⚡ Current Configuration</h2>
+            <div class="spaceship-diagram">
+                <span>🌍</span>
+                <span class="arrow" id="spaceshipArrow">←</span>
+                <span>🚀</span>
+                <span class="arrow" id="projectileArrow">←</span>
+                <span>⚡</span>
+            </div>
+            <div>
+                <strong>$v_{ship} = $ <span id="shipVelocityEarth">$-0.50c$</span></strong> | 
+                <strong>$v_{proj}$ (Earth) = <span id="projVelocityEarth">$-0.70c$</span></strong>
+            </div>
+        </div>
+
+        <div class="results-grid">
+            <div class="result-card">
+                <h3>Lorentz Factor (γ)</h3>
+                <div class="result-value" id="lorentzFactor">1.155</div>
+                <div class="result-formula">$\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$</div>
+            </div>
+
+            <div class="result-card">
+                <h3>Time Dilation Factor</h3>
+                <div class="result-value" id="timeDilation">1.155</div>
+                <div class="result-formula">$\Delta t = \gamma \times \Delta t_0$</div>
+            </div>
+
+            <div class="result-card">
+                <h3>Length Contraction</h3>
+                <div class="result-value" id="lengthContraction">0.866</div>
+                <div class="result-formula">$L = \frac{L_0}{\gamma}$</div>
+            </div>
+
+            <div class="result-card">
+                <h3>Projectile Velocity (Earth Frame)</h3>
+                <div class="result-value" id="earthFrameVelocity">-0.696c</div>
+                <div class="result-formula">$v = \frac{u + v_0}{1 + \frac{uv_0}{c^2}}$</div>
+            </div>
+
+            <div class="result-card">
+                <h3>Relativistic Momentum</h3>
+                <div class="result-value" id="momentum">0.968 mc</div>
+                <div class="result-formula">$p = \gamma mv$</div>
+            </div>
+
+            <div class="result-card">
+                <h3>Kinetic Energy</h3>
+                <div class="result-value" id="kineticEnergy">0.392 mc²</div>
+                <div class="result-formula">$KE = (\gamma - 1)mc^2$</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let spaceshipDirection = 'away'; // 'toward' or 'away'
+        let projectileDirection = 'away'; // 'toward' or 'away'
+
+        function setSpaceshipDirection(direction) {
+            spaceshipDirection = direction;
+            document.getElementById('spaceshipToward').classList.toggle('active', direction === 'toward');
+            document.getElementById('spaceshipAway').classList.toggle('active', direction === 'away');
+            updateCalculations();
+        }
+
+        function setProjectileDirection(direction) {
+            projectileDirection = direction;
+            document.getElementById('projectileToward').classList.toggle('active', direction === 'toward');
+            document.getElementById('projectileAway').classList.toggle('active', direction === 'away');
+            updateCalculations();
+        }
+
+        function updateCalculations() {
+            // Get input values
+            const spaceshipVel = parseFloat(document.getElementById('spaceshipVelocity').value);
+            const projectileVel = parseFloat(document.getElementById('projectileVelocity').value);
+
+            // Apply direction signs (toward Earth = negative, away = positive)
+            const vShip = spaceshipDirection === 'toward' ? -spaceshipVel : spaceshipVel;
+            const vProjShip = projectileDirection === 'toward' ? -projectileVel : projectileVel;
+
+            // Update displays
+            document.getElementById('spaceshipVelocityDisplay').innerHTML = `$${spaceshipVel.toFixed(2)}c$`;
+            document.getElementById('projectileVelocityDisplay').innerHTML = `$${projectileVel.toFixed(2)}c$`;
+
+            // Calculate Lorentz factor for spaceship
+            const gamma = 1 / Math.sqrt(1 - spaceshipVel * spaceshipVel);
+
+            // Calculate projectile velocity in Earth frame using relativistic velocity addition
+            const vProjEarth = (vProjShip + vShip) / (1 + (vProjShip * vShip));
+
+            // Calculate projectile Lorentz factor
+            const gammaProjEarth = 1 / Math.sqrt(1 - vProjEarth * vProjEarth);
+
+            // Update visualization
+            updateVisualization(vShip, vProjEarth);
+
+            // Update results
+            document.getElementById('lorentzFactor').textContent = gamma.toFixed(3);
+            document.getElementById('timeDilation').textContent = gamma.toFixed(3);
+            document.getElementById('lengthContraction').textContent = (1/gamma).toFixed(3);
+            document.getElementById('earthFrameVelocity').innerHTML = `$${vProjEarth.toFixed(3)}c$`;
+            document.getElementById('momentum').innerHTML = `$${(gammaProjEarth * Math.abs(vProjEarth)).toFixed(3)} mc$`;
+            document.getElementById('kineticEnergy').innerHTML = `$${(gammaProjEarth - 1).toFixed(3)} mc^2$`;
+
+            // Update velocity displays in visualization
+            document.getElementById('shipVelocityEarth').innerHTML = `$${vShip.toFixed(2)}c$`;
+            document.getElementById('projVelocityEarth').innerHTML = `$${vProjEarth.toFixed(2)}c$`;
+            
+            // Re-render MathJax for updated content
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function updateVisualization(vShip, vProjEarth) {
+            const spaceshipArrow = document.getElementById('spaceshipArrow');
+            const projectileArrow = document.getElementById('projectileArrow');
+
+            // Update spaceship arrow based on direction relative to Earth
+            spaceshipArrow.textContent = vShip < 0 ? '←' : '→';
+            spaceshipArrow.style.color = vShip < 0 ? '#ff6b6b' : '#00d4ff';
+            spaceshipArrow.style.transform = `scale(${1 + Math.abs(vShip) * 0.5})`;
+
+            // Update projectile arrow based on final Earth frame velocity
+            projectileArrow.textContent = vProjEarth < 0 ? '←' : '→';
+            projectileArrow.style.color = vProjEarth < 0 ? '#ff6b6b' : '#4ecdc4';
+            projectileArrow.style.transform = `scale(${1 + Math.abs(vProjEarth) * 0.5})`;
+            
+            // Add pulsing animation for high velocities
+            if (Math.abs(vShip) > 0.8) {
+                spaceshipArrow.style.animation = 'pulse 1s infinite';
+            } else {
+                spaceshipArrow.style.animation = 'none';
+            }
+            
+            if (Math.abs(vProjEarth) > 0.8) {
+                projectileArrow.style.animation = 'pulse 1s infinite';
+            } else {
+                projectileArrow.style.animation = 'none';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('spaceshipVelocity').addEventListener('input', updateCalculations);
+        document.getElementById('projectileVelocity').addEventListener('input', updateCalculations);
+
+        // Initialize
+        updateCalculations();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97c4db94150b3231',t:'MTc1NzQwMTc0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
