@@ -7,4 +7,5 @@ _Simulations I've made using AI-assisted code, hosted on [Github](https://github
 - [Canva AI](https://www.canva.com/ai)
 
 ### Interested in more?
-Check out my Github page: https://mvpoirier.github.io/
+- Github repository: https://github.com/mvpoirier/
+- Github page: https://mvpoirier.github.io/
