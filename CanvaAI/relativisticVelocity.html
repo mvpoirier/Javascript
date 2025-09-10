@@ -264,6 +264,35 @@
                 grid-template-columns: 1fr;
             }
         }
+
+                .site-footer {
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #b0b0b0; /* Using a slightly muted white like in the formulas */
+            font-size: 0.9rem;
+        }
+
+        .site-footer p {
+            margin-bottom: 8px;
+        }
+        
+        .site-footer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .site-footer a {
+            color: #4ecdc4; /* Using one of your accent colors */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer a:hover {
+            color: #00d4ff; /* Brighter accent color on hover */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -365,14 +394,14 @@
         </div>
     </div>
 
-   <footer style="color: #2c3e50; text-align: center; padding: 20px; margin-top: 30px;">
-        <p style="margin: 0 0 10px 0; font-size: 0.9rem; opacity: 0.9;">
-            Developed by <a href="https://github.com/mvpoirier" target="_blank" rel="noopener noreferrer" style="color: #2c3e50; text-decoration: none;">Mike Poirier</a>, with Canva AI
-        </p>
-        <p style="margin: 0; font-size: 0.8rem; opacity: 0.8;">
-            Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" style="color: #2c3e50; text-decoration: none;">Creative Commons Attribution 4.0 International License</a>
-        </p>
+    </div> <footer class="site-footer">
+        <div class="container">
+            <p>Developed by Mike Poirier, and created using Canva AI</p>
+            <p>View the source or check out more projects on <a href="https://github.com/mvpoirier/" target="_blank">Github</a></p>
+            <[>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>
+        </div>
     </footer>
+    <script>
 
     <script>
         let spaceshipDirection = 'away'; // 'toward' or 'away'
