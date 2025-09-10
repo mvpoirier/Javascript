@@ -855,20 +855,26 @@
             const F_horizontal = p.force * Math.cos(theta_rad);
             const F_vertical = p.force * Math.sin(theta_rad);
             
-            // Normal force
-            const N = p.mass * g - F_vertical;
+            // Normal force (ensure it's positive)
+            const N = Math.max(0, p.mass * g - F_vertical);
             
             // Determine if box moves
             const f_max_static = mu_s * N;
-            const isMoving = F_horizontal > f_max_static;
+            const isMoving = (mu_s > 0) ? (F_horizontal > f_max_static) : true; // If frictionless, always moving
             
             let acceleration, friction_force;
             
-            if (isMoving) {
+            if (mu_s === 0 && mu_k === 0) {
+                // Frictionless surface
+                friction_force = 0;
+                acceleration = F_horizontal / p.mass;
+            } else if (isMoving) {
+                // Kinetic friction applies
                 friction_force = mu_k * N;
                 acceleration = (F_horizontal - friction_force) / p.mass;
             } else {
-                friction_force = F_horizontal;
+                // Static friction applies
+                friction_force = F_horizontal; // Static friction equals applied force
                 acceleration = 0;
             }
 
@@ -1034,6 +1040,12 @@
         }
 
         function downloadPDF() {
+            // Check if jsPDF is available
+            if (typeof window.jspdf === 'undefined') {
+                alert('PDF generation is not available in this environment. Please copy the problem and solution text manually.');
+                return;
+            }
+            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
@@ -1433,8 +1445,107 @@
                 doc.text(`${r.friction_force} N`, 142, yPos + 12);
             }
             
-            // Save the PDF
-            doc.save(`Physics_Dynamics_Problem_${Date.now()}.pdf`);
+            // Save the PDF with error handling
+            try {
+                doc.save(`Physics_Dynamics_Problem_${Date.now()}.pdf`);
+            } catch (error) {
+                console.error('PDF generation failed:', error);
+                // Fallback: create a text version
+                createTextDownload();
+            }
+        }
+
+        function createTextDownload() {
+            const p = currentProblem;
+            let material, mu_s, mu_k, materialName;
+            
+            if (p.frictionMode === 'custom') {
+                mu_s = p.customMuStatic;
+                mu_k = p.customMuKinetic;
+                materialName = 'Custom Surface';
+            } else {
+                material = materials[p.surface];
+                mu_s = material.static;
+                mu_k = material.kinetic;
+                materialName = material.name;
+            }
+            
+            let textContent = `DP Physics A2 Dynamics - 1D Motion Problem\n`;
+            textContent += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
+            
+            textContent += `PROBLEM:\n`;
+            textContent += `A box with mass ${p.mass} kg is on a ${materialName.toLowerCase()}.\n`;
+            textContent += `A force of ${p.force} N is applied at an angle of ${p.angle}° above the horizontal.\n`;
+            
+            if (mu_s > 0) {
+                textContent += `The coefficient of static friction is ${mu_s} and the coefficient of kinetic friction is ${mu_k}.\n`;
+            } else {
+                textContent += `The surface is frictionless.\n`;
+            }
+            
+            textContent += `\nFind:\n`;
+            textContent += `1. The normal force acting on the box\n`;
+            textContent += `2. The acceleration of the box in the x-direction\n`;
+            textContent += `3. The force due to friction\n\n`;
+            
+            textContent += `GIVEN PARAMETERS:\n`;
+            textContent += `Mass (m): ${p.mass} kg\n`;
+            textContent += `Applied Force (F): ${p.force} N\n`;
+            textContent += `Force Angle (θ): ${p.angle}°\n`;
+            textContent += `Gravitational Field Strength (g): ${p.gravity} N/kg`;
+            if (p.gravityMode === 'planet') {
+                textContent += ` (${planets[p.planet].name})`;
+            }
+            textContent += `\n`;
+            textContent += `Surface: ${materialName}\n`;
+            textContent += `μs (static): ${mu_s}\n`;
+            textContent += `μk (kinetic): ${mu_k}\n\n`;
+            
+            if (currentProblem.results) {
+                const r = currentProblem.results;
+                
+                textContent += `SOLUTION:\n\n`;
+                textContent += `Step 1: Resolve the applied force into components\n`;
+                textContent += `Fx = F × cos(θ) = ${p.force} × cos(${p.angle}°) = ${r.F_horizontal} N\n`;
+                textContent += `Fy = F × sin(θ) = ${p.force} × sin(${p.angle}°) = ${r.F_vertical} N\n\n`;
+                
+                textContent += `Step 2: Calculate the normal force\n`;
+                textContent += `ΣFy = 0\n`;
+                textContent += `N + Fy - mg = 0\n`;
+                textContent += `N = mg - Fy = ${p.mass} × ${p.gravity} - ${r.F_vertical} = ${r.N} N\n\n`;
+                
+                textContent += `Step 3: Determine if the box moves\n`;
+                textContent += `fs,max = μs × N = ${r.mu_s} × ${r.N} = ${r.f_max_static} N\n`;
+                textContent += `Fx = ${r.F_horizontal} N\n`;
+                
+                if (r.isMoving) {
+                    textContent += `Since Fx > fs,max (${r.F_horizontal} > ${r.f_max_static}), the box MOVES\n\n`;
+                    textContent += `Step 4: Calculate friction force and acceleration\n`;
+                    textContent += `fk = μk × N = ${r.mu_k} × ${r.N} = ${r.friction_force} N\n`;
+                    textContent += `ax = (Fx - fk)/m = (${r.F_horizontal} - ${r.friction_force})/${p.mass} = ${r.acceleration} m/s²\n\n`;
+                } else {
+                    textContent += `Since Fx ≤ fs,max (${r.F_horizontal} ≤ ${r.f_max_static}), the box remains STATIONARY\n\n`;
+                    textContent += `Step 4: Calculate friction force and acceleration\n`;
+                    textContent += `fs = Fx = ${r.friction_force} N\n`;
+                    textContent += `ax = 0 m/s²\n\n`;
+                }
+                
+                textContent += `FINAL ANSWERS:\n`;
+                textContent += `Normal Force: ${r.N} N\n`;
+                textContent += `Acceleration: ${r.acceleration} m/s²\n`;
+                textContent += `Friction Force: ${r.friction_force} N\n`;
+            }
+            
+            // Create and download text file
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Physics_Dynamics_Problem_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         // Initialize
@@ -1442,5 +1553,5 @@
         updateDiagram();
         updateProblem();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97cc55080374a8cc',t:'MTc1NzQ4MDExNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97cc647283be9fad',t:'MTc1NzQ4MDc0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
