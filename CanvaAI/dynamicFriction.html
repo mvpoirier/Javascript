@@ -1,9 +1,9 @@
 <!--
-    DP Physics A2 Dynamic Friction Simulator
+    DP Physics A2 Dynamic Friction
     
     Author: Mike Poirier
     Developed with: Canva AI
-    Date: September 10, 2025
+    Initial Date: September 10, 2025
     License: Creative Commons Attribution 4.0 International License (CC BY 4.0)
     
     Brief Summary of Development Prompts:
@@ -26,10 +26,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DP Physics A2 Dynamic Friction Simulator</title>
+    <title>DP Physics A2 Dynamic Friction</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script>
         window.MathJax = {
             tex: {
@@ -306,7 +306,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>DP Physics A2 Dynamics</h1>
+            <h1>DP Physics A2 Dynamic Friction</h1>
             <p>Analyzing the force due to friction when applying a net force at an angle</p>
         </div>
 
@@ -351,6 +351,7 @@
                         <!-- Labels -->
                         <text x="180" y="220" text-anchor="middle" fill="#2C3E50" font-weight="bold" id="massLabel">Box (<tspan font-style="italic">m</tspan> = 10 kg)</text>
                         <text x="25" y="25" text-anchor="start" fill="#8B4513" font-size="12" id="surfaceLabel">Surface (<tspan font-style="italic">μ</tspan>ₛ = 0.5, <tspan font-style="italic">μ</tspan>ₖ = 0.3)</text>
+                        <text x="25" y="45" text-anchor="start" fill="#2C3E50" font-size="12" id="gravityLabel">Gravitational field strength (<tspan font-style="italic">g</tspan> = 9.8 N/kg)</text>
                         
                         <!-- Force magnitude label -->
                 
@@ -431,7 +432,7 @@
                             </label>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 15px;">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 15px;">
                             <div class="control-group" id="materialSelect">
                                 <label for="surfaceSelect">Surface Material:</label>
                                 <select id="surfaceSelect" onchange="updateProblem()">
@@ -469,11 +470,8 @@
 
             <div>
                 <div class="random-problem-section" style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
-                    <button class="solution-toggle" onclick="generateRandomProblem()" style="background: linear-gradient(135deg, #27ae60, #2ecc71); margin: 0; width: 100%; margin-bottom: 10px;">
+                    <button class="solution-toggle" onclick="generateRandomProblem()" style="background: linear-gradient(135deg, #27ae60, #2ecc71); margin: 0; width: 100%;">
                         🎲 New Question
-                    </button>
-                    <button class="solution-toggle" onclick="downloadPDF()" style="background: linear-gradient(135deg, #e74c3c, #c0392b); margin: 0; width: 100%;">
-                        📄 Download PDF
                     </button>
                 </div>
 
@@ -502,8 +500,11 @@
         <p style="margin: 0 0 10px 0; font-size: 0.9rem; opacity: 0.9;">
             Developed by <a href="https://github.com/mvpoirier" target="_blank" rel="noopener noreferrer" style="color: #2c3e50; text-decoration: none;">Mike Poirier</a>, with Canva AI
         </p>
-        <p style="margin: 0; font-size: 0.8rem; opacity: 0.8;">
+        <p style="margin: 0 0 10px 0; font-size: 0.8rem; opacity: 0.8;">
             Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" style="color: #2c3e50; text-decoration: none;">Creative Commons Attribution 4.0 International License</a>
+        </p>
+        <p style="margin: 0; font-size: 0.7rem; opacity: 0.7; font-family: monospace;">
+            Version 70 | Build: September 11, 2024 at 18:43 ICT
         </p>
     </footer>
 
@@ -720,6 +721,11 @@
             const forceLength = currentProblem.force * 0.8; // Scale for display
             const angleRad = currentProblem.angle * Math.PI / 180;
             
+            // Apply significant figures to displayed values
+            const force_sf = toSigFigs(currentProblem.force, currentProblem.sigFigs);
+            const mass_sf = toSigFigs(currentProblem.mass, currentProblem.sigFigs);
+            const gravity_sf = toSigFigs(currentProblem.gravity, currentProblem.sigFigs);
+            
             // Update force arrow
             const endX = boxCenterX + forceLength * Math.cos(angleRad);
             const endY = boxCenterY - forceLength * Math.sin(angleRad);
@@ -730,7 +736,7 @@
             document.getElementById('dragHandle').setAttribute('cy', endY);
             document.getElementById('forceLabel').setAttribute('x', endX + 10);
             document.getElementById('forceLabel').setAttribute('y', endY + 5);
-            document.getElementById('forceLabel').innerHTML = `<tspan font-style="italic">F</tspan> <tspan font-style="normal">(${currentProblem.force} N)</tspan>`;
+            document.getElementById('forceLabel').innerHTML = `<tspan font-style="italic">F</tspan> <tspan font-style="normal">(${force_sf} N)</tspan>`;
             
             // Update angle reference line to show full horizontal component
             const horizontalEndX = boxCenterX + forceLength * Math.cos(angleRad);
@@ -756,7 +762,10 @@
             }
             
             // Update mass label
-            document.getElementById('massLabel').innerHTML = `Box (<tspan font-style="italic">m</tspan> = ${currentProblem.mass} kg)`;
+            document.getElementById('massLabel').innerHTML = `Box (<tspan font-style="italic">m</tspan> = ${mass_sf} kg)`;
+            
+            // Update gravity label
+            document.getElementById('gravityLabel').innerHTML = `Gravitational field strength (<tspan font-style="italic">g</tspan> = ${gravity_sf} N/kg${currentProblem.gravityMode === 'planet' ? ` - ${planets[currentProblem.planet].name}` : ''})`;
         }
 
         function displayProblem() {
@@ -774,27 +783,35 @@
                 materialName = material.name;
             }
             
+            // Apply significant figures to all displayed values
+            const mass_sf = toSigFigs(p.mass, p.sigFigs);
+            const force_sf = toSigFigs(p.force, p.sigFigs);
+            const gravity_sf = toSigFigs(p.gravity, p.sigFigs);
+            const mu_s_sf = toSigFigs(mu_s, p.sigFigs);
+            const mu_k_sf = toSigFigs(mu_k, p.sigFigs);
+            
             // Update surface label in diagram
             if (mu_s > 0) {
-                document.getElementById('surfaceLabel').innerHTML = `Surface (<tspan font-style="italic">μ</tspan>ₛ = ${mu_s}, <tspan font-style="italic">μ</tspan>ₖ = ${mu_k})`;
+                document.getElementById('surfaceLabel').innerHTML = `Surface (<tspan font-style="italic">μ</tspan>ₛ = ${mu_s_sf}, <tspan font-style="italic">μ</tspan>ₖ = ${mu_k_sf})`;
             } else {
                 document.getElementById('surfaceLabel').innerHTML = `Surface (Frictionless)`;
             }
             
             let problemText = `<strong>Problem:</strong><br><br>`;
-            problemText += `A box with mass <strong>${p.mass} kg</strong> is on a ${materialName.toLowerCase()}. `;
-            problemText += `A force of <strong>${p.force} N</strong> is applied at an angle of <strong>${p.angle}°</strong> above the horizontal.`;
+            problemText += `A box with mass <strong>${mass_sf} kg</strong> is on a ${materialName.toLowerCase()}. `;
+            problemText += `A force of <strong>${force_sf} N</strong> is applied at an angle of <strong>${p.angle}°</strong> above the horizontal. `;
+            problemText += `The gravitational field strength is <strong>${gravity_sf} N/kg</strong>${p.gravityMode === 'planet' ? ` (${planets[p.planet].name})` : ''}.`;
             
             if (mu_s > 0) {
-                problemText += ` The coefficient of static friction is <strong>${mu_s}</strong> and the coefficient of kinetic friction is <strong>${mu_k}</strong>.`;
+                problemText += ` The coefficient of static friction is <strong>${mu_s_sf}</strong> and the coefficient of kinetic friction is <strong>${mu_k_sf}</strong>.`;
             } else {
                 problemText += ` The surface is frictionless.`;
             }
             
             problemText += `<br><br><strong>Find:</strong><br>
                 1. The normal force acting on the box<br>
-                2. The acceleration of the box in the x-direction<br>
-                3. The force due to friction`;
+                2. The force due to friction<br>
+                3. The acceleration of the box in the x-direction`;
 
             document.getElementById('problemText').innerHTML = problemText;
 
@@ -802,11 +819,11 @@
             document.getElementById('parameters').innerHTML = `
                 <div class="parameter">
                     <div class="parameter-label">Mass (<em>m</em>)</div>
-                    <div class="parameter-value">${p.mass} kg</div>
+                    <div class="parameter-value">${mass_sf} kg</div>
                 </div>
                 <div class="parameter">
                     <div class="parameter-label">Applied Force (<em>F</em>)</div>
-                    <div class="parameter-value">${p.force} N</div>
+                    <div class="parameter-value">${force_sf} N</div>
                 </div>
                 <div class="parameter">
                     <div class="parameter-label">Force Angle (<em>θ</em>)</div>
@@ -814,7 +831,7 @@
                 </div>
                 <div class="parameter">
                     <div class="parameter-label">Gravitational Field Strength (<em>g</em>)</div>
-                    <div class="parameter-value">${p.gravity} N/kg${p.gravityMode === 'planet' ? ` (${planets[p.planet].name})` : ''}</div>
+                    <div class="parameter-value">${gravity_sf} N/kg${p.gravityMode === 'planet' ? ` (${planets[p.planet].name})` : ''}</div>
                 </div>
                 <div class="parameter">
                     <div class="parameter-label">Surface</div>
@@ -822,11 +839,11 @@
                 </div>
                 <div class="parameter">
                     <div class="parameter-label"><em>μ</em>ₛ (static)</div>
-                    <div class="parameter-value">${mu_s}</div>
+                    <div class="parameter-value">${mu_s_sf}</div>
                 </div>
                 <div class="parameter">
                     <div class="parameter-label"><em>μ</em>ₖ (kinetic)</div>
-                    <div class="parameter-value">${mu_k}</div>
+                    <div class="parameter-value">${mu_k_sf}</div>
                 </div>
                 <div class="parameter">
                     <div class="parameter-label">Significant Figures</div>
@@ -898,6 +915,13 @@
             const r = p.results;
             const g = p.gravity;
 
+            // Apply significant figures to all values used in solution
+            const force_sf = toSigFigs(p.force, p.sigFigs);
+            const mass_sf = toSigFigs(p.mass, p.sigFigs);
+            const gravity_sf = toSigFigs(g, p.sigFigs);
+            const mu_s_sf = toSigFigs(r.mu_s, p.sigFigs);
+            const mu_k_sf = toSigFigs(r.mu_k, p.sigFigs);
+
             const solutionHTML = `
                 <div class="solution-step" style="background: #fff3cd; border-left: 3px solid #f39c12;">
                     <div class="step-title">📏 Significant Figures Note</div>
@@ -907,8 +931,8 @@
                 <div class="solution-step">
                     <div class="step-title">Step 1: Resolve the applied force into components</div>
                     <p>The applied force has both horizontal and vertical components:</p>
-                    $$F_x = F \\cos(\\theta) = ${p.force} \\times \\cos(${p.angle}°) = ${r.F_horizontal} \\text{ N}$$
-                    $$F_y = F \\sin(\\theta) = ${p.force} \\times \\sin(${p.angle}°) = ${r.F_vertical} \\text{ N}$$
+                    $$F_x = F \\cos(\\theta) = ${force_sf} \\times \\cos(${p.angle}°) = ${r.F_horizontal} \\text{ N}$$
+                    $$F_y = F \\sin(\\theta) = ${force_sf} \\times \\sin(${p.angle}°) = ${r.F_vertical} \\text{ N}$$
                 </div>
 
                 <div class="solution-step">
@@ -916,13 +940,13 @@
                     <p>Apply Newton's second law in the vertical direction (no vertical acceleration):</p>
                     $$\\sum F_y = 0$$
                     $$N + F_y - mg = 0$$
-                    $$N = mg - F_y = ${p.mass} \\times ${g} - ${r.F_vertical} = ${r.N} \\text{ N}$$
+                    $$N = mg - F_y = ${mass_sf} \\times ${gravity_sf} - ${r.F_vertical} = ${r.N} \\text{ N}$$
                 </div>
 
                 <div class="solution-step">
                     <div class="step-title">Step 3: Determine if the box moves</div>
                     <p>Calculate the maximum static friction force:</p>
-                    $$f_{s,max} = \\mu_s N = ${r.mu_s} \\times ${r.N} = ${r.f_max_static} \\text{ N}$$
+                    $$f_{s,max} = \\mu_s N = ${mu_s_sf} \\times ${r.N} = ${r.f_max_static} \\text{ N}$$
                     <p>Compare with the horizontal applied force:</p>
                     $$F_x = ${r.F_horizontal} \\text{ N}$$
                     <p><strong>${r.isMoving ? 
@@ -935,11 +959,11 @@
                     <div class="step-title">Step 4: Calculate friction force and acceleration</div>
                     ${r.isMoving ? `
                         <p>Since the box moves, kinetic friction applies:</p>
-                        $$f_k = \\mu_k N = ${r.mu_k} \\times ${r.N} = ${r.friction_force} \\text{ N}$$
+                        $$f_k = \\mu_k N = ${mu_k_sf} \\times ${r.N} = ${r.friction_force} \\text{ N}$$
                         <p>Apply Newton's second law in the horizontal direction:</p>
                         $$\\sum F_x = ma_x$$
                         $$F_x - f_k = ma_x$$
-                        $$a_x = \\frac{F_x - f_k}{m} = \\frac{${r.F_horizontal} - ${r.friction_force}}{${p.mass}} = ${r.acceleration} \\text{ m/s}^2$$
+                        $$a_x = \\frac{F_x - f_k}{m} = \\frac{${r.F_horizontal} - ${r.friction_force}}{${mass_sf}} = ${r.acceleration} \\text{ m/s}^2$$
                     ` : `
                         <p>Since the box doesn't move, static friction balances the horizontal force:</p>
                         $$f_s = F_x = ${r.friction_force} \\text{ N}$$
@@ -1039,520 +1063,12 @@
             }
         }
 
-        function downloadPDF() {
-            // Check if jsPDF is available
-            if (typeof window.jspdf === 'undefined') {
-                // Fallback to text download when PDF library is not available
-                createTextDownload();
-                return;
-            }
-            
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Page 1: Problem and Diagram
-            doc.setFontSize(20);
-            doc.text('DP Physics A2 Dynamics - 1D Motion', 20, 20);
-            
-            doc.setFontSize(14);
-            doc.text('Problem:', 20, 40);
-            
-            const p = currentProblem;
-            let material, mu_s, mu_k, materialName;
-            
-            if (p.frictionMode === 'custom') {
-                mu_s = p.customMuStatic;
-                mu_k = p.customMuKinetic;
-                materialName = 'Custom Surface';
-            } else {
-                material = materials[p.surface];
-                mu_s = material.static;
-                mu_k = material.kinetic;
-                materialName = material.name;
-            }
-            
-            // Problem text
-            let yPos = 50;
-            const problemLines = [
-                `A box with mass ${p.mass} kg is on a ${materialName.toLowerCase()}.`,
-                `A force of ${p.force} N is applied at an angle of ${p.angle}° above the horizontal.`
-            ];
-            
-            if (mu_s > 0) {
-                problemLines.push(`The coefficient of static friction is ${mu_s} and the coefficient of kinetic friction is ${mu_k}.`);
-            } else {
-                problemLines.push('The surface is frictionless.');
-            }
-            
-            problemLines.forEach(line => {
-                const splitLines = doc.splitTextToSize(line, 170);
-                splitLines.forEach(splitLine => {
-                    doc.text(splitLine, 20, yPos);
-                    yPos += 7;
-                });
-            });
-            
-            yPos += 10;
-            doc.text('Find:', 20, yPos);
-            yPos += 10;
-            doc.text('1. The normal force acting on the box', 25, yPos);
-            yPos += 7;
-            doc.text('2. The acceleration of the box in the x-direction', 25, yPos);
-            yPos += 7;
-            doc.text('3. The force due to friction', 25, yPos);
-            
-            // Add diagram (simplified text representation)
-            yPos += 20;
-            doc.setFontSize(12);
-            doc.text('Diagram:', 20, yPos);
-            yPos += 10;
-            
-            // Draw simple diagram representation
-            doc.rect(80, yPos, 30, 20); // Box
-            doc.setFont(undefined, 'italic');
-            doc.text('m', 85, yPos + 10);
-            doc.setFont(undefined, 'normal');
-            doc.text(` = ${p.mass} kg`, 90, yPos + 10);
-            doc.text('Box', 85, yPos + 35);
-            
-            // Force arrow representation
-            const forceEndX = 95 + 30 * Math.cos(p.angle * Math.PI / 180);
-            const forceEndY = yPos + 10 - 30 * Math.sin(p.angle * Math.PI / 180);
-            doc.line(95, yPos + 10, forceEndX, forceEndY);
-            doc.setFont(undefined, 'italic');
-            doc.text('F', forceEndX + 5, forceEndY);
-            doc.setFont(undefined, 'normal');
-            doc.text(` = ${p.force} N`, forceEndX + 10, forceEndY);
-            doc.setFont(undefined, 'italic');
-            doc.text('θ', 100, yPos + 25);
-            doc.setFont(undefined, 'normal');
-            doc.text(` = ${p.angle}°`, 105, yPos + 25);
-            
-            // Ground line
-            doc.line(60, yPos + 20, 130, yPos + 20);
-            if (mu_s > 0) {
-                doc.setFont(undefined, 'italic');
-                doc.text('μ', 60, yPos + 45);
-                doc.setFont(undefined, 'normal');
-                doc.text('s', 65, yPos + 47);
-                doc.text(` = ${mu_s}, `, 68, yPos + 45);
-                doc.setFont(undefined, 'italic');
-                doc.text('μ', 85, yPos + 45);
-                doc.setFont(undefined, 'normal');
-                doc.text('k', 90, yPos + 47);
-                doc.text(` = ${mu_k}`, 93, yPos + 45);
-            } else {
-                doc.text('Surface (Frictionless)', 60, yPos + 45);
-            }
-            
-            // Parameters table
-            yPos += 60;
-            doc.text('Given Parameters:', 20, yPos);
-            yPos += 10;
-            doc.text('Mass (', 25, yPos);
-            doc.setFont(undefined, 'italic');
-            doc.text('m', 45, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text(`): ${p.mass} kg`, 50, yPos);
-            yPos += 7;
-            doc.text('Applied Force (', 25, yPos);
-            doc.setFont(undefined, 'italic');
-            doc.text('F', 65, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text(`): ${p.force} N`, 70, yPos);
-            yPos += 7;
-            doc.text('Force Angle (', 25, yPos);
-            doc.setFont(undefined, 'italic');
-            doc.text('θ', 60, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text(`): ${p.angle}°`, 65, yPos);
-            yPos += 7;
-            doc.text('Gravitational Field Strength (', 25, yPos);
-            doc.setFont(undefined, 'italic');
-            doc.text('g', 85, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text(`): ${p.gravity} N/kg`, 90, yPos);
-            if (p.gravityMode === 'planet') {
-                doc.text(` (${planets[p.planet].name})`, 120, yPos);
-            }
-            yPos += 7;
-            doc.text(`Surface: ${materialName}`, 25, yPos);
-            yPos += 7;
-            doc.setFont(undefined, 'italic');
-            doc.text('μ', 25, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text('s', 30, yPos + 2);
-            doc.text(` (static): ${mu_s}`, 33, yPos);
-            yPos += 7;
-            doc.setFont(undefined, 'italic');
-            doc.text('μ', 25, yPos);
-            doc.setFont(undefined, 'normal');
-            doc.text('k', 30, yPos + 2);
-            doc.text(` (kinetic): ${mu_k}`, 33, yPos);
-            
-            // Page 2: Solution
-            doc.addPage();
-            doc.setFontSize(20);
-            doc.text('Solution', 20, 20);
-            
-            if (currentProblem.results) {
-                const r = currentProblem.results;
-                const g = p.gravity;
-                
-                yPos = 40;
-                doc.setFontSize(14);
-                
-                // Step 1
-                doc.text('Step 1: Resolve the applied force into components', 20, yPos);
-                yPos += 10;
-                doc.setFontSize(12);
-                doc.text('The applied force has both horizontal and vertical components:', 20, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('x', 25, yPos + 2);
-                doc.text(' = ');
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 35, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(` × cos(θ) = ${p.force} × cos(${p.angle}°) = ${r.F_horizontal} N`, 40, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('y', 25, yPos + 2);
-                doc.text(' = ');
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 35, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(` × sin(θ) = ${p.force} × sin(${p.angle}°) = ${r.F_vertical} N`, 40, yPos);
-                
-                yPos += 15;
-                doc.setFontSize(14);
-                
-                // Step 2
-                doc.text('Step 2: Calculate the normal force', 20, yPos);
-                yPos += 10;
-                doc.setFontSize(12);
-                doc.text('Apply Newton\'s second law in the vertical direction (no vertical acceleration):', 20, yPos);
-                yPos += 7;
-                doc.text('Σ', 20, yPos);
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 25, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('y', 30, yPos + 2);
-                doc.text(' = 0', 33, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('N', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(' + ');
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 30, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('y', 35, yPos + 2);
-                doc.text(' - ');
-                doc.setFont(undefined, 'italic');
-                doc.text('mg', 45, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(' = 0', 55, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('N', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(' = ');
-                doc.setFont(undefined, 'italic');
-                doc.text('mg', 30, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(' - ');
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 45, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('y', 50, yPos + 2);
-                doc.text(` = ${p.mass} × ${g} - ${r.F_vertical} = ${r.N} N`, 53, yPos);
-                
-                yPos += 15;
-                doc.setFontSize(14);
-                
-                // Step 3
-                doc.text('Step 3: Determine if the box moves', 20, yPos);
-                yPos += 10;
-                doc.setFontSize(12);
-                doc.text('Calculate the maximum static friction force:', 20, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('f', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('s,max', 25, yPos + 2);
-                doc.text(' = ');
-                doc.setFont(undefined, 'italic');
-                doc.text('μ', 45, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('s', 50, yPos + 2);
-                doc.text(' × ');
-                doc.setFont(undefined, 'italic');
-                doc.text('N', 60, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text(` = ${r.mu_s} × ${r.N} = ${r.f_max_static} N`, 65, yPos);
-                yPos += 7;
-                doc.text('Compare with the horizontal applied force:', 20, yPos);
-                yPos += 7;
-                doc.setFont(undefined, 'italic');
-                doc.text('F', 20, yPos);
-                doc.setFont(undefined, 'normal');
-                doc.text('x', 25, yPos + 2);
-                doc.text(` = ${r.F_horizontal} N`, 28, yPos);
-                yPos += 7;
-                
-                if (r.isMoving) {
-                    doc.text('Since ', 20, yPos);
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 35, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 40, yPos + 2);
-                    doc.text(' > ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 50, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('s,max', 55, yPos + 2);
-                    doc.text(` (${r.F_horizontal} > ${r.f_max_static}), the box MOVES`, 75, yPos);
-                } else {
-                    doc.text('Since ', 20, yPos);
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 35, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 40, yPos + 2);
-                    doc.text(' ≤ ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 55, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('s,max', 60, yPos + 2);
-                    doc.text(` (${r.F_horizontal} ≤ ${r.f_max_static}), the box remains STATIONARY`, 80, yPos);
-                }
-                
-                yPos += 15;
-                doc.setFontSize(14);
-                
-                // Step 4
-                doc.text('Step 4: Calculate friction force and acceleration', 20, yPos);
-                yPos += 10;
-                doc.setFontSize(12);
-                
-                if (r.isMoving) {
-                    doc.text('Since the box moves, kinetic friction applies:', 20, yPos);
-                    yPos += 7;
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 20, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('k', 25, yPos + 2);
-                    doc.text(' = ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('μ', 35, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('k', 40, yPos + 2);
-                    doc.text(' × ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('N', 50, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text(` = ${r.mu_k} × ${r.N} = ${r.friction_force} N`, 55, yPos);
-                    yPos += 7;
-                    doc.text('Apply Newton\'s second law in the horizontal direction:', 20, yPos);
-                    yPos += 7;
-                    doc.text('Σ', 20, yPos);
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 25, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 30, yPos + 2);
-                    doc.text(' = ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('ma', 40, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 50, yPos + 2);
-                    yPos += 7;
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 20, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 25, yPos + 2);
-                    doc.text(' - ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 35, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('k', 40, yPos + 2);
-                    doc.text(' = ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('ma', 50, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 60, yPos + 2);
-                    yPos += 7;
-                    doc.setFont(undefined, 'italic');
-                    doc.text('a', 20, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 25, yPos + 2);
-                    doc.text(' = (');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 40, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 45, yPos + 2);
-                    doc.text(' - ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 55, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('k', 60, yPos + 2);
-                    doc.text(')/');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('m', 70, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text(` = (${r.F_horizontal} - ${r.friction_force})/${p.mass} = ${r.acceleration} m/s²`, 75, yPos);
-                } else {
-                    doc.text('Since the box doesn\'t move, static friction balances the horizontal force:', 20, yPos);
-                    yPos += 7;
-                    doc.setFont(undefined, 'italic');
-                    doc.text('f', 20, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('s', 25, yPos + 2);
-                    doc.text(' = ');
-                    doc.setFont(undefined, 'italic');
-                    doc.text('F', 35, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 40, yPos + 2);
-                    doc.text(` = ${r.friction_force} N`, 43, yPos);
-                    yPos += 7;
-                    doc.setFont(undefined, 'italic');
-                    doc.text('a', 20, yPos);
-                    doc.setFont(undefined, 'normal');
-                    doc.text('x', 25, yPos + 2);
-                    doc.text(' = 0 m/s²', 28, yPos);
-                }
-                
-                // Final answers
-                yPos += 20;
-                doc.setFontSize(16);
-                doc.text('Final Answers:', 20, yPos);
-                yPos += 15;
-                doc.setFontSize(14);
-                
-                // Answer boxes
-                doc.rect(20, yPos, 50, 15);
-                doc.text('Normal Force', 22, yPos + 5);
-                doc.text(`${r.N} N`, 22, yPos + 12);
-                
-                doc.rect(80, yPos, 50, 15);
-                doc.text('Acceleration', 82, yPos + 5);
-                doc.text(`${r.acceleration} m/s²`, 82, yPos + 12);
-                
-                doc.rect(140, yPos, 50, 15);
-                doc.text('Friction Force', 142, yPos + 5);
-                doc.text(`${r.friction_force} N`, 142, yPos + 12);
-            }
-            
-            // Save the PDF with error handling
-            try {
-                doc.save(`Physics_Dynamics_Problem_${Date.now()}.pdf`);
-            } catch (error) {
-                console.error('PDF generation failed:', error);
-                // Fallback: create a text version
-                createTextDownload();
-            }
-        }
 
-        function createTextDownload() {
-            const p = currentProblem;
-            let material, mu_s, mu_k, materialName;
-            
-            if (p.frictionMode === 'custom') {
-                mu_s = p.customMuStatic;
-                mu_k = p.customMuKinetic;
-                materialName = 'Custom Surface';
-            } else {
-                material = materials[p.surface];
-                mu_s = material.static;
-                mu_k = material.kinetic;
-                materialName = material.name;
-            }
-            
-            let textContent = `DP Physics A2 Dynamics - 1D Motion Problem\n`;
-            textContent += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
-            
-            textContent += `PROBLEM:\n`;
-            textContent += `A box with mass ${p.mass} kg is on a ${materialName.toLowerCase()}.\n`;
-            textContent += `A force of ${p.force} N is applied at an angle of ${p.angle}° above the horizontal.\n`;
-            
-            if (mu_s > 0) {
-                textContent += `The coefficient of static friction is ${mu_s} and the coefficient of kinetic friction is ${mu_k}.\n`;
-            } else {
-                textContent += `The surface is frictionless.\n`;
-            }
-            
-            textContent += `\nFind:\n`;
-            textContent += `1. The normal force acting on the box\n`;
-            textContent += `2. The acceleration of the box in the x-direction\n`;
-            textContent += `3. The force due to friction\n\n`;
-            
-            textContent += `GIVEN PARAMETERS:\n`;
-            textContent += `Mass (m): ${p.mass} kg\n`;
-            textContent += `Applied Force (F): ${p.force} N\n`;
-            textContent += `Force Angle (θ): ${p.angle}°\n`;
-            textContent += `Gravitational Field Strength (g): ${p.gravity} N/kg`;
-            if (p.gravityMode === 'planet') {
-                textContent += ` (${planets[p.planet].name})`;
-            }
-            textContent += `\n`;
-            textContent += `Surface: ${materialName}\n`;
-            textContent += `μs (static): ${mu_s}\n`;
-            textContent += `μk (kinetic): ${mu_k}\n\n`;
-            
-            if (currentProblem.results) {
-                const r = currentProblem.results;
-                
-                textContent += `SOLUTION:\n\n`;
-                textContent += `Step 1: Resolve the applied force into components\n`;
-                textContent += `Fx = F × cos(θ) = ${p.force} × cos(${p.angle}°) = ${r.F_horizontal} N\n`;
-                textContent += `Fy = F × sin(θ) = ${p.force} × sin(${p.angle}°) = ${r.F_vertical} N\n\n`;
-                
-                textContent += `Step 2: Calculate the normal force\n`;
-                textContent += `ΣFy = 0\n`;
-                textContent += `N + Fy - mg = 0\n`;
-                textContent += `N = mg - Fy = ${p.mass} × ${p.gravity} - ${r.F_vertical} = ${r.N} N\n\n`;
-                
-                textContent += `Step 3: Determine if the box moves\n`;
-                textContent += `fs,max = μs × N = ${r.mu_s} × ${r.N} = ${r.f_max_static} N\n`;
-                textContent += `Fx = ${r.F_horizontal} N\n`;
-                
-                if (r.isMoving) {
-                    textContent += `Since Fx > fs,max (${r.F_horizontal} > ${r.f_max_static}), the box MOVES\n\n`;
-                    textContent += `Step 4: Calculate friction force and acceleration\n`;
-                    textContent += `fk = μk × N = ${r.mu_k} × ${r.N} = ${r.friction_force} N\n`;
-                    textContent += `ax = (Fx - fk)/m = (${r.F_horizontal} - ${r.friction_force})/${p.mass} = ${r.acceleration} m/s²\n\n`;
-                } else {
-                    textContent += `Since Fx ≤ fs,max (${r.F_horizontal} ≤ ${r.f_max_static}), the box remains STATIONARY\n\n`;
-                    textContent += `Step 4: Calculate friction force and acceleration\n`;
-                    textContent += `fs = Fx = ${r.friction_force} N\n`;
-                    textContent += `ax = 0 m/s²\n\n`;
-                }
-                
-                textContent += `FINAL ANSWERS:\n`;
-                textContent += `Normal Force: ${r.N} N\n`;
-                textContent += `Acceleration: ${r.acceleration} m/s²\n`;
-                textContent += `Friction Force: ${r.friction_force} N\n`;
-            }
-            
-            // Create and download text file
-            const blob = new Blob([textContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Physics_Dynamics_Problem_${Date.now()}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
 
         // Initialize
         setupDragHandlers();
         updateDiagram();
         updateProblem();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97cc6bff91adfe84',t:'MTc1NzQ4MTA1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d6eac7d402d02a',t:'MTc1NzU5MTEwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
