@@ -14,12 +14,19 @@
     5. Created reference sections with subject-specific LaTeX commands
     6. Enhanced UI with responsive design and professional styling
     7. Refined layout by removing empty sections and making components more compact
+    8. Added LaTeX Skills Progression section with Fundamentals, Advanced, and LaTeXTREME levels
+    9. Created 13 total subject areas including skill-based progression tracks
+    10. Enhanced challenge difficulty scaling from basic text to complex statistical tables
+    11. Fixed LaTeXTREME challenge #10 multicolumn syntax error for proper table rendering
+    12. Improved subject organization with clear visual groupings and skill progression
     
     Features:
-    - 10 subjects across 3 DP groups with LaTeX-heavy content
-    - 10 practice challenges per subject with hints and solutions
-    - Real-time LaTeX rendering and preview
+    - 13 subjects across 3 DP groups plus 3 skill progression levels
+    - 10 practice challenges per subject with hints and solutions (130 total challenges)
+    - Real-time LaTeX rendering and preview with MathJax
     - Comprehensive reference guide for LaTeX commands
+    - Skill-based progression from basics to advanced LaTeX
+    - Subject-specific LaTeX notation and formatting
     - Responsive design for all devices
     - Professional gradient styling and smooth animations
 -->
@@ -416,9 +423,11 @@
             <div class="subject-selector">
                 <div class="subject-groups">
                     <div class="subject-group basics-section">
-                        <h4 class="group-title">🎯 Basic LaTeX Skills</h4>
+                        <h4 class="group-title">🎯 LaTeX Skills Progression</h4>
                         <div class="subject-buttons">
                             <button class="subject-btn active" data-subject="basics">📝 LaTeX Fundamentals</button>
+                            <button class="subject-btn" data-subject="advanced">🚀 LaTeX Advanced</button>
+                            <button class="subject-btn" data-subject="extreme">⚡ LaTeXTREME!</button>
                         </div>
                     </div>
                     
@@ -447,7 +456,10 @@
                         <div class="subject-group">
                             <h4 class="group-title">Group 5: Mathematics</h4>
                             <div class="subject-buttons">
-                                <button class="subject-btn" data-subject="mathematics">📊 Mathematics</button>
+                                <button class="subject-btn" data-subject="math-aa-sl">📊 Math AA SL</button>
+                                <button class="subject-btn" data-subject="math-aa-hl">📈 Math AA HL</button>
+                                <button class="subject-btn" data-subject="math-ai-sl">📉 Math AI SL</button>
+                                <button class="subject-btn" data-subject="math-ai-hl">📋 Math AI HL</button>
                             </div>
                         </div>
                     </div>
@@ -499,8 +511,11 @@
         
         <footer style="background: linear-gradient(135deg, #495057 0%, #343a40 100%); color: white; text-align: center; padding: 20px; margin-top: 30px;">
             <p style="margin: 0; font-size: 0.9rem;">
-                Developed by <strong>Mike Poirier</strong> with <strong>Canva AI</strong> | Version 12 | 
+                Developed by <strong>Mike Poirier</strong> with <strong>Canva AI</strong> | 
                 Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #87ceeb; text-decoration: none;">Creative Commons Attribution 4.0</a>
+            </p>
+            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">
+                Build: September 16, 2025
             </p>
         </footer>
     </div>
@@ -554,529 +569,789 @@
                     hint: "Use \\text{} to write regular words inside math expressions."
                 },
                 {
-                    text: "Write a simple equation: y equals mx plus b.",
-                    answer: "y = mx + b",
-                    hint: "Just type it normally - this is a simple linear equation that doesn't need special LaTeX commands."
+                    text: "Create a simple 2×2 table with headers 'x' and 'y' and one data row.",
+                    answer: "\\begin{array}{|c|c|} \\hline x & y \\\\ \\hline 1 & 2 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\hline for lines, & for columns, and \\\\ for new rows."
                 }
             ],
-            mathematics: [
+            advanced: [
                 {
-                    text: "Write a simple equation: x equals 5.",
-                    answer: "x = 5",
-                    hint: "This is straightforward - just type x = 5 with no special LaTeX commands needed."
+                    text: "Write a complex fraction with nested fractions: (a/b) over (c/d).",
+                    answer: "\\frac{\\frac{a}{b}}{\\frac{c}{d}}",
+                    hint: "Use nested \\frac{}{} commands - put one fraction inside another fraction."
                 },
                 {
-                    text: "Write x squared using LaTeX notation.",
-                    answer: "x^2",
-                    hint: "Use ^ for superscripts. Type x^2 to get x squared."
+                    text: "Create a summation from i=1 to n of x_i.",
+                    answer: "\\sum_{i=1}^{n} x_i",
+                    hint: "Use \\sum with _{} for the lower limit and ^ for the upper limit."
                 },
                 {
-                    text: "Write x subscript 1 using LaTeX notation.",
-                    answer: "x_1",
-                    hint: "Use _ for subscripts. Type x_1 to get x with subscript 1."
+                    text: "Write a matrix with 3 rows and 2 columns using parentheses.",
+                    answer: "\\begin{pmatrix} a & b \\\\ c & d \\\\ e & f \\end{pmatrix}",
+                    hint: "Use \\begin{pmatrix} for parentheses matrices, & for columns, \\\\ for new rows."
                 },
                 {
-                    text: "Write a simple fraction: a over b.",
-                    answer: "\\frac{a}{b}",
-                    hint: "Use \\frac{numerator}{denominator} for fractions."
+                    text: "Express a limit as x approaches infinity of 1/x.",
+                    answer: "\\lim_{x \\to \\infty} \\frac{1}{x}",
+                    hint: "Use \\lim with _{} for the limit condition, \\to for approaches, \\infty for infinity."
                 },
                 {
-                    text: "Write the square root of x in LaTeX.",
-                    answer: "\\sqrt{x}",
-                    hint: "Use \\sqrt{} for square roots. Put the expression inside the curly braces."
+                    text: "Write a definite integral from 0 to π of sin(x) dx.",
+                    answer: "\\int_0^{\\pi} \\sin(x) \\, dx",
+                    hint: "Use \\int with _{} for lower limit, ^ for upper limit, \\sin for sine, \\, for spacing."
                 },
                 {
-                    text: "Write the equation of a circle with center (h,k) and radius r.",
-                    answer: "(x - h)^2 + (y - k)^2 = r^2",
-                    hint: "Use ^ for superscripts and parentheses for the coordinates."
+                    text: "Create a system of equations using cases.",
+                    answer: "\\begin{cases} x + y = 5 \\\\ 2x - y = 1 \\end{cases}",
+                    hint: "Use \\begin{cases} for equation systems, \\\\ for new lines, no & needed."
                 },
                 {
-                    text: "Express the arithmetic sequence formula in LaTeX.",
-                    answer: "a_n = a_1 + (n-1)d",
-                    hint: "Use _{} for subscripts to show the nth term and first term."
+                    text: "Write a binomial coefficient 'n choose k' with large parentheses.",
+                    answer: "\\binom{n}{k} \\text{ or } \\left(\\begin{array}{c} n \\\\ k \\end{array}\\right)",
+                    hint: "Use \\binom{n}{k} for the simple version, or \\left( with array for the expanded form."
                 },
                 {
-                    text: "Write the quadratic formula in LaTeX notation.",
+                    text: "Express a partial derivative of f with respect to x.",
+                    answer: "\\frac{\\partial f}{\\partial x}",
+                    hint: "Use \\partial for partial derivatives instead of d in \\frac{}{}."
+                },
+                {
+                    text: "Create a 3×3 determinant using vertical bars.",
+                    answer: "\\begin{vmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\end{vmatrix}",
+                    hint: "Use \\begin{vmatrix} for determinant notation with vertical bars."
+                },
+                {
+                    text: "Build a complex table with merged cells and multiple column types.",
+                    answer: "\\begin{array}{|l|c|r|} \\hline \\text{Left} & \\text{Center} & \\text{Right} \\\\ \\hline \\text{Data 1} & 123 & \\$45.67 \\\\ \\text{Data 2} & 456 & \\$89.01 \\\\ \\hline \\end{array}",
+                    hint: "Use |l|c|r| for left, center, right alignment. Use \\text{} for text and \\$ for currency."
+                }
+            ],
+            extreme: [
+                {
+                    text: "Create a triple integral with complex bounds and multiple variables.",
+                    answer: "\\iiint_V f(x,y,z) \\, dx \\, dy \\, dz = \\int_0^1 \\int_0^{\\sqrt{1-x^2}} \\int_0^{\\sqrt{x^2+y^2}} f(x,y,z) \\, dz \\, dy \\, dx",
+                    hint: "Use \\iiint for triple integrals, \\sqrt{} for square roots, and \\, for proper spacing."
+                },
+                {
+                    text: "Write the Fourier transform with complex exponentials and infinity bounds.",
+                    answer: "\\mathcal{F}\\{f(t)\\} = F(\\omega) = \\int_{-\\infty}^{\\infty} f(t) e^{-i\\omega t} \\, dt",
+                    hint: "Use \\mathcal{F} for script F, \\{\\} for set notation, e^{} for exponentials, \\omega for omega."
+                },
+                {
+                    text: "Construct a complex matrix equation with inverse and transpose operations.",
+                    answer: "\\mathbf{A}^{-1} \\mathbf{B}^T \\mathbf{x} = \\mathbf{c} \\text{ where } \\mathbf{A} = \\begin{pmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{pmatrix}",
+                    hint: "Use \\mathbf{} for bold matrices, ^{-1} for inverse, ^T for transpose, _{} for subscripts."
+                },
+                {
+                    text: "Express a complex analysis residue theorem with contour integral.",
+                    answer: "\\oint_C f(z) \\, dz = 2\\pi i \\sum_{k} \\text{Res}(f, z_k)",
+                    hint: "Use \\oint for contour integrals, \\pi for pi, \\sum for summation, \\text{Res} for residue."
+                },
+                {
+                    text: "Write a quantum mechanics Schrödinger equation with Hamiltonian operator.",
+                    answer: "i\\hbar \\frac{\\partial}{\\partial t} |\\psi(t)\\rangle = \\hat{H} |\\psi(t)\\rangle",
+                    hint: "Use \\hbar for reduced Planck constant, \\partial for partials, |\\rangle for ket notation, \\hat{} for operators."
+                },
+                {
+                    text: "Create a commutative diagram with arrows and multiple levels.",
+                    answer: "\\begin{array}{ccc} A & \\xrightarrow{f} & B \\\\ \\downarrow{g} & & \\downarrow{h} \\\\ C & \\xrightarrow{k} & D \\end{array}",
+                    hint: "Use \\xrightarrow{} for labeled arrows, \\downarrow{} for vertical arrows, array for positioning."
+                },
+                {
+                    text: "Express a tensor equation with multiple indices and Einstein notation.",
+                    answer: "T^{\\mu\\nu}_{\\phantom{\\mu\\nu}\\rho\\sigma} = g^{\\mu\\alpha} g^{\\nu\\beta} T_{\\alpha\\beta\\rho\\sigma}",
+                    hint: "Use ^{} for upper indices, _{} for lower indices, \\phantom{} for spacing, g for metric tensor."
+                },
+                {
+                    text: "Write a complex statistical formula with multiple summations and products.",
+                    answer: "\\mathcal{L}(\\theta) = \\prod_{i=1}^n f(x_i|\\theta) = \\prod_{i=1}^n \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x_i-\\mu)^2}{2\\sigma^2}\\right)",
+                    hint: "Use \\mathcal{L} for script L, \\prod for products, \\exp for exponential, \\left( \\right) for large parentheses."
+                },
+                {
+                    text: "Construct a complex proof environment with numbered equations and alignment.",
+                    answer: "\\begin{align} f(x) &= \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}(x-a)^n \\\\ &= f(a) + f'(a)(x-a) + \\frac{f''(a)}{2!}(x-a)^2 + \\cdots \\end{align}",
+                    hint: "Use \\begin{align} for aligned equations, & for alignment points, \\cdots for continuation dots."
+                },
+                {
+                    text: "Create an advanced statistical table with complex notation and multiple levels.",
+                    answer: "\\begin{array}{|c|c|c|c|} \\hline \\text{Model} & \\hat{\\beta}_0 \\pm SE & \\hat{\\beta}_1 \\pm SE & R^2_{adj} \\\\ \\hline \\text{Linear} & 2.34 \\pm 0.12 & 1.67 \\pm 0.08 & 0.892^{***} \\\\ \\text{Quadratic} & 1.89 \\pm 0.15 & 2.01 \\pm 0.11 & 0.934^{***} \\\\ \\text{Cubic} & 1.56 \\pm 0.18 & 2.45 \\pm 0.14 & 0.967^{***} \\\\ \\hline \\text{Note: } ^{***} p < 0.001 & & & \\\\ \\hline \\end{array}",
+                    hint: "Use \\hat{} for estimates, \\pm for plus-minus, empty cells with & &, ^{***} for significance."
+                }
+            ],
+            'math-aa-sl': [
+                {
+                    text: "Write a simple linear equation: y = 2x + 3.",
+                    answer: "y = 2x + 3",
+                    hint: "This is straightforward - just type the equation as shown."
+                },
+                {
+                    text: "Write the quadratic function f(x) = x² - 4x + 3.",
+                    answer: "f(x) = x^2 - 4x + 3",
+                    hint: "Use ^ for the squared term. Type x^2 for x squared."
+                },
+                {
+                    text: "Express the exponential function y = 2^x.",
+                    answer: "y = 2^x",
+                    hint: "Use ^ for the exponent. The base is 2 and the exponent is x."
+                },
+                {
+                    text: "Write the derivative notation f'(x).",
+                    answer: "f'(x)",
+                    hint: "Use the apostrophe (prime) symbol after f to show the derivative."
+                },
+                {
+                    text: "Express the definite integral from 0 to 2 of x dx.",
+                    answer: "\\int_0^2 x \\, dx",
+                    hint: "Use \\int with _{} for lower limit and ^ for upper limit. Add \\, for spacing before dx."
+                },
+                {
+                    text: "Write the quadratic formula.",
                     answer: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
-                    hint: "Use \\frac{}{} for fractions, \\pm for plus-minus, \\sqrt{} for square root, and ^ for superscripts."
+                    hint: "Use \\frac{}{} for fractions, \\pm for plus-minus, \\sqrt{} for square root."
                 },
                 {
-                    text: "Express the binomial expansion formula in LaTeX.",
-                    answer: "(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^{n-k} b^k",
-                    hint: "Use \\sum for summation, \\binom{n}{k} for binomial coefficients, and ^ for exponents."
+                    text: "Express the arithmetic sequence formula for the nth term.",
+                    answer: "u_n = u_1 + (n-1)d",
+                    hint: "Use _{} for subscripts. In IB, sequences often use u_n notation."
                 },
                 {
-                    text: "Create a data table showing function values for f(x) = x² at x = 1, 2, 3, 4.",
-                    answer: "\\begin{array}{|c|c|} \\hline x & f(x) = x^2 \\\\ \\hline 1 & 1 \\\\ 2 & 4 \\\\ 3 & 9 \\\\ 4 & 16 \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, \\hline for horizontal lines, & for column separation, and \\\\ for new rows."
+                    text: "Write the equation of a circle with center (a,b) and radius r.",
+                    answer: "(x-a)^2 + (y-b)^2 = r^2",
+                    hint: "Use ^ for squared terms and parentheses for the center coordinates."
+                },
+                {
+                    text: "Express the limit as x approaches 2 of (x² - 4)/(x - 2).",
+                    answer: "\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2}",
+                    hint: "Use \\lim with _{} for the limit condition, \\to for approaches, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Create a table of values for f(x) = x² showing x from -2 to 2.",
+                    answer: "\\begin{array}{|c|c|} \\hline x & f(x) = x^2 \\\\ \\hline -2 & 4 \\\\ -1 & 1 \\\\ 0 & 0 \\\\ 1 & 1 \\\\ 2 & 4 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure. Calculate f(x) = x² for each x value."
+                }
+            ],
+            'math-aa-hl': [
+                {
+                    text: "Write a complex number in standard form: z = 3 + 4i.",
+                    answer: "z = 3 + 4i",
+                    hint: "Use i for the imaginary unit. This is the standard a + bi form."
+                },
+                {
+                    text: "Express a vector in component form: v = (2, -1, 3).",
+                    answer: "\\vec{v} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}",
+                    hint: "Use \\vec{} for vector notation and \\begin{pmatrix} for column vector form."
+                },
+                {
+                    text: "Write the derivative using Leibniz notation: dy/dx.",
+                    answer: "\\frac{dy}{dx}",
+                    hint: "Use \\frac{dy}{dx} for the Leibniz derivative notation."
+                },
+                {
+                    text: "Express the dot product of vectors u and v.",
+                    answer: "\\vec{u} \\cdot \\vec{v}",
+                    hint: "Use \\vec{} for vectors and \\cdot for the dot product symbol."
+                },
+                {
+                    text: "Write a 2×2 matrix with elements a, b, c, d.",
+                    answer: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
+                    hint: "Use \\begin{pmatrix} for matrices, & for column separation, and \\\\ for new rows."
+                },
+                {
+                    text: "Express the complex number in exponential form using Euler's formula.",
+                    answer: "z = re^{i\\theta}",
+                    hint: "Use e^{i\\theta} for Euler's exponential form, where r is modulus and θ is argument."
+                },
+                {
+                    text: "Write the binomial coefficient 'n choose k'.",
+                    answer: "\\binom{n}{k}",
+                    hint: "Use \\binom{n}{k} for binomial coefficient notation."
+                },
+                {
+                    text: "Express the infinite series sum from n=0 to infinity of ar^n.",
+                    answer: "\\sum_{n=0}^{\\infty} ar^n",
+                    hint: "Use \\sum for summation, _{} for lower limit, ^ for upper limit, and \\infty for infinity."
+                },
+                {
+                    text: "Write the parametric vector equation of a line: r = a + tb.",
+                    answer: "\\vec{r} = \\vec{a} + t\\vec{b}",
+                    hint: "Use \\vec{} for vectors. This is the standard parametric line equation in vector form."
+                },
+                {
+                    text: "Create a table showing complex roots of unity for n=4.",
+                    answer: "\\begin{array}{|c|c|} \\hline k & z_k = e^{2\\pi i k/4} \\\\ \\hline 0 & 1 \\\\ 1 & i \\\\ 2 & -1 \\\\ 3 & -i \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure. The 4th roots of unity are 1, i, -1, -i."
+                }
+            ],
+            'math-ai-sl': [
+                {
+                    text: "Write a simple percentage: 25%.",
+                    answer: "25\\%",
+                    hint: "Use \\% to display the percentage symbol correctly in LaTeX."
+                },
+                {
+                    text: "Express the mean (average) using bar notation.",
+                    answer: "\\bar{x}",
+                    hint: "Use \\bar{x} to show the mean with a bar over the x."
+                },
+                {
+                    text: "Write the compound interest formula A = P(1 + r)^t.",
+                    answer: "A = P(1 + r)^t",
+                    hint: "Use ^ for the exponent t. This is the basic compound interest formula."
+                },
+                {
+                    text: "Express the formula for sample standard deviation.",
+                    answer: "s = \\sqrt{\\frac{\\sum(x_i - \\bar{x})^2}{n-1}}",
+                    hint: "Use \\sqrt{} for square root, \\sum for summation, and \\bar{x} for the mean."
+                },
+                {
+                    text: "Write the linear regression equation y = a + bx.",
+                    answer: "y = a + bx",
+                    hint: "This is the standard form where a is the y-intercept and b is the slope."
+                },
+                {
+                    text: "Express the correlation coefficient formula (Pearson's r).",
+                    answer: "r = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2\\sum(y_i - \\bar{y})^2}}",
+                    hint: "Use \\bar{} for means, \\sum for summation, and \\sqrt{} for square root."
+                },
+                {
+                    text: "Write the normal distribution notation N(μ, σ²).",
+                    answer: "N(\\mu, \\sigma^2)",
+                    hint: "Use \\mu for mu (mean) and \\sigma for sigma (standard deviation), with ^2 for squared."
+                },
+                {
+                    text: "Express the chi-square test statistic formula.",
+                    answer: "\\chi^2 = \\sum \\frac{(O - E)^2}{E}",
+                    hint: "Use \\chi for chi-square, \\sum for summation, where O is observed and E is expected."
+                },
+                {
+                    text: "Write the z-score standardization formula.",
+                    answer: "z = \\frac{x - \\mu}{\\sigma}",
+                    hint: "Use \\mu for population mean, \\sigma for population standard deviation, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Create a frequency table showing class intervals and frequencies.",
+                    answer: "\\begin{array}{|c|c|} \\hline \\text{Class Interval} & \\text{Frequency} \\\\ \\hline 0-10 & 5 \\\\ 10-20 & 12 \\\\ 20-30 & 8 \\\\ 30-40 & 3 \\\\ \\hline \\text{Total} & 28 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure and \\text{} for descriptive labels."
+                }
+            ],
+            'math-ai-hl': [
+                {
+                    text: "Write the sample mean formula using summation notation.",
+                    answer: "\\bar{x} = \\frac{\\sum_{i=1}^n x_i}{n}",
+                    hint: "Use \\bar{x} for sample mean, \\sum with limits, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the variance formula for a sample.",
+                    answer: "s^2 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})^2}{n-1}",
+                    hint: "Use s^2 for sample variance, \\sum with limits, and \\bar{x} for the sample mean."
+                },
+                {
+                    text: "Write the linear regression coefficient formula for slope b.",
+                    answer: "b = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sum(x_i - \\bar{x})^2}",
+                    hint: "Use \\sum for summation, \\bar{} for means, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the confidence interval for a population mean.",
+                    answer: "\\bar{x} \\pm t_{\\alpha/2} \\frac{s}{\\sqrt{n}}",
+                    hint: "Use \\pm for plus-minus, \\bar{x} for sample mean, and \\alpha for significance level."
+                },
+                {
+                    text: "Write the binomial probability formula P(X = k).",
+                    answer: "P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}",
+                    hint: "Use \\binom{n}{k} for binomial coefficient, ^ for exponents, and (1-p) for failure probability."
+                },
+                {
+                    text: "Express the normal distribution probability density function.",
+                    answer: "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}",
+                    hint: "Use \\sigma for standard deviation, \\mu for mean, \\pi for pi, and e^ for exponential."
+                },
+                {
+                    text: "Write the multiple regression equation with two predictors.",
+                    answer: "y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\epsilon",
+                    hint: "Use \\beta for coefficients, _{} for subscripts, and \\epsilon for the error term."
+                },
+                {
+                    text: "Express the chi-square test statistic for goodness of fit.",
+                    answer: "\\chi^2 = \\sum_{i=1}^k \\frac{(O_i - E_i)^2}{E_i}",
+                    hint: "Use \\chi for chi-square, \\sum with limits, where O is observed and E is expected."
+                },
+                {
+                    text: "Write the coefficient of determination (R-squared) formula.",
+                    answer: "R^2 = 1 - \\frac{SS_{res}}{SS_{tot}} = \\frac{SS_{reg}}{SS_{tot}}",
+                    hint: "Use R^2 for coefficient of determination, \\frac{}{} for fractions, and _{} for subscripts."
+                },
+                {
+                    text: "Create a two-way ANOVA summary table.",
+                    answer: "\\begin{array}{|l|c|c|c|c|} \\hline \\text{Source} & SS & df & MS & F \\\\ \\hline \\text{Factor A} & SS_A & a-1 & MS_A & F_A \\\\ \\text{Factor B} & SS_B & b-1 & MS_B & F_B \\\\ \\text{Error} & SS_E & (a-1)(b-1) & MS_E & - \\\\ \\hline \\text{Total} & SS_T & ab-1 & - & - \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|c|c|} for five-column table with left-aligned first column."
                 }
             ],
             physics: [
                 {
-                    text: "Write Newton's second law in LaTeX.",
+                    text: "Write the basic equation for speed: distance over time.",
+                    answer: "v = \\frac{d}{t}",
+                    hint: "Use \\frac{d}{t} where d is distance and t is time."
+                },
+                {
+                    text: "Express Newton's second law: F = ma.",
                     answer: "F = ma",
-                    hint: "Simple equation - no special LaTeX commands needed for this one!"
+                    hint: "Simple equation - force equals mass times acceleration."
                 },
                 {
-                    text: "Write the momentum formula in LaTeX.",
-                    answer: "p = mv",
-                    hint: "Simple equation - momentum equals mass times velocity."
+                    text: "Write the kinetic energy formula.",
+                    answer: "E_k = \\frac{1}{2}mv^2",
+                    hint: "Use _{} for subscripts, \\frac{1}{2} for the fraction, and ^ for the squared velocity."
                 },
                 {
-                    text: "Express Ohm's law in LaTeX.",
+                    text: "Express gravitational potential energy near Earth's surface.",
+                    answer: "E_p = mgh",
+                    hint: "Use _{} for subscripts. This is potential energy in a uniform gravitational field."
+                },
+                {
+                    text: "Write Ohm's law relating voltage, current, and resistance.",
                     answer: "V = IR",
                     hint: "Simple equation - voltage equals current times resistance."
                 },
                 {
-                    text: "Express gravitational potential energy in LaTeX.",
-                    answer: "E_p = mgh",
-                    hint: "Use _{} for subscripts. This is the formula near Earth's surface."
-                },
-                {
-                    text: "Express the wave speed equation in LaTeX.",
+                    text: "Express the wave equation relating speed, frequency, and wavelength.",
                     answer: "v = f\\lambda",
                     hint: "Use \\lambda for the Greek letter lambda (wavelength)."
                 },
                 {
-                    text: "Express the period-frequency relationship in LaTeX.",
-                    answer: "T = \\frac{1}{f}",
-                    hint: "Period is the reciprocal of frequency. Use \\frac{1}{f} for the fraction."
+                    text: "Write the momentum formula and impulse-momentum theorem.",
+                    answer: "p = mv \\text{ and } \\Delta p = F\\Delta t",
+                    hint: "Use \\Delta for change, \\text{ and } to separate equations."
                 },
                 {
-                    text: "Write the kinetic energy formula in LaTeX.",
-                    answer: "E_k = \\frac{1}{2}mv^2",
-                    hint: "Use _{} for subscripts, \\frac{1}{2} for the fraction and ^ for the squared velocity."
+                    text: "Express the universal law of gravitation.",
+                    answer: "F = G\\frac{m_1 m_2}{r^2}",
+                    hint: "Use \\frac{}{} for the fraction, _{} for subscripts, and ^ for the squared distance."
                 },
                 {
-                    text: "Express the power formula in LaTeX.",
-                    answer: "P = \\frac{W}{t} = Fv",
-                    hint: "Power can be work over time, or force times velocity. Use \\frac{}{} for fractions."
+                    text: "Write Einstein's mass-energy equivalence equation.",
+                    answer: "E = mc^2",
+                    hint: "Use ^ for the squared speed of light. This is the famous mass-energy relation."
                 },
                 {
-                    text: "Write the electrical power formula in LaTeX.",
-                    answer: "P = VI = I^2R = \\frac{V^2}{R}",
-                    hint: "Three equivalent forms. Use ^ for superscripts and \\frac{}{} for fractions."
-                },
-                {
-                    text: "Create a data table showing velocity and kinetic energy for a 2kg object.",
-                    answer: "\\begin{array}{|c|c|} \\hline v \\text{ (m/s)} & E_k \\text{ (J)} \\\\ \\hline 5 & 25 \\\\ 10 & 100 \\\\ 15 & 225 \\\\ 20 & 400 \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for units, and calculate E_k = ½mv² for each velocity."
+                    text: "Create a data table showing projectile motion at different angles.",
+                    answer: "\\begin{array}{|c|c|c|} \\hline \\theta \\text{ (°)} & \\text{Range (m)} & \\text{Max Height (m)} \\\\ \\hline 30 & 88.4 & 12.8 \\\\ 45 & 102.0 & 25.5 \\\\ 60 & 88.4 & 38.3 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|} for three-column table, \\theta for angle, and \\text{} for units."
                 }
             ],
             chemistry: [
                 {
-                    text: "Write the ideal gas law equation in LaTeX.",
-                    answer: "PV = nRT",
-                    hint: "This one is straightforward - no special LaTeX commands needed!"
+                    text: "Write a simple chemical formula: water (H₂O).",
+                    answer: "H_2O",
+                    hint: "Use _{} for subscripts. Water has 2 hydrogen atoms and 1 oxygen atom."
                 },
                 {
-                    text: "Write the dilution equation in LaTeX.",
-                    answer: "c_1V_1 = c_2V_2",
-                    hint: "Use _{} for subscripts to show initial and final conditions."
-                },
-                {
-                    text: "Express the concentration calculation in LaTeX.",
+                    text: "Express the concentration formula: moles per liter.",
                     answer: "c = \\frac{n}{V}",
-                    hint: "Concentration equals moles divided by volume. Use \\frac{}{} for the fraction."
+                    hint: "Concentration equals moles (n) divided by volume (V). Use \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Write the pH calculation formula in LaTeX.",
+                    text: "Write the ideal gas law equation.",
+                    answer: "PV = nRT",
+                    hint: "This relates pressure, volume, moles, gas constant, and temperature."
+                },
+                {
+                    text: "Express the pH calculation formula.",
                     answer: "pH = -\\log[H^+]",
-                    hint: "Use \\log for logarithm, [] for concentration, and ^ for the positive charge."
+                    hint: "Use \\log for logarithm, [] for concentration brackets, and ^ for the positive charge."
                 },
                 {
-                    text: "Write the enthalpy change equation in LaTeX.",
-                    answer: "\\Delta H = H_{products} - H_{reactants}",
-                    hint: "Use \\Delta for delta and _{} for subscripts."
+                    text: "Write the dilution equation relating initial and final concentrations.",
+                    answer: "c_1V_1 = c_2V_2",
+                    hint: "Use _{} for subscripts to show initial (1) and final (2) conditions."
                 },
                 {
-                    text: "Express the rate equation for a reaction in LaTeX.",
+                    text: "Express the rate law for a reaction: rate = k[A]^m[B]^n.",
                     answer: "\\text{rate} = k[A]^m[B]^n",
-                    hint: "Use \\text{} for the word 'rate', [] for concentrations, and ^ for orders."
+                    hint: "Use \\text{} for the word 'rate', [] for concentrations, and ^ for reaction orders."
                 },
                 {
-                    text: "Express the percentage yield calculation in LaTeX.",
-                    answer: "\\text{Percentage yield} = \\frac{\\text{actual yield}}{\\text{theoretical yield}} \\times 100\\%",
-                    hint: "Use \\text{} for words, \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
-                },
-                {
-                    text: "Express the equilibrium constant expression for aA + bB ⇌ cC + dD in LaTeX.",
+                    text: "Write the equilibrium constant expression K_c for aA + bB ⇌ cC + dD.",
                     answer: "K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}",
-                    hint: "Use _{} for subscripts, [] for concentration brackets, and \\frac{}{} for fractions."
+                    hint: "Use _{} for subscripts, [] for concentrations, \\frac{}{} for fractions, and ^ for stoichiometric coefficients."
                 },
                 {
-                    text: "Express the bond enthalpy calculation in LaTeX.",
+                    text: "Express the enthalpy change calculation using bond enthalpies.",
                     answer: "\\Delta H = \\sum \\text{bonds broken} - \\sum \\text{bonds formed}",
-                    hint: "Use \\Delta for enthalpy change, \\sum for summation, and \\text{} for words."
+                    hint: "Use \\Delta for enthalpy change, \\sum for summation, and \\text{} for descriptive words."
                 },
                 {
-                    text: "Create a data table showing pH values and [H⁺] concentrations.",
-                    answer: "\\begin{array}{|c|c|} \\hline pH & [H^+] \\text{ (mol/L)} \\\\ \\hline 1 & 1 \\times 10^{-1} \\\\ 3 & 1 \\times 10^{-3} \\\\ 7 & 1 \\times 10^{-7} \\\\ 10 & 1 \\times 10^{-10} \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, ^ for superscripts, \\times for multiplication, and \\text{} for units."
+                    text: "Write the Henderson-Hasselbalch equation for buffer pH.",
+                    answer: "pH = pK_a + \\log\\frac{[A^-]}{[HA]}",
+                    hint: "Use \\log for logarithm, \\frac{}{} for the ratio, [] for concentrations, and ^ for charges."
+                },
+                {
+                    text: "Create a table showing oxidation states of transition metals.",
+                    answer: "\\begin{array}{|c|c|c|} \\hline \\text{Element} & \\text{Common Oxidation States} & \\text{Example Compound} \\\\ \\hline \\text{Fe} & +2, +3 & FeCl_2, Fe_2O_3 \\\\ \\text{Cu} & +1, +2 & Cu_2O, CuSO_4 \\\\ \\text{Mn} & +2, +4, +7 & MnO_2, KMnO_4 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|} for three-column table, \\text{} for element names, and _{} for subscripts in formulas."
                 }
             ],
             biology: [
                 {
-                    text: "Write the Hardy-Weinberg equation for allele frequencies in LaTeX.",
-                    answer: "p^2 + 2pq + q^2 = 1",
-                    hint: "Use ^ for superscripts. p and q represent allele frequencies."
+                    text: "Write a simple ratio: 3:1 (as in Mendelian genetics).",
+                    answer: "3:1",
+                    hint: "Simple ratio - just type the numbers with a colon between them."
                 },
                 {
-                    text: "Express the allometric scaling relationship in LaTeX.",
-                    answer: "Y = aX^b",
-                    hint: "Use ^ for the exponent b in the power law relationship."
-                },
-                {
-                    text: "Express the population growth rate formula in LaTeX.",
+                    text: "Express the basic population growth rate equation.",
                     answer: "\\frac{dN}{dt} = rN",
-                    hint: "Use \\frac{}{} for the derivative notation and r for growth rate."
+                    hint: "Use \\frac{dN}{dt} for rate of change of population N, where r is growth rate."
                 },
                 {
-                    text: "Write the exponential population growth model in LaTeX.",
+                    text: "Write the Hardy-Weinberg equation for allele frequencies.",
+                    answer: "p^2 + 2pq + q^2 = 1",
+                    hint: "Use ^ for superscripts. p and q represent allele frequencies in a population."
+                },
+                {
+                    text: "Express the exponential population growth model.",
                     answer: "N(t) = N_0 e^{rt}",
-                    hint: "Use _{} for subscripts, e^ for exponential, and {} to group the exponent."
+                    hint: "Use _{} for subscripts, e^ for exponential growth, where N_0 is initial population."
                 },
                 {
-                    text: "Write the enzyme kinetics Michaelis-Menten equation in LaTeX.",
+                    text: "Write the enzyme kinetics equation (Michaelis-Menten).",
                     answer: "v = \\frac{V_{max}[S]}{K_m + [S]}",
-                    hint: "Use \\frac{}{} for fractions, _{} for subscripts, and [] for concentration."
+                    hint: "Use \\frac{}{} for fractions, _{} for subscripts, [] for substrate concentration."
                 },
                 {
-                    text: "Write the logistic growth equation in LaTeX.",
+                    text: "Express the logistic growth equation with carrying capacity.",
                     answer: "\\frac{dN}{dt} = rN\\left(1 - \\frac{N}{K}\\right)",
-                    hint: "Use \\left( and \\right) for larger parentheses, K represents carrying capacity."
+                    hint: "Use \\left( \\right) for large parentheses, K is carrying capacity."
                 },
                 {
-                    text: "Express the Shannon diversity index formula in LaTeX.",
+                    text: "Write the allometric scaling relationship Y = aX^b.",
+                    answer: "Y = aX^b",
+                    hint: "Use ^ for the exponent b. This shows how biological variables scale with size."
+                },
+                {
+                    text: "Express the Shannon diversity index formula.",
                     answer: "H' = -\\sum_{i=1}^{S} p_i \\ln(p_i)",
-                    hint: "Use \\sum for summation, \\ln for natural log, and _{} for subscripts."
+                    hint: "Use \\sum for summation, \\ln for natural logarithm, _{} for subscripts."
                 },
                 {
-                    text: "Express the Simpson's diversity index in LaTeX.",
-                    answer: "D = 1 - \\sum_{i=1}^{S} \\left(\\frac{n_i}{N}\\right)^2",
-                    hint: "Use \\sum for summation, \\left( \\right) for parentheses, and \\frac{}{} for fractions."
-                },
-                {
-                    text: "Write the competitive exclusion principle equation in LaTeX.",
+                    text: "Write the competitive exclusion principle (Lotka-Volterra) equation.",
                     answer: "\\frac{dN_1}{dt} = r_1N_1\\left(\\frac{K_1 - N_1 - \\alpha_{12}N_2}{K_1}\\right)",
-                    hint: "Use \\frac{}{} for derivatives and fractions, _{} for subscripts, and \\alpha for alpha."
+                    hint: "Use \\frac{}{} for derivatives, _{} for subscripts, \\alpha for competition coefficient."
                 },
                 {
-                    text: "Create a data table showing population growth over time using N(t) = N₀e^(rt).",
-                    answer: "\\begin{array}{|c|c|} \\hline \\text{Time (years)} & \\text{Population} \\\\ \\hline 0 & 100 \\\\ 5 & 165 \\\\ 10 & 272 \\\\ 15 & 449 \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for column headers, and calculate using exponential growth formula."
+                    text: "Create a table showing genetic cross results (dihybrid cross).",
+                    answer: "\\begin{array}{|c|c|c|} \\hline \\text{Phenotype} & \\text{Observed} & \\text{Expected Ratio} \\\\ \\hline \\text{Round Yellow} & 315 & 9 \\\\ \\text{Round Green} & 108 & 3 \\\\ \\text{Wrinkled Yellow} & 101 & 3 \\\\ \\text{Wrinkled Green} & 32 & 1 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|} for three-column table showing classic 9:3:3:1 ratio."
                 }
             ],
             economics: [
                 {
-                    text: "Write the total revenue formula in LaTeX.",
+                    text: "Write the basic profit equation: Profit = Revenue - Costs.",
+                    answer: "\\text{Profit} = TR - TC",
+                    hint: "Use \\text{} for words. TR is total revenue, TC is total cost."
+                },
+                {
+                    text: "Express the total revenue formula.",
                     answer: "TR = P \\times Q",
                     hint: "Total revenue equals price times quantity. Use \\times for multiplication."
                 },
                 {
-                    text: "Express the profit calculation in LaTeX.",
-                    answer: "\\text{Profit} = TR - TC",
-                    hint: "Profit equals total revenue minus total cost. Use \\text{} for words."
-                },
-                {
-                    text: "Write the basic demand function in LaTeX.",
+                    text: "Write the basic demand function Q_d = a - bP.",
                     answer: "Q_d = a - bP",
-                    hint: "Use _{} for subscripts. Q_d represents quantity demanded."
+                    hint: "Use _{} for subscripts. Q_d represents quantity demanded, P is price."
                 },
                 {
-                    text: "Express the average cost formula in LaTeX.",
+                    text: "Express the average cost formula.",
                     answer: "AC = \\frac{TC}{Q}",
                     hint: "Average cost equals total cost divided by quantity. Use \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Write the marginal cost formula in LaTeX.",
+                    text: "Write the marginal cost formula using calculus notation.",
                     answer: "MC = \\frac{\\Delta TC}{\\Delta Q}",
-                    hint: "Marginal cost is change in total cost over change in quantity. Use \\Delta and \\frac{}{}."
+                    hint: "Marginal cost is change in total cost over change in quantity. Use \\Delta for change."
                 },
                 {
-                    text: "Write the GDP calculation using expenditure approach in LaTeX.",
+                    text: "Express the GDP calculation using expenditure approach.",
                     answer: "GDP = C + I + G + (X - M)",
-                    hint: "GDP equals consumption plus investment plus government spending plus net exports."
+                    hint: "GDP equals consumption + investment + government spending + net exports."
                 },
                 {
-                    text: "Express the price elasticity of demand formula in LaTeX.",
+                    text: "Write the price elasticity of demand formula.",
                     answer: "PED = \\frac{\\% \\text{ change in } Q_d}{\\% \\text{ change in } P}",
-                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
+                    hint: "Use \\% for percent symbols, \\text{} for descriptive words, and \\frac{}{} for fractions."
                 },
                 {
-                    text: "Write the income elasticity of demand formula in LaTeX.",
-                    answer: "YED = \\frac{\\% \\text{ change in } Q_d}{\\% \\text{ change in income}}",
-                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
-                },
-                {
-                    text: "Express the multiplier effect formula in LaTeX.",
+                    text: "Express the multiplier effect formula in macroeconomics.",
                     answer: "\\text{Multiplier} = \\frac{1}{1 - MPC} = \\frac{1}{MPS}",
                     hint: "Use \\text{} for words, \\frac{}{} for fractions. MPC is marginal propensity to consume."
                 },
                 {
-                    text: "Express the cross price elasticity formula in LaTeX.",
-                    answer: "XED = \\frac{\\% \\text{ change in } Q_d \\text{ of good A}}{\\% \\text{ change in price of good B}}",
-                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
+                    text: "Write the consumer surplus formula using integration.",
+                    answer: "CS = \\int_0^{Q^*} P_d(Q) dQ - P^* \\times Q^*",
+                    hint: "Use \\int for integration, _{} for limits, ^ for superscripts, and \\times for multiplication."
+                },
+                {
+                    text: "Create a supply and demand schedule table.",
+                    answer: "\\begin{array}{|c|c|c|} \\hline \\text{Price (\\$)} & \\text{Quantity Demanded} & \\text{Quantity Supplied} \\\\ \\hline 10 & 100 & 20 \\\\ 15 & 80 & 40 \\\\ 20 & 60 & 60 \\\\ 25 & 40 & 80 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|} for three-column table, \\$ for currency, and \\text{} for headers."
                 }
             ],
             psychology: [
                 {
-                    text: "Write the z-score formula in LaTeX.",
+                    text: "Write a simple mean calculation: sum divided by n.",
+                    answer: "\\bar{x} = \\frac{\\sum x}{n}",
+                    hint: "Use \\bar{x} for sample mean, \\sum for summation, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the z-score standardization formula.",
                     answer: "z = \\frac{x - \\mu}{\\sigma}",
-                    hint: "Use \\mu for mu (mean) and \\sigma for sigma (standard deviation)."
+                    hint: "Use \\mu for population mean, \\sigma for standard deviation, and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Write the standard error formula in LaTeX.",
-                    answer: "SE = \\frac{\\sigma}{\\sqrt{n}}",
-                    hint: "Use \\sigma for standard deviation and \\sqrt{} for square root."
+                    text: "Write the standard error of the mean formula.",
+                    answer: "SE = \\frac{s}{\\sqrt{n}}",
+                    hint: "Use s for sample standard deviation, \\sqrt{} for square root, and n for sample size."
                 },
                 {
-                    text: "Write the effect size (Cohen's d) formula in LaTeX.",
+                    text: "Express the t-test statistic for one sample.",
+                    answer: "t = \\frac{\\bar{x} - \\mu}{\\frac{s}{\\sqrt{n}}}",
+                    hint: "Use \\bar{x} for sample mean, \\mu for hypothesized mean, and nested fractions."
+                },
+                {
+                    text: "Write Cohen's d effect size formula.",
                     answer: "d = \\frac{\\bar{x}_1 - \\bar{x}_2}{s_p}",
                     hint: "Use \\bar{} for means, _{} for subscripts, and s_p for pooled standard deviation."
                 },
                 {
-                    text: "Express the t-test statistic formula in LaTeX.",
-                    answer: "t = \\frac{\\bar{x} - \\mu}{\\frac{s}{\\sqrt{n}}}",
-                    hint: "Use \\bar{x} for sample mean, \\mu for population mean, and nested fractions."
-                },
-                {
-                    text: "Write the ANOVA F-statistic formula in LaTeX.",
-                    answer: "F = \\frac{MS_{between}}{MS_{within}}",
-                    hint: "Use \\frac{}{} for fractions and _{} for subscripts on MS (mean squares)."
-                },
-                {
-                    text: "Write the chi-square test statistic in LaTeX.",
-                    answer: "\\chi^2 = \\sum \\frac{(O_i - E_i)^2}{E_i}",
-                    hint: "Use \\chi for chi, \\sum for summation, and _{} for subscripts."
-                },
-                {
-                    text: "Express the regression equation in LaTeX.",
-                    answer: "Y = \\beta_0 + \\beta_1 X + \\epsilon",
-                    hint: "Use \\beta for beta coefficients, _{} for subscripts, and \\epsilon for error term."
-                },
-                {
-                    text: "Express the confidence interval formula in LaTeX.",
-                    answer: "CI = \\bar{x} \\pm t_{\\alpha/2} \\frac{s}{\\sqrt{n}}",
-                    hint: "Use \\pm for plus-minus, \\bar{} for sample mean, and \\alpha for alpha."
-                },
-                {
-                    text: "Express the correlation coefficient formula in LaTeX.",
+                    text: "Express the Pearson correlation coefficient formula.",
                     answer: "r = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2\\sum(y_i - \\bar{y})^2}}",
-                    hint: "Use \\sum for summation, \\bar{} for mean bars, and \\sqrt{} for square root."
+                    hint: "Use \\sum for summation, \\bar{} for means, and \\sqrt{} for square root."
                 },
                 {
-                    text: "Create a data table showing z-scores and their corresponding percentiles.",
-                    answer: "\\begin{array}{|c|c|} \\hline z\\text{-score} & \\text{Percentile} \\\\ \\hline -2.0 & 2.3\\% \\\\ -1.0 & 15.9\\% \\\\ 0.0 & 50.0\\% \\\\ 1.0 & 84.1\\% \\\\ 2.0 & 97.7\\% \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for labels, and \\% for percentages."
+                    text: "Write the chi-square test statistic formula.",
+                    answer: "\\chi^2 = \\sum \\frac{(O - E)^2}{E}",
+                    hint: "Use \\chi for chi-square, \\sum for summation, where O is observed and E is expected."
+                },
+                {
+                    text: "Express the confidence interval for a mean.",
+                    answer: "CI = \\bar{x} \\pm t_{\\alpha/2} \\frac{s}{\\sqrt{n}}",
+                    hint: "Use \\pm for plus-minus, \\bar{x} for sample mean, and \\alpha for significance level."
+                },
+                {
+                    text: "Write the ANOVA F-statistic formula.",
+                    answer: "F = \\frac{MS_{between}}{MS_{within}}",
+                    hint: "Use \\frac{}{} for fractions and _{} for subscripts on mean squares."
+                },
+                {
+                    text: "Create a frequency distribution table for psychological test scores.",
+                    answer: "\\begin{array}{|c|c|c|} \\hline \\text{Score Range} & \\text{Frequency} & \\text{Percentage} \\\\ \\hline 90-100 & 12 & 24\\% \\\\ 80-89 & 18 & 36\\% \\\\ 70-79 & 15 & 30\\% \\\\ 60-69 & 5 & 10\\% \\\\ \\hline \\text{Total} & 50 & 100\\% \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|} for three-column table, \\text{} for labels, and \\% for percentages."
                 }
             ],
             geography: [
                 {
-                    text: "Write the population density formula in LaTeX.",
-                    answer: "\\text{Population Density} = \\frac{\\text{Total Population}}{\\text{Land Area}}",
-                    hint: "Use \\text{} for regular text and \\frac{}{} for fractions."
+                    text: "Write the population density formula.",
+                    answer: "\\text{Density} = \\frac{\\text{Population}}{\\text{Area}}",
+                    hint: "Use \\text{} for descriptive words and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Express the demographic transition rate formula in LaTeX.",
-                    answer: "\\text{Growth Rate} = \\frac{\\text{Birth Rate} - \\text{Death Rate}}{1000}",
-                    hint: "Use \\text{} for words and \\frac{}{} for the fraction."
+                    text: "Express the natural population growth rate.",
+                    answer: "\\text{Growth Rate} = \\text{Birth Rate} - \\text{Death Rate}",
+                    hint: "Use \\text{} for descriptive words. This gives the natural increase rate."
                 },
                 {
-                    text: "Write the urban primacy index formula in LaTeX.",
+                    text: "Write the urban primacy index formula.",
                     answer: "\\text{Primacy Index} = \\frac{P_1}{P_2}",
-                    hint: "Use _{} for subscripts where P₁ is largest city, P₂ is second largest."
+                    hint: "Use _{} for subscripts where P₁ is largest city, P₂ is second largest city."
                 },
                 {
-                    text: "Write the rank-size rule formula in LaTeX.",
+                    text: "Express the rank-size rule for urban settlements.",
                     answer: "P_r = \\frac{P_1}{r}",
-                    hint: "Use _{} for subscripts where P_r is population of rank r city."
+                    hint: "Use _{} for subscripts where P_r is population of rank r city, P_1 is largest city."
                 },
                 {
-                    text: "Express the distance decay function in LaTeX.",
+                    text: "Write the distance decay function for spatial interaction.",
                     answer: "I = \\frac{k}{d^\\beta}",
                     hint: "Use \\frac{}{} for fractions, ^ for exponents, and \\beta for the distance decay parameter."
                 },
                 {
-                    text: "Express the gravity model for spatial interaction in LaTeX.",
-                    answer: "I_{ij} = k \\frac{P_i P_j}{d_{ij}^2}",
+                    text: "Express the gravity model for migration flows.",
+                    answer: "M_{ij} = k \\frac{P_i P_j}{d_{ij}^2}",
                     hint: "Use _{} for subscripts, ^ for superscripts, and \\frac{}{} for fractions."
                 },
                 {
-                    text: "Write the location quotient formula in LaTeX.",
+                    text: "Write the location quotient formula for economic specialization.",
                     answer: "LQ = \\frac{\\frac{e_i}{e}}{\\frac{E_i}{E}}",
                     hint: "Use nested fractions with \\frac{}{} and _{} for subscripts."
                 },
                 {
-                    text: "Write the centrality index formula in LaTeX.",
+                    text: "Express the centrality index for network analysis.",
                     answer: "C_i = \\sum_{j \\neq i} \\frac{1}{d_{ij}}",
                     hint: "Use \\sum for summation, \\neq for 'not equal', and _{} for subscripts."
                 },
                 {
-                    text: "Express the Gini coefficient for spatial inequality in LaTeX.",
+                    text: "Write the Gini coefficient formula for spatial inequality.",
                     answer: "G = \\frac{1}{2n^2\\bar{y}}\\sum_{i=1}^n\\sum_{j=1}^n|y_i - y_j|",
                     hint: "Use \\bar{} for mean, \\sum for double summation, and | | for absolute value."
                 },
                 {
-                    text: "Create a data table showing urban population growth for major cities.",
-                    answer: "\\begin{array}{|l|c|c|c|} \\hline \\text{City} & 2000 & 2010 & 2020 \\\\ \\hline \\text{Tokyo} & 34.4 & 36.9 & 37.4 \\\\ \\text{Delhi} & 15.9 & 22.7 & 30.3 \\\\ \\text{Shanghai} & 16.4 & 20.2 & 27.1 \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|l|c|c|c|} for table structure with left-aligned first column and centered data columns."
+                    text: "Create a demographic transition model table.",
+                    answer: "\\begin{array}{|c|c|c|c|} \\hline \\text{Stage} & \\text{Birth Rate} & \\text{Death Rate} & \\text{Population Growth} \\\\ \\hline 1 & \\text{High} & \\text{High} & \\text{Low} \\\\ 2 & \\text{High} & \\text{Falling} & \\text{High} \\\\ 3 & \\text{Falling} & \\text{Low} & \\text{Slowing} \\\\ 4 & \\text{Low} & \\text{Low} & \\text{Low} \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|c|c|} for four-column table and \\text{} for descriptive labels."
                 }
             ],
             ess: [
                 {
-                    text: "Write the net primary productivity formula in LaTeX.",
+                    text: "Write a simple chemical equation: CO₂ + H₂O.",
+                    answer: "CO_2 + H_2O",
+                    hint: "Use _{} for subscripts. This represents carbon dioxide plus water."
+                },
+                {
+                    text: "Express the net primary productivity equation.",
                     answer: "NPP = GPP - R",
                     hint: "Simple equation: Net Primary Productivity = Gross Primary Productivity - Respiration."
                 },
                 {
-                    text: "Write the species-area relationship in LaTeX.",
+                    text: "Write the species-area relationship formula.",
                     answer: "S = cA^z",
                     hint: "Use ^ for the exponent z, where S is species number and A is area."
                 },
                 {
-                    text: "Write the bioaccumulation factor formula in LaTeX.",
+                    text: "Express the bioaccumulation factor formula.",
                     answer: "BAF = \\frac{C_{organism}}{C_{environment}}",
                     hint: "Use \\frac{}{} for fractions and _{} for subscripts."
                 },
                 {
-                    text: "Write the carbon cycle equation for photosynthesis in LaTeX.",
+                    text: "Write the photosynthesis equation with light energy.",
                     answer: "6CO_2 + 6H_2O + \\text{light energy} \\rightarrow C_6H_{12}O_6 + 6O_2",
                     hint: "Use _{} for subscripts, \\rightarrow for reaction arrow, and \\text{} for words."
                 },
                 {
-                    text: "Express the ecological efficiency formula in LaTeX.",
-                    answer: "\\text{Efficiency} = \\frac{\\text{Energy at trophic level n+1}}{\\text{Energy at trophic level n}} \\times 100\\%",
+                    text: "Express the ecological efficiency between trophic levels.",
+                    answer: "\\text{Efficiency} = \\frac{\\text{Energy at level n+1}}{\\text{Energy at level n}} \\times 100\\%",
                     hint: "Use \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
                 },
                 {
-                    text: "Write the Simpson's diversity index formula in LaTeX.",
+                    text: "Write the Simpson's diversity index formula.",
                     answer: "D = 1 - \\sum \\left(\\frac{n_i}{N}\\right)^2",
                     hint: "Use \\sum for summation, \\left( \\right) for parentheses, and ^ for superscripts."
                 },
                 {
-                    text: "Express the carrying capacity equation in LaTeX.",
+                    text: "Express the logistic growth equation with carrying capacity K.",
                     answer: "\\frac{dN}{dt} = rN\\left(1 - \\frac{N}{K}\\right)",
-                    hint: "This is the logistic growth model where K is carrying capacity."
+                    hint: "Use \\frac{dN}{dt} for rate of change, \\left( \\right) for parentheses, K is carrying capacity."
                 },
                 {
-                    text: "Express the carbon footprint formula in LaTeX.",
+                    text: "Write the carbon footprint calculation formula.",
                     answer: "CF = \\sum_{i} A_i \\times EF_i",
                     hint: "Use \\sum for summation, _{} for subscripts, and \\times for multiplication."
                 },
                 {
-                    text: "Express the renewable energy potential formula in LaTeX.",
-                    answer: "P = \\frac{1}{2}\\rho A v^3 C_p",
-                    hint: "Use \\frac{1}{2} for the fraction, \\rho for density, and ^ for the cubed velocity."
-                },
-                {
-                    text: "Create a data table showing energy transfer efficiency between trophic levels.",
-                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Trophic Level} & \\text{Energy (kJ/m}^2\\text{)} & \\text{Efficiency (\\%)} \\\\ \\hline \\text{Producers} & 10,000 & - \\\\ \\text{Primary Consumers} & 1,000 & 10\\% \\\\ \\text{Secondary Consumers} & 100 & 10\\% \\\\ \\text{Tertiary Consumers} & 10 & 10\\% \\\\ \\hline \\end{array}",
+                    text: "Create an energy flow table showing trophic levels.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Trophic Level} & \\text{Energy (kJ/m}^2\\text{)} & \\text{Efficiency} \\\\ \\hline \\text{Producers} & 10,000 & - \\\\ \\text{Primary Consumers} & 1,000 & 10\\% \\\\ \\text{Secondary Consumers} & 100 & 10\\% \\\\ \\text{Tertiary Consumers} & 10 & 10\\% \\\\ \\hline \\end{array}",
                     hint: "Use \\begin{array}{|l|c|c|} for table structure, ^ for superscripts in units, and \\% for percentages."
                 }
             ],
             sports: [
                 {
-                    text: "Write the training load formula in LaTeX.",
-                    answer: "TL = \\text{Duration} \\times \\text{Intensity}",
-                    hint: "Use \\text{} for words and \\times for multiplication."
+                    text: "Write a simple speed calculation: distance ÷ time.",
+                    answer: "\\text{Speed} = \\frac{\\text{Distance}}{\\text{Time}}",
+                    hint: "Use \\text{} for words and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Express the heart rate reserve formula in LaTeX.",
+                    text: "Express the BMI calculation formula.",
+                    answer: "BMI = \\frac{\\text{mass (kg)}}{\\text{height (m)}^2}",
+                    hint: "Use \\frac{}{} for fractions, \\text{} for units, and ^ for squared height."
+                },
+                {
+                    text: "Write the heart rate reserve formula.",
                     answer: "HRR = HR_{max} - HR_{rest}",
                     hint: "Use _{} for subscripts to show maximum and resting heart rates."
                 },
                 {
-                    text: "Write the BMI calculation formula in LaTeX.",
-                    answer: "BMI = \\frac{\\text{mass (kg)}}{\\text{height (m)}^2}",
-                    hint: "Use \\frac{}{} for fractions, \\text{} for units, and ^ for superscripts."
+                    text: "Express the power equation in sports science.",
+                    answer: "P = \\frac{W}{t}",
+                    hint: "Power equals work divided by time. Use \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Express the power equation in sports science in LaTeX.",
-                    answer: "P = \\frac{W}{t} = F \\times v",
-                    hint: "Power equals work over time, or force times velocity. Use \\times for multiplication."
-                },
-                {
-                    text: "Express the relative strength calculation in LaTeX.",
-                    answer: "\\text{Relative Strength} = \\frac{\\text{Absolute Strength}}{\\text{Body Weight}}",
-                    hint: "Use \\text{} for words and \\frac{}{} for the fraction."
-                },
-                {
-                    text: "Write the target heart rate zone formula in LaTeX.",
-                    answer: "THR = (HR_{max} - HR_{rest}) \\times \\text{Intensity} + HR_{rest}",
+                    text: "Write the target heart rate zone formula.",
+                    answer: "THR = (HR_{max} - HR_{rest}) \\times \\text{Intensity \\%} + HR_{rest}",
                     hint: "Use _{} for subscripts, \\times for multiplication, and \\text{} for words."
                 },
                 {
-                    text: "Write the anaerobic power formula in LaTeX.",
-                    answer: "P_{an} = \\frac{\\text{Work done}}{\\text{Time}} = \\frac{F \\times d}{t}",
-                    hint: "Use _{} for subscripts, \\frac{}{} for fractions, and \\times for multiplication."
+                    text: "Express the relative strength calculation.",
+                    answer: "\\text{Relative Strength} = \\frac{\\text{Absolute Strength}}{\\text{Body Weight}}",
+                    hint: "Use \\text{} for descriptive words and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Write the formula for calculating VO₂ max in LaTeX.",
-                    answer: "VO_2 \\text{max} = \\frac{\\text{Oxygen consumed (ml)}}{\\text{Body weight (kg)} \\times \\text{Time (min)}}",
-                    hint: "Use _{} for subscripts, \\text{} for words, and \\frac{}{} for fractions."
+                    text: "Write the VO₂ max calculation formula.",
+                    answer: "VO_2 \\text{max} = \\frac{\\text{O}_2 \\text{ consumed (ml)}}{\\text{Body weight (kg)} \\times \\text{Time (min)}}",
+                    hint: "Use _{} for subscripts, \\text{} for words and units, and \\frac{}{} for fractions."
                 },
                 {
-                    text: "Express the mechanical efficiency formula in LaTeX.",
+                    text: "Express the training load calculation.",
+                    answer: "TL = \\text{Duration (min)} \\times \\text{Intensity (RPE)}",
+                    hint: "Use \\text{} for descriptive words and \\times for multiplication. RPE is Rate of Perceived Exertion."
+                },
+                {
+                    text: "Write the mechanical efficiency formula.",
                     answer: "\\eta = \\frac{\\text{Mechanical Power Output}}{\\text{Metabolic Power Input}} \\times 100\\%",
                     hint: "Use \\eta for efficiency, \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
                 },
                 {
-                    text: "Create a data table showing heart rate zones for training.",
-                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Training Zone} & \\text{\\% of HR}_{max} & \\text{Purpose} \\\\ \\hline \\text{Recovery} & 50-60\\% & \\text{Active recovery} \\\\ \\text{Aerobic Base} & 60-70\\% & \\text{Endurance building} \\\\ \\text{Aerobic} & 70-80\\% & \\text{Aerobic capacity} \\\\ \\text{Threshold} & 80-90\\% & \\text{Lactate threshold} \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|l|c|c|} for table structure, _{} for subscripts, \\% for percentages, and \\text{} for descriptive text."
+                    text: "Create a heart rate training zones table.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Zone} & \\text{\\% HR}_{max} & \\text{Purpose} \\\\ \\hline \\text{Recovery} & 50-60\\% & \\text{Active recovery} \\\\ \\text{Aerobic} & 60-70\\% & \\text{Base building} \\\\ \\text{Threshold} & 70-80\\% & \\text{Lactate threshold} \\\\ \\text{VO}_2\\text{max} & 80-90\\% & \\text{Max oxygen uptake} \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|} for table structure, _{} for subscripts, \\% for percentages."
                 }
             ],
             business: [
                 {
-                    text: "Write the current ratio formula in LaTeX.",
+                    text: "Write a simple profit calculation: Revenue - Costs.",
+                    answer: "\\text{Profit} = \\text{Revenue} - \\text{Costs}",
+                    hint: "Use \\text{} for descriptive words. This is the basic profit equation."
+                },
+                {
+                    text: "Express the current ratio formula.",
                     answer: "\\text{Current Ratio} = \\frac{\\text{Current Assets}}{\\text{Current Liabilities}}",
                     hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Express the debt-to-equity ratio formula in LaTeX.",
-                    answer: "\\text{Debt-to-Equity Ratio} = \\frac{\\text{Total Debt}}{\\text{Total Equity}}",
-                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
-                },
-                {
-                    text: "Express the return on investment (ROI) formula in LaTeX.",
-                    answer: "ROI = \\frac{\\text{Net Profit}}{\\text{Total Investment}} \\times 100\\%",
+                    text: "Write the return on investment (ROI) formula.",
+                    answer: "ROI = \\frac{\\text{Net Profit}}{\\text{Investment}} \\times 100\\%",
                     hint: "Use \\frac{}{} for fractions, \\times for multiplication, and \\% for percentage."
                 },
                 {
-                    text: "Write the break-even point formula in LaTeX.",
-                    answer: "\\text{Break-even point} = \\frac{\\text{Fixed Costs}}{\\text{Price per unit} - \\text{Variable cost per unit}}",
+                    text: "Express the break-even point calculation.",
+                    answer: "\\text{Break-even} = \\frac{\\text{Fixed Costs}}{\\text{Price} - \\text{Variable Cost per unit}}",
                     hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Write the price elasticity of demand formula for business analysis in LaTeX.",
-                    answer: "PED = \\frac{\\% \\text{ change in quantity demanded}}{\\% \\text{ change in price}}",
+                    text: "Write the debt-to-equity ratio formula.",
+                    answer: "\\text{D/E Ratio} = \\frac{\\text{Total Debt}}{\\text{Total Equity}}",
+                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the gross profit margin calculation.",
+                    answer: "\\text{Gross Margin} = \\frac{\\text{Revenue} - \\text{COGS}}{\\text{Revenue}} \\times 100\\%",
+                    hint: "Use \\frac{}{} for fractions, \\times for multiplication, and \\% for percentage. COGS is Cost of Goods Sold."
+                },
+                {
+                    text: "Write the inventory turnover ratio formula.",
+                    answer: "\\text{Inventory Turnover} = \\frac{\\text{COGS}}{\\text{Average Inventory}}",
+                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the price elasticity of demand for business.",
+                    answer: "PED = \\frac{\\% \\text{ change in quantity}}{\\% \\text{ change in price}}",
                     hint: "Use \\% for percentage symbols, \\text{} for descriptive text, and \\frac{}{} for the fraction."
                 },
                 {
-                    text: "Create a table showing profit margins for different products in LaTeX.",
-                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Product} & \\text{Revenue} & \\text{Profit Margin} \\\\ \\hline \\text{Product A} & \\$100,000 & 25\\% \\\\ \\text{Product B} & \\$75,000 & 30\\% \\\\ \\text{Product C} & \\$120,000 & 20\\% \\\\ \\hline \\end{array}",
-                    hint: "Use |l|c|c| for left-aligned first column and centered others. Use \\$ for dollar signs and \\% for percentages."
+                    text: "Write the working capital calculation.",
+                    answer: "\\text{Working Capital} = \\text{Current Assets} - \\text{Current Liabilities}",
+                    hint: "Use \\text{} for descriptive words. This measures short-term financial health."
                 },
                 {
-                    text: "Create a simple balance sheet table structure in LaTeX.",
-                    answer: "\\begin{array}{|l|r|} \\hline \\textbf{Assets} & \\textbf{Amount (\\$)} \\\\ \\hline \\text{Current Assets} & 50,000 \\\\ \\text{Fixed Assets} & 150,000 \\\\ \\hline \\textbf{Total Assets} & \\textbf{200,000} \\\\ \\hline \\end{array}",
-                    hint: "Use \\textbf{} for bold text, |l|r| for left and right alignment, and \\hline for separating sections."
-                },
-                {
-                    text: "Create a cash flow table for 3 months in LaTeX.",
-                    answer: "\\begin{array}{|l|c|c|c|} \\hline & \\text{Jan} & \\text{Feb} & \\text{Mar} \\\\ \\hline \\text{Cash In} & \\$15,000 & \\$18,000 & \\$22,000 \\\\ \\text{Cash Out} & \\$12,000 & \\$14,000 & \\$16,000 \\\\ \\text{Net Flow} & \\$3,000 & \\$4,000 & \\$6,000 \\\\ \\hline \\end{array}",
-                    hint: "Use |l|c|c|c| for column alignment. First column left-aligned, others centered."
-                },
-                {
-                    text: "Create a market share comparison table in LaTeX.",
-                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Company} & \\text{Market Share} & \\text{Revenue} \\\\ \\hline \\text{Company A} & 35\\% & \\$2.1M \\\\ \\text{Company B} & 28\\% & \\$1.7M \\\\ \\text{Company C} & 22\\% & \\$1.3M \\\\ \\text{Others} & 15\\% & \\$0.9M \\\\ \\hline \\end{array}",
-                    hint: "Use \\% for percentages and \\$ for currency. M can represent millions."
-                },
-                {
-                    text: "Create a simple data table showing quarterly sales in LaTeX.",
-                    answer: "\\begin{array}{|c|c|} \\hline \\text{Quarter} & \\text{Sales (\\$)} \\\\ \\hline Q1 & 50,000 \\\\ Q2 & 65,000 \\\\ Q3 & 72,000 \\\\ Q4 & 58,000 \\\\ \\hline \\end{array}",
-                    hint: "Use \\begin{array}{|c|c|} for table structure, \\hline for horizontal lines, & for column separation, and \\\\ for new rows."
+                    text: "Create a financial ratios comparison table.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Ratio} & \\text{Company A} & \\text{Industry Average} \\\\ \\hline \\text{Current Ratio} & 2.1 & 1.8 \\\\ \\text{ROI} & 15\\% & 12\\% \\\\ \\text{Debt/Equity} & 0.4 & 0.6 \\\\ \\text{Gross Margin} & 35\\% & 30\\% \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|} for table structure, \\text{} for labels, and \\% for percentages."
                 }
             ]
         };
@@ -1103,6 +1378,13 @@
                 { symbol: "Delta", latex: "\\Delta" },
                 { symbol: "Pi", latex: "\\pi" },
                 { symbol: "Sigma", latex: "\\sigma" }
+            ],
+            "Table Structure": [
+                { symbol: "Basic table", latex: "\\begin{array}{|c|c|} \\hline ... \\end{array}" },
+                { symbol: "Column alignment", latex: "|l|c|r| (left, center, right)" },
+                { symbol: "Horizontal line", latex: "\\hline" },
+                { symbol: "Column separator", latex: "&" },
+                { symbol: "New row", latex: "\\\\" }
             ]
         };
 
@@ -1123,18 +1405,106 @@
                     { symbol: "Plus/minus", latex: "+" }
                 ]
             },
-            mathematics: {
+            advanced: {
+                "Complex Structures": [
+                    { symbol: "Nested fractions", latex: "\\frac{\\frac{a}{b}}{\\frac{c}{d}}" },
+                    { symbol: "Summation", latex: "\\sum_{i=1}^{n} x_i" },
+                    { symbol: "Product", latex: "\\prod_{i=1}^{n} x_i" },
+                    { symbol: "Limit", latex: "\\lim_{x \\to \\infty}" },
+                    { symbol: "Integral", latex: "\\int_a^b f(x) dx" }
+                ],
+                "Matrices & Systems": [
+                    { symbol: "Matrix (parentheses)", latex: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}" },
+                    { symbol: "Matrix (brackets)", latex: "\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}" },
+                    { symbol: "Determinant", latex: "\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}" },
+                    { symbol: "Cases", latex: "\\begin{cases} x = 1 \\\\ y = 2 \\end{cases}" },
+                    { symbol: "Binomial coefficient", latex: "\\binom{n}{k}" }
+                ],
+                "Advanced Calculus": [
+                    { symbol: "Partial derivative", latex: "\\frac{\\partial f}{\\partial x}" },
+                    { symbol: "Multiple integrals", latex: "\\iint_R f(x,y) dx dy" },
+                    { symbol: "Large parentheses", latex: "\\left( \\frac{a}{b} \\right)" },
+                    { symbol: "Spacing", latex: "\\, \\: \\; \\quad \\qquad" }
+                ]
+            },
+            extreme: {
+                "Advanced Symbols": [
+                    { symbol: "Script letters", latex: "\\mathcal{F}, \\mathscr{L}" },
+                    { symbol: "Bold math", latex: "\\mathbf{A}, \\boldsymbol{\\alpha}" },
+                    { symbol: "Blackboard bold", latex: "\\mathbb{R}, \\mathbb{C}" },
+                    { symbol: "Fraktur", latex: "\\mathfrak{g}, \\mathfrak{su}" },
+                    { symbol: "Hat/tilde", latex: "\\hat{x}, \\tilde{y}, \\widehat{xyz}" }
+                ],
+                "Quantum & Physics": [
+                    { symbol: "Bra-ket notation", latex: "\\langle \\psi | \\hat{H} | \\psi \\rangle" },
+                    { symbol: "Reduced Planck", latex: "\\hbar" },
+                    { symbol: "Operators", latex: "\\hat{H}, \\hat{p}" },
+                    { symbol: "Commutator", latex: "[\\hat{A}, \\hat{B}]" },
+                    { symbol: "Tensor indices", latex: "T^{\\mu\\nu}_{\\rho\\sigma}" }
+                ],
+                "Complex Structures": [
+                    { symbol: "Aligned equations", latex: "\\begin{align} ... \\end{align}" },
+                    { symbol: "Multicolumn", latex: "\\multicolumn{2}{c}{text}" },
+                    { symbol: "Phantom spacing", latex: "\\phantom{abc}" },
+                    { symbol: "Contour integral", latex: "\\oint_C f(z) dz" },
+                    { symbol: "Triple integral", latex: "\\iiint_V f(x,y,z) dx dy dz" }
+                ]
+            },
+            'math-aa-sl': {
                 "Calculus": [
                     { symbol: "Derivative", latex: "\\frac{df}{dx}" },
+                    { symbol: "Prime notation", latex: "f'(x)" },
                     { symbol: "Integral", latex: "\\int f(x) dx" },
-                    { symbol: "Limit", latex: "\\lim_{x \\to a} f(x)" },
+                    { symbol: "Definite integral", latex: "\\int_a^b f(x) dx" },
+                    { symbol: "Limit", latex: "\\lim_{x \\to a} f(x)" }
+                ],
+                "Functions": [
+                    { symbol: "Exponential", latex: "e^x" },
+                    { symbol: "Natural log", latex: "\\ln(x)" },
+                    { symbol: "Trigonometric", latex: "\\sin(x), \\cos(x)" },
+                    { symbol: "Inverse trig", latex: "\\sin^{-1}(x)" }
+                ]
+            },
+            'math-aa-hl': {
+                "Advanced Calculus": [
                     { symbol: "Partial derivative", latex: "\\frac{\\partial f}{\\partial x}" },
+                    { symbol: "Double integral", latex: "\\iint_R f(x,y) \\, dx \\, dy" },
+                    { symbol: "Taylor series", latex: "\\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}(x-a)^n" },
                     { symbol: "Infinity", latex: "\\infty" }
                 ],
-                "Advanced": [
-                    { symbol: "Summation", latex: "\\sum_{i=1}^n" },
-                    { symbol: "Binomial", latex: "\\binom{n}{k}" },
+                "Vectors & Complex": [
+                    { symbol: "Vector", latex: "\\vec{r}" },
+                    { symbol: "Dot product", latex: "\\vec{u} \\cdot \\vec{v}" },
+                    { symbol: "Complex exponential", latex: "e^{i\\theta}" },
                     { symbol: "Matrix", latex: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}" }
+                ]
+            },
+            'math-ai-sl': {
+                "Statistics": [
+                    { symbol: "Mean", latex: "\\bar{x}" },
+                    { symbol: "Standard deviation", latex: "s" },
+                    { symbol: "Summation", latex: "\\sum x_i" },
+                    { symbol: "Square root", latex: "\\sqrt{x}" }
+                ],
+                "Probability": [
+                    { symbol: "Normal distribution", latex: "N(\\mu, \\sigma^2)" },
+                    { symbol: "Chi-square", latex: "\\chi^2" },
+                    { symbol: "Correlation", latex: "r" },
+                    { symbol: "Percentage", latex: "\\%" }
+                ]
+            },
+            'math-ai-hl': {
+                "Advanced Statistics": [
+                    { symbol: "Beta coefficients", latex: "\\beta_0, \\beta_1" },
+                    { symbol: "Error term", latex: "\\epsilon" },
+                    { symbol: "Confidence interval", latex: "\\bar{x} \\pm t_{\\alpha/2}" },
+                    { symbol: "Hat notation", latex: "\\hat{p}" }
+                ],
+                "Distributions": [
+                    { symbol: "Binomial coefficient", latex: "\\binom{n}{k}" },
+                    { symbol: "Lambda (Poisson)", latex: "\\lambda" },
+                    { symbol: "Distributed as", latex: "\\sim" },
+                    { symbol: "R-squared", latex: "R^2" }
                 ]
             },
             physics: {
@@ -1246,13 +1616,6 @@
                 ]
             },
             business: {
-                "Table Structure": [
-                    { symbol: "Basic table", latex: "\\begin{array}{|c|c|} \\hline ... \\end{array}" },
-                    { symbol: "Column alignment", latex: "|l|c|r| (left, center, right)" },
-                    { symbol: "Horizontal line", latex: "\\hline" },
-                    { symbol: "Column separator", latex: "&" },
-                    { symbol: "New row", latex: "\\\\" }
-                ],
                 "Financial Notation": [
                     { symbol: "Currency", latex: "\\$" },
                     { symbol: "Percentage", latex: "\\%" },
@@ -1442,5 +1805,5 @@
             btn.addEventListener('click', () => updateSubject(btn.dataset.subject));
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97feb7e0a1a59c5d',t:'MTc1ODAwODQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ff6421471bd03c',t:'MTc1ODAxNTUwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
