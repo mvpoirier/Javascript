@@ -1,0 +1,1446 @@
+<!--
+    DP LaTeX Practice Tool
+    
+    Developer: Mike Poirier
+    Initial Build: September 16, 2025
+    Created with: Canva AI
+    
+    Project Summary:
+    This interactive web application was created through a series of prompts to Canva AI:
+    1. Initial request for an IB Diploma Programme LaTeX practice tool
+    2. Organized subjects by DP groups (Sciences, Mathematics, Individuals & Societies)
+    3. Added comprehensive challenges for each subject with hints and feedback
+    4. Implemented live LaTeX preview using MathJax
+    5. Created reference sections with subject-specific LaTeX commands
+    6. Enhanced UI with responsive design and professional styling
+    7. Refined layout by removing empty sections and making components more compact
+    
+    Features:
+    - 10 subjects across 3 DP groups with LaTeX-heavy content
+    - 10 practice challenges per subject with hints and solutions
+    - Real-time LaTeX rendering and preview
+    - Comprehensive reference guide for LaTeX commands
+    - Responsive design for all devices
+    - Professional gradient styling and smooth animations
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DP LaTeX Practice Tool</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .subject-selector {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+        }
+        
+        .subject-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .dp-groups-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .subject-group {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .basics-section {
+            border-left: 4px solid #28a745;
+            background: #f8fff9;
+        }
+        
+        .group-title {
+            color: #495057;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .subject-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .subject-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: #f8f9fa;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .subject-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .subject-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .practice-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .practice-section h3 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        #challengeCounter {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .challenge-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .challenge-text {
+            font-size: 1.1rem;
+            color: #495057;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .latex-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .latex-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .preview-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .preview-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 150px;
+            border: 2px dashed #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .expected-output-section {
+            margin-top: 25px;
+        }
+        
+        .expected-output-section h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .expected-output-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            min-height: 100px;
+            border: 2px solid #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .hint-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            color: #856404;
+        }
+        
+        .reference-section {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .reference-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .reference-card h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .reference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .reference-item:last-child {
+            border-bottom: none;
+        }
+        
+        .latex-code {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .subject-groups {
+                gap: 15px;
+            }
+            
+            .dp-groups-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .subject-group {
+                padding: 15px;
+            }
+            
+            .group-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .subject-buttons {
+                justify-content: center;
+            }
+            
+            .subject-btn {
+                font-size: 0.8rem;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 DP LaTeX Practice Tool</h1>
+            <p>Master mathematical notation for IB Diploma Programme courses</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="subject-selector">
+                <div class="subject-groups">
+                    <div class="subject-group basics-section">
+                        <h4 class="group-title">🎯 Basic LaTeX Skills</h4>
+                        <div class="subject-buttons">
+                            <button class="subject-btn active" data-subject="basics">📝 LaTeX Fundamentals</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dp-groups-row">
+                        <div class="subject-group">
+                            <h4 class="group-title">Group 3: Individuals & Societies</h4>
+                            <div class="subject-buttons">
+                                <button class="subject-btn" data-subject="economics">💰 Economics</button>
+                                <button class="subject-btn" data-subject="psychology">🧠 Psychology</button>
+                                <button class="subject-btn" data-subject="geography">🌍 Geography</button>
+                                <button class="subject-btn" data-subject="business">💼 Business Management</button>
+                            </div>
+                        </div>
+                        
+                        <div class="subject-group">
+                            <h4 class="group-title">Group 4: Sciences</h4>
+                            <div class="subject-buttons">
+                                <button class="subject-btn" data-subject="physics">⚛️ Physics</button>
+                                <button class="subject-btn" data-subject="chemistry">🧪 Chemistry</button>
+                                <button class="subject-btn" data-subject="biology">🧬 Biology</button>
+                                <button class="subject-btn" data-subject="ess">🌱 Environmental Systems</button>
+                                <button class="subject-btn" data-subject="sports">⚽ Sports Science</button>
+                            </div>
+                        </div>
+                        
+                        <div class="subject-group">
+                            <h4 class="group-title">Group 5: Mathematics</h4>
+                            <div class="subject-buttons">
+                                <button class="subject-btn" data-subject="mathematics">📊 Mathematics</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="practice-section">
+                <h3>📝 Practice Challenge <span id="challengeCounter">1 of 10</span></h3>
+                <div class="challenge-card">
+                    <div class="challenge-text" id="challengeText">
+                        Write the quadratic formula in LaTeX notation.
+                    </div>
+                    <textarea class="latex-input" id="latexInput" placeholder="Type your LaTeX code here..." rows="3"></textarea>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="checkAnswer()">✓ Check Answer</button>
+                        <button class="btn btn-secondary" onclick="showHint()">💡 Hint</button>
+                        <button class="btn btn-success" onclick="nextChallenge()">➡️ Next Challenge</button>
+                    </div>
+                    <div id="feedback"></div>
+                    <div id="hintBox"></div>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h3>👁️ Live Preview</h3>
+                <div class="preview-box" id="previewBox">
+                    <span style="color: #6c757d;">Your LaTeX will render here...</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="renderPreview()">🔄 Update Preview</button>
+                    <button class="btn btn-secondary" onclick="clearInput()">🗑️ Clear</button>
+                </div>
+                
+                <div class="expected-output-section">
+                    <h4>🎯 Expected Output</h4>
+                    <div class="expected-output-box" id="expectedOutputBox">
+                        <span style="color: #6c757d;">The correct answer will appear here...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h3>📚 Quick Reference</h3>
+                <div class="reference-grid" id="referenceGrid">
+                    <!-- Reference cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <footer style="background: linear-gradient(135deg, #495057 0%, #343a40 100%); color: white; text-align: center; padding: 20px; margin-top: 30px;">
+            <p style="margin: 0; font-size: 0.9rem;">
+                Developed by <strong>Mike Poirier</strong> with <strong>Canva AI</strong> | Version 12 | 
+                Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #87ceeb; text-decoration: none;">Creative Commons Attribution 4.0</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const challenges = {
+            basics: [
+                {
+                    text: "Type the letter x (no special formatting needed).",
+                    answer: "x",
+                    hint: "Just type the letter x - no LaTeX commands needed for simple letters!"
+                },
+                {
+                    text: "Write 2 + 3 = 5 (simple addition).",
+                    answer: "2 + 3 = 5",
+                    hint: "Type it exactly as you would on paper - no special LaTeX needed for basic arithmetic."
+                },
+                {
+                    text: "Write x squared using LaTeX superscript notation.",
+                    answer: "x^2",
+                    hint: "Use the ^ symbol followed by the number 2 to create a superscript."
+                },
+                {
+                    text: "Write H subscript 2 O (water formula) using LaTeX.",
+                    answer: "H_2O",
+                    hint: "Use the _ symbol followed by the number to create a subscript."
+                },
+                {
+                    text: "Write a simple fraction: 1 over 2.",
+                    answer: "\\frac{1}{2}",
+                    hint: "Use \\frac{numerator}{denominator} - so \\frac{1}{2} for one-half."
+                },
+                {
+                    text: "Write the square root of 4.",
+                    answer: "\\sqrt{4}",
+                    hint: "Use \\sqrt{} with the number inside the curly braces."
+                },
+                {
+                    text: "Write x to the power of 3 (x cubed).",
+                    answer: "x^3",
+                    hint: "Use ^ followed by 3 to show x to the third power."
+                },
+                {
+                    text: "Write the Greek letter pi (π).",
+                    answer: "\\pi",
+                    hint: "Use \\pi to create the Greek letter π."
+                },
+                {
+                    text: "Write 'speed' as regular text inside a math expression.",
+                    answer: "\\text{speed}",
+                    hint: "Use \\text{} to write regular words inside math expressions."
+                },
+                {
+                    text: "Write a simple equation: y equals mx plus b.",
+                    answer: "y = mx + b",
+                    hint: "Just type it normally - this is a simple linear equation that doesn't need special LaTeX commands."
+                }
+            ],
+            mathematics: [
+                {
+                    text: "Write a simple equation: x equals 5.",
+                    answer: "x = 5",
+                    hint: "This is straightforward - just type x = 5 with no special LaTeX commands needed."
+                },
+                {
+                    text: "Write x squared using LaTeX notation.",
+                    answer: "x^2",
+                    hint: "Use ^ for superscripts. Type x^2 to get x squared."
+                },
+                {
+                    text: "Write x subscript 1 using LaTeX notation.",
+                    answer: "x_1",
+                    hint: "Use _ for subscripts. Type x_1 to get x with subscript 1."
+                },
+                {
+                    text: "Write a simple fraction: a over b.",
+                    answer: "\\frac{a}{b}",
+                    hint: "Use \\frac{numerator}{denominator} for fractions."
+                },
+                {
+                    text: "Write the square root of x in LaTeX.",
+                    answer: "\\sqrt{x}",
+                    hint: "Use \\sqrt{} for square roots. Put the expression inside the curly braces."
+                },
+                {
+                    text: "Write the equation of a circle with center (h,k) and radius r.",
+                    answer: "(x - h)^2 + (y - k)^2 = r^2",
+                    hint: "Use ^ for superscripts and parentheses for the coordinates."
+                },
+                {
+                    text: "Express the arithmetic sequence formula in LaTeX.",
+                    answer: "a_n = a_1 + (n-1)d",
+                    hint: "Use _{} for subscripts to show the nth term and first term."
+                },
+                {
+                    text: "Write the quadratic formula in LaTeX notation.",
+                    answer: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+                    hint: "Use \\frac{}{} for fractions, \\pm for plus-minus, \\sqrt{} for square root, and ^ for superscripts."
+                },
+                {
+                    text: "Express the binomial expansion formula in LaTeX.",
+                    answer: "(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^{n-k} b^k",
+                    hint: "Use \\sum for summation, \\binom{n}{k} for binomial coefficients, and ^ for exponents."
+                },
+                {
+                    text: "Create a data table showing function values for f(x) = x² at x = 1, 2, 3, 4.",
+                    answer: "\\begin{array}{|c|c|} \\hline x & f(x) = x^2 \\\\ \\hline 1 & 1 \\\\ 2 & 4 \\\\ 3 & 9 \\\\ 4 & 16 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\hline for horizontal lines, & for column separation, and \\\\ for new rows."
+                }
+            ],
+            physics: [
+                {
+                    text: "Write Newton's second law in LaTeX.",
+                    answer: "F = ma",
+                    hint: "Simple equation - no special LaTeX commands needed for this one!"
+                },
+                {
+                    text: "Write the momentum formula in LaTeX.",
+                    answer: "p = mv",
+                    hint: "Simple equation - momentum equals mass times velocity."
+                },
+                {
+                    text: "Express Ohm's law in LaTeX.",
+                    answer: "V = IR",
+                    hint: "Simple equation - voltage equals current times resistance."
+                },
+                {
+                    text: "Express gravitational potential energy in LaTeX.",
+                    answer: "E_p = mgh",
+                    hint: "Use _{} for subscripts. This is the formula near Earth's surface."
+                },
+                {
+                    text: "Express the wave speed equation in LaTeX.",
+                    answer: "v = f\\lambda",
+                    hint: "Use \\lambda for the Greek letter lambda (wavelength)."
+                },
+                {
+                    text: "Express the period-frequency relationship in LaTeX.",
+                    answer: "T = \\frac{1}{f}",
+                    hint: "Period is the reciprocal of frequency. Use \\frac{1}{f} for the fraction."
+                },
+                {
+                    text: "Write the kinetic energy formula in LaTeX.",
+                    answer: "E_k = \\frac{1}{2}mv^2",
+                    hint: "Use _{} for subscripts, \\frac{1}{2} for the fraction and ^ for the squared velocity."
+                },
+                {
+                    text: "Express the power formula in LaTeX.",
+                    answer: "P = \\frac{W}{t} = Fv",
+                    hint: "Power can be work over time, or force times velocity. Use \\frac{}{} for fractions."
+                },
+                {
+                    text: "Write the electrical power formula in LaTeX.",
+                    answer: "P = VI = I^2R = \\frac{V^2}{R}",
+                    hint: "Three equivalent forms. Use ^ for superscripts and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Create a data table showing velocity and kinetic energy for a 2kg object.",
+                    answer: "\\begin{array}{|c|c|} \\hline v \\text{ (m/s)} & E_k \\text{ (J)} \\\\ \\hline 5 & 25 \\\\ 10 & 100 \\\\ 15 & 225 \\\\ 20 & 400 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for units, and calculate E_k = ½mv² for each velocity."
+                }
+            ],
+            chemistry: [
+                {
+                    text: "Write the ideal gas law equation in LaTeX.",
+                    answer: "PV = nRT",
+                    hint: "This one is straightforward - no special LaTeX commands needed!"
+                },
+                {
+                    text: "Write the dilution equation in LaTeX.",
+                    answer: "c_1V_1 = c_2V_2",
+                    hint: "Use _{} for subscripts to show initial and final conditions."
+                },
+                {
+                    text: "Express the concentration calculation in LaTeX.",
+                    answer: "c = \\frac{n}{V}",
+                    hint: "Concentration equals moles divided by volume. Use \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Write the pH calculation formula in LaTeX.",
+                    answer: "pH = -\\log[H^+]",
+                    hint: "Use \\log for logarithm, [] for concentration, and ^ for the positive charge."
+                },
+                {
+                    text: "Write the enthalpy change equation in LaTeX.",
+                    answer: "\\Delta H = H_{products} - H_{reactants}",
+                    hint: "Use \\Delta for delta and _{} for subscripts."
+                },
+                {
+                    text: "Express the rate equation for a reaction in LaTeX.",
+                    answer: "\\text{rate} = k[A]^m[B]^n",
+                    hint: "Use \\text{} for the word 'rate', [] for concentrations, and ^ for orders."
+                },
+                {
+                    text: "Express the percentage yield calculation in LaTeX.",
+                    answer: "\\text{Percentage yield} = \\frac{\\text{actual yield}}{\\text{theoretical yield}} \\times 100\\%",
+                    hint: "Use \\text{} for words, \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
+                },
+                {
+                    text: "Express the equilibrium constant expression for aA + bB ⇌ cC + dD in LaTeX.",
+                    answer: "K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}",
+                    hint: "Use _{} for subscripts, [] for concentration brackets, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Express the bond enthalpy calculation in LaTeX.",
+                    answer: "\\Delta H = \\sum \\text{bonds broken} - \\sum \\text{bonds formed}",
+                    hint: "Use \\Delta for enthalpy change, \\sum for summation, and \\text{} for words."
+                },
+                {
+                    text: "Create a data table showing pH values and [H⁺] concentrations.",
+                    answer: "\\begin{array}{|c|c|} \\hline pH & [H^+] \\text{ (mol/L)} \\\\ \\hline 1 & 1 \\times 10^{-1} \\\\ 3 & 1 \\times 10^{-3} \\\\ 7 & 1 \\times 10^{-7} \\\\ 10 & 1 \\times 10^{-10} \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, ^ for superscripts, \\times for multiplication, and \\text{} for units."
+                }
+            ],
+            biology: [
+                {
+                    text: "Write the Hardy-Weinberg equation for allele frequencies in LaTeX.",
+                    answer: "p^2 + 2pq + q^2 = 1",
+                    hint: "Use ^ for superscripts. p and q represent allele frequencies."
+                },
+                {
+                    text: "Express the allometric scaling relationship in LaTeX.",
+                    answer: "Y = aX^b",
+                    hint: "Use ^ for the exponent b in the power law relationship."
+                },
+                {
+                    text: "Express the population growth rate formula in LaTeX.",
+                    answer: "\\frac{dN}{dt} = rN",
+                    hint: "Use \\frac{}{} for the derivative notation and r for growth rate."
+                },
+                {
+                    text: "Write the exponential population growth model in LaTeX.",
+                    answer: "N(t) = N_0 e^{rt}",
+                    hint: "Use _{} for subscripts, e^ for exponential, and {} to group the exponent."
+                },
+                {
+                    text: "Write the enzyme kinetics Michaelis-Menten equation in LaTeX.",
+                    answer: "v = \\frac{V_{max}[S]}{K_m + [S]}",
+                    hint: "Use \\frac{}{} for fractions, _{} for subscripts, and [] for concentration."
+                },
+                {
+                    text: "Write the logistic growth equation in LaTeX.",
+                    answer: "\\frac{dN}{dt} = rN\\left(1 - \\frac{N}{K}\\right)",
+                    hint: "Use \\left( and \\right) for larger parentheses, K represents carrying capacity."
+                },
+                {
+                    text: "Express the Shannon diversity index formula in LaTeX.",
+                    answer: "H' = -\\sum_{i=1}^{S} p_i \\ln(p_i)",
+                    hint: "Use \\sum for summation, \\ln for natural log, and _{} for subscripts."
+                },
+                {
+                    text: "Express the Simpson's diversity index in LaTeX.",
+                    answer: "D = 1 - \\sum_{i=1}^{S} \\left(\\frac{n_i}{N}\\right)^2",
+                    hint: "Use \\sum for summation, \\left( \\right) for parentheses, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Write the competitive exclusion principle equation in LaTeX.",
+                    answer: "\\frac{dN_1}{dt} = r_1N_1\\left(\\frac{K_1 - N_1 - \\alpha_{12}N_2}{K_1}\\right)",
+                    hint: "Use \\frac{}{} for derivatives and fractions, _{} for subscripts, and \\alpha for alpha."
+                },
+                {
+                    text: "Create a data table showing population growth over time using N(t) = N₀e^(rt).",
+                    answer: "\\begin{array}{|c|c|} \\hline \\text{Time (years)} & \\text{Population} \\\\ \\hline 0 & 100 \\\\ 5 & 165 \\\\ 10 & 272 \\\\ 15 & 449 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for column headers, and calculate using exponential growth formula."
+                }
+            ],
+            economics: [
+                {
+                    text: "Write the total revenue formula in LaTeX.",
+                    answer: "TR = P \\times Q",
+                    hint: "Total revenue equals price times quantity. Use \\times for multiplication."
+                },
+                {
+                    text: "Express the profit calculation in LaTeX.",
+                    answer: "\\text{Profit} = TR - TC",
+                    hint: "Profit equals total revenue minus total cost. Use \\text{} for words."
+                },
+                {
+                    text: "Write the basic demand function in LaTeX.",
+                    answer: "Q_d = a - bP",
+                    hint: "Use _{} for subscripts. Q_d represents quantity demanded."
+                },
+                {
+                    text: "Express the average cost formula in LaTeX.",
+                    answer: "AC = \\frac{TC}{Q}",
+                    hint: "Average cost equals total cost divided by quantity. Use \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Write the marginal cost formula in LaTeX.",
+                    answer: "MC = \\frac{\\Delta TC}{\\Delta Q}",
+                    hint: "Marginal cost is change in total cost over change in quantity. Use \\Delta and \\frac{}{}."
+                },
+                {
+                    text: "Write the GDP calculation using expenditure approach in LaTeX.",
+                    answer: "GDP = C + I + G + (X - M)",
+                    hint: "GDP equals consumption plus investment plus government spending plus net exports."
+                },
+                {
+                    text: "Express the price elasticity of demand formula in LaTeX.",
+                    answer: "PED = \\frac{\\% \\text{ change in } Q_d}{\\% \\text{ change in } P}",
+                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Write the income elasticity of demand formula in LaTeX.",
+                    answer: "YED = \\frac{\\% \\text{ change in } Q_d}{\\% \\text{ change in income}}",
+                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Express the multiplier effect formula in LaTeX.",
+                    answer: "\\text{Multiplier} = \\frac{1}{1 - MPC} = \\frac{1}{MPS}",
+                    hint: "Use \\text{} for words, \\frac{}{} for fractions. MPC is marginal propensity to consume."
+                },
+                {
+                    text: "Express the cross price elasticity formula in LaTeX.",
+                    answer: "XED = \\frac{\\% \\text{ change in } Q_d \\text{ of good A}}{\\% \\text{ change in price of good B}}",
+                    hint: "Use \\% for percent symbols, \\text{} for words, and \\frac{}{} for fractions."
+                }
+            ],
+            psychology: [
+                {
+                    text: "Write the z-score formula in LaTeX.",
+                    answer: "z = \\frac{x - \\mu}{\\sigma}",
+                    hint: "Use \\mu for mu (mean) and \\sigma for sigma (standard deviation)."
+                },
+                {
+                    text: "Write the standard error formula in LaTeX.",
+                    answer: "SE = \\frac{\\sigma}{\\sqrt{n}}",
+                    hint: "Use \\sigma for standard deviation and \\sqrt{} for square root."
+                },
+                {
+                    text: "Write the effect size (Cohen's d) formula in LaTeX.",
+                    answer: "d = \\frac{\\bar{x}_1 - \\bar{x}_2}{s_p}",
+                    hint: "Use \\bar{} for means, _{} for subscripts, and s_p for pooled standard deviation."
+                },
+                {
+                    text: "Express the t-test statistic formula in LaTeX.",
+                    answer: "t = \\frac{\\bar{x} - \\mu}{\\frac{s}{\\sqrt{n}}}",
+                    hint: "Use \\bar{x} for sample mean, \\mu for population mean, and nested fractions."
+                },
+                {
+                    text: "Write the ANOVA F-statistic formula in LaTeX.",
+                    answer: "F = \\frac{MS_{between}}{MS_{within}}",
+                    hint: "Use \\frac{}{} for fractions and _{} for subscripts on MS (mean squares)."
+                },
+                {
+                    text: "Write the chi-square test statistic in LaTeX.",
+                    answer: "\\chi^2 = \\sum \\frac{(O_i - E_i)^2}{E_i}",
+                    hint: "Use \\chi for chi, \\sum for summation, and _{} for subscripts."
+                },
+                {
+                    text: "Express the regression equation in LaTeX.",
+                    answer: "Y = \\beta_0 + \\beta_1 X + \\epsilon",
+                    hint: "Use \\beta for beta coefficients, _{} for subscripts, and \\epsilon for error term."
+                },
+                {
+                    text: "Express the confidence interval formula in LaTeX.",
+                    answer: "CI = \\bar{x} \\pm t_{\\alpha/2} \\frac{s}{\\sqrt{n}}",
+                    hint: "Use \\pm for plus-minus, \\bar{} for sample mean, and \\alpha for alpha."
+                },
+                {
+                    text: "Express the correlation coefficient formula in LaTeX.",
+                    answer: "r = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2\\sum(y_i - \\bar{y})^2}}",
+                    hint: "Use \\sum for summation, \\bar{} for mean bars, and \\sqrt{} for square root."
+                },
+                {
+                    text: "Create a data table showing z-scores and their corresponding percentiles.",
+                    answer: "\\begin{array}{|c|c|} \\hline z\\text{-score} & \\text{Percentile} \\\\ \\hline -2.0 & 2.3\\% \\\\ -1.0 & 15.9\\% \\\\ 0.0 & 50.0\\% \\\\ 1.0 & 84.1\\% \\\\ 2.0 & 97.7\\% \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\text{} for labels, and \\% for percentages."
+                }
+            ],
+            geography: [
+                {
+                    text: "Write the population density formula in LaTeX.",
+                    answer: "\\text{Population Density} = \\frac{\\text{Total Population}}{\\text{Land Area}}",
+                    hint: "Use \\text{} for regular text and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Express the demographic transition rate formula in LaTeX.",
+                    answer: "\\text{Growth Rate} = \\frac{\\text{Birth Rate} - \\text{Death Rate}}{1000}",
+                    hint: "Use \\text{} for words and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Write the urban primacy index formula in LaTeX.",
+                    answer: "\\text{Primacy Index} = \\frac{P_1}{P_2}",
+                    hint: "Use _{} for subscripts where P₁ is largest city, P₂ is second largest."
+                },
+                {
+                    text: "Write the rank-size rule formula in LaTeX.",
+                    answer: "P_r = \\frac{P_1}{r}",
+                    hint: "Use _{} for subscripts where P_r is population of rank r city."
+                },
+                {
+                    text: "Express the distance decay function in LaTeX.",
+                    answer: "I = \\frac{k}{d^\\beta}",
+                    hint: "Use \\frac{}{} for fractions, ^ for exponents, and \\beta for the distance decay parameter."
+                },
+                {
+                    text: "Express the gravity model for spatial interaction in LaTeX.",
+                    answer: "I_{ij} = k \\frac{P_i P_j}{d_{ij}^2}",
+                    hint: "Use _{} for subscripts, ^ for superscripts, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Write the location quotient formula in LaTeX.",
+                    answer: "LQ = \\frac{\\frac{e_i}{e}}{\\frac{E_i}{E}}",
+                    hint: "Use nested fractions with \\frac{}{} and _{} for subscripts."
+                },
+                {
+                    text: "Write the centrality index formula in LaTeX.",
+                    answer: "C_i = \\sum_{j \\neq i} \\frac{1}{d_{ij}}",
+                    hint: "Use \\sum for summation, \\neq for 'not equal', and _{} for subscripts."
+                },
+                {
+                    text: "Express the Gini coefficient for spatial inequality in LaTeX.",
+                    answer: "G = \\frac{1}{2n^2\\bar{y}}\\sum_{i=1}^n\\sum_{j=1}^n|y_i - y_j|",
+                    hint: "Use \\bar{} for mean, \\sum for double summation, and | | for absolute value."
+                },
+                {
+                    text: "Create a data table showing urban population growth for major cities.",
+                    answer: "\\begin{array}{|l|c|c|c|} \\hline \\text{City} & 2000 & 2010 & 2020 \\\\ \\hline \\text{Tokyo} & 34.4 & 36.9 & 37.4 \\\\ \\text{Delhi} & 15.9 & 22.7 & 30.3 \\\\ \\text{Shanghai} & 16.4 & 20.2 & 27.1 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|c|} for table structure with left-aligned first column and centered data columns."
+                }
+            ],
+            ess: [
+                {
+                    text: "Write the net primary productivity formula in LaTeX.",
+                    answer: "NPP = GPP - R",
+                    hint: "Simple equation: Net Primary Productivity = Gross Primary Productivity - Respiration."
+                },
+                {
+                    text: "Write the species-area relationship in LaTeX.",
+                    answer: "S = cA^z",
+                    hint: "Use ^ for the exponent z, where S is species number and A is area."
+                },
+                {
+                    text: "Write the bioaccumulation factor formula in LaTeX.",
+                    answer: "BAF = \\frac{C_{organism}}{C_{environment}}",
+                    hint: "Use \\frac{}{} for fractions and _{} for subscripts."
+                },
+                {
+                    text: "Write the carbon cycle equation for photosynthesis in LaTeX.",
+                    answer: "6CO_2 + 6H_2O + \\text{light energy} \\rightarrow C_6H_{12}O_6 + 6O_2",
+                    hint: "Use _{} for subscripts, \\rightarrow for reaction arrow, and \\text{} for words."
+                },
+                {
+                    text: "Express the ecological efficiency formula in LaTeX.",
+                    answer: "\\text{Efficiency} = \\frac{\\text{Energy at trophic level n+1}}{\\text{Energy at trophic level n}} \\times 100\\%",
+                    hint: "Use \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
+                },
+                {
+                    text: "Write the Simpson's diversity index formula in LaTeX.",
+                    answer: "D = 1 - \\sum \\left(\\frac{n_i}{N}\\right)^2",
+                    hint: "Use \\sum for summation, \\left( \\right) for parentheses, and ^ for superscripts."
+                },
+                {
+                    text: "Express the carrying capacity equation in LaTeX.",
+                    answer: "\\frac{dN}{dt} = rN\\left(1 - \\frac{N}{K}\\right)",
+                    hint: "This is the logistic growth model where K is carrying capacity."
+                },
+                {
+                    text: "Express the carbon footprint formula in LaTeX.",
+                    answer: "CF = \\sum_{i} A_i \\times EF_i",
+                    hint: "Use \\sum for summation, _{} for subscripts, and \\times for multiplication."
+                },
+                {
+                    text: "Express the renewable energy potential formula in LaTeX.",
+                    answer: "P = \\frac{1}{2}\\rho A v^3 C_p",
+                    hint: "Use \\frac{1}{2} for the fraction, \\rho for density, and ^ for the cubed velocity."
+                },
+                {
+                    text: "Create a data table showing energy transfer efficiency between trophic levels.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Trophic Level} & \\text{Energy (kJ/m}^2\\text{)} & \\text{Efficiency (\\%)} \\\\ \\hline \\text{Producers} & 10,000 & - \\\\ \\text{Primary Consumers} & 1,000 & 10\\% \\\\ \\text{Secondary Consumers} & 100 & 10\\% \\\\ \\text{Tertiary Consumers} & 10 & 10\\% \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|} for table structure, ^ for superscripts in units, and \\% for percentages."
+                }
+            ],
+            sports: [
+                {
+                    text: "Write the training load formula in LaTeX.",
+                    answer: "TL = \\text{Duration} \\times \\text{Intensity}",
+                    hint: "Use \\text{} for words and \\times for multiplication."
+                },
+                {
+                    text: "Express the heart rate reserve formula in LaTeX.",
+                    answer: "HRR = HR_{max} - HR_{rest}",
+                    hint: "Use _{} for subscripts to show maximum and resting heart rates."
+                },
+                {
+                    text: "Write the BMI calculation formula in LaTeX.",
+                    answer: "BMI = \\frac{\\text{mass (kg)}}{\\text{height (m)}^2}",
+                    hint: "Use \\frac{}{} for fractions, \\text{} for units, and ^ for superscripts."
+                },
+                {
+                    text: "Express the power equation in sports science in LaTeX.",
+                    answer: "P = \\frac{W}{t} = F \\times v",
+                    hint: "Power equals work over time, or force times velocity. Use \\times for multiplication."
+                },
+                {
+                    text: "Express the relative strength calculation in LaTeX.",
+                    answer: "\\text{Relative Strength} = \\frac{\\text{Absolute Strength}}{\\text{Body Weight}}",
+                    hint: "Use \\text{} for words and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Write the target heart rate zone formula in LaTeX.",
+                    answer: "THR = (HR_{max} - HR_{rest}) \\times \\text{Intensity} + HR_{rest}",
+                    hint: "Use _{} for subscripts, \\times for multiplication, and \\text{} for words."
+                },
+                {
+                    text: "Write the anaerobic power formula in LaTeX.",
+                    answer: "P_{an} = \\frac{\\text{Work done}}{\\text{Time}} = \\frac{F \\times d}{t}",
+                    hint: "Use _{} for subscripts, \\frac{}{} for fractions, and \\times for multiplication."
+                },
+                {
+                    text: "Write the formula for calculating VO₂ max in LaTeX.",
+                    answer: "VO_2 \\text{max} = \\frac{\\text{Oxygen consumed (ml)}}{\\text{Body weight (kg)} \\times \\text{Time (min)}}",
+                    hint: "Use _{} for subscripts, \\text{} for words, and \\frac{}{} for fractions."
+                },
+                {
+                    text: "Express the mechanical efficiency formula in LaTeX.",
+                    answer: "\\eta = \\frac{\\text{Mechanical Power Output}}{\\text{Metabolic Power Input}} \\times 100\\%",
+                    hint: "Use \\eta for efficiency, \\frac{}{} for fractions, \\times for multiplication, and \\% for percent."
+                },
+                {
+                    text: "Create a data table showing heart rate zones for training.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Training Zone} & \\text{\\% of HR}_{max} & \\text{Purpose} \\\\ \\hline \\text{Recovery} & 50-60\\% & \\text{Active recovery} \\\\ \\text{Aerobic Base} & 60-70\\% & \\text{Endurance building} \\\\ \\text{Aerobic} & 70-80\\% & \\text{Aerobic capacity} \\\\ \\text{Threshold} & 80-90\\% & \\text{Lactate threshold} \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|l|c|c|} for table structure, _{} for subscripts, \\% for percentages, and \\text{} for descriptive text."
+                }
+            ],
+            business: [
+                {
+                    text: "Write the current ratio formula in LaTeX.",
+                    answer: "\\text{Current Ratio} = \\frac{\\text{Current Assets}}{\\text{Current Liabilities}}",
+                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the debt-to-equity ratio formula in LaTeX.",
+                    answer: "\\text{Debt-to-Equity Ratio} = \\frac{\\text{Total Debt}}{\\text{Total Equity}}",
+                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Express the return on investment (ROI) formula in LaTeX.",
+                    answer: "ROI = \\frac{\\text{Net Profit}}{\\text{Total Investment}} \\times 100\\%",
+                    hint: "Use \\frac{}{} for fractions, \\times for multiplication, and \\% for percentage."
+                },
+                {
+                    text: "Write the break-even point formula in LaTeX.",
+                    answer: "\\text{Break-even point} = \\frac{\\text{Fixed Costs}}{\\text{Price per unit} - \\text{Variable cost per unit}}",
+                    hint: "Use \\text{} for descriptive text and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Write the price elasticity of demand formula for business analysis in LaTeX.",
+                    answer: "PED = \\frac{\\% \\text{ change in quantity demanded}}{\\% \\text{ change in price}}",
+                    hint: "Use \\% for percentage symbols, \\text{} for descriptive text, and \\frac{}{} for the fraction."
+                },
+                {
+                    text: "Create a table showing profit margins for different products in LaTeX.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Product} & \\text{Revenue} & \\text{Profit Margin} \\\\ \\hline \\text{Product A} & \\$100,000 & 25\\% \\\\ \\text{Product B} & \\$75,000 & 30\\% \\\\ \\text{Product C} & \\$120,000 & 20\\% \\\\ \\hline \\end{array}",
+                    hint: "Use |l|c|c| for left-aligned first column and centered others. Use \\$ for dollar signs and \\% for percentages."
+                },
+                {
+                    text: "Create a simple balance sheet table structure in LaTeX.",
+                    answer: "\\begin{array}{|l|r|} \\hline \\textbf{Assets} & \\textbf{Amount (\\$)} \\\\ \\hline \\text{Current Assets} & 50,000 \\\\ \\text{Fixed Assets} & 150,000 \\\\ \\hline \\textbf{Total Assets} & \\textbf{200,000} \\\\ \\hline \\end{array}",
+                    hint: "Use \\textbf{} for bold text, |l|r| for left and right alignment, and \\hline for separating sections."
+                },
+                {
+                    text: "Create a cash flow table for 3 months in LaTeX.",
+                    answer: "\\begin{array}{|l|c|c|c|} \\hline & \\text{Jan} & \\text{Feb} & \\text{Mar} \\\\ \\hline \\text{Cash In} & \\$15,000 & \\$18,000 & \\$22,000 \\\\ \\text{Cash Out} & \\$12,000 & \\$14,000 & \\$16,000 \\\\ \\text{Net Flow} & \\$3,000 & \\$4,000 & \\$6,000 \\\\ \\hline \\end{array}",
+                    hint: "Use |l|c|c|c| for column alignment. First column left-aligned, others centered."
+                },
+                {
+                    text: "Create a market share comparison table in LaTeX.",
+                    answer: "\\begin{array}{|l|c|c|} \\hline \\text{Company} & \\text{Market Share} & \\text{Revenue} \\\\ \\hline \\text{Company A} & 35\\% & \\$2.1M \\\\ \\text{Company B} & 28\\% & \\$1.7M \\\\ \\text{Company C} & 22\\% & \\$1.3M \\\\ \\text{Others} & 15\\% & \\$0.9M \\\\ \\hline \\end{array}",
+                    hint: "Use \\% for percentages and \\$ for currency. M can represent millions."
+                },
+                {
+                    text: "Create a simple data table showing quarterly sales in LaTeX.",
+                    answer: "\\begin{array}{|c|c|} \\hline \\text{Quarter} & \\text{Sales (\\$)} \\\\ \\hline Q1 & 50,000 \\\\ Q2 & 65,000 \\\\ Q3 & 72,000 \\\\ Q4 & 58,000 \\\\ \\hline \\end{array}",
+                    hint: "Use \\begin{array}{|c|c|} for table structure, \\hline for horizontal lines, & for column separation, and \\\\ for new rows."
+                }
+            ]
+        };
+
+        // Base LaTeX functions that all subjects share
+        const baseReferences = {
+            "Basic Formatting": [
+                { symbol: "Fractions", latex: "\\frac{a}{b}" },
+                { symbol: "Superscripts", latex: "x^2" },
+                { symbol: "Subscripts", latex: "x_1" },
+                { symbol: "Square root", latex: "\\sqrt{x}" },
+                { symbol: "Text in math", latex: "\\text{units}" }
+            ],
+            "Common Symbols": [
+                { symbol: "Plus/minus", latex: "\\pm" },
+                { symbol: "Multiplication", latex: "\\times" },
+                { symbol: "Division", latex: "\\div" },
+                { symbol: "Approximately", latex: "\\approx" },
+                { symbol: "Not equal", latex: "\\neq" }
+            ],
+            "Greek Letters": [
+                { symbol: "Alpha", latex: "\\alpha" },
+                { symbol: "Beta", latex: "\\beta" },
+                { symbol: "Delta", latex: "\\Delta" },
+                { symbol: "Pi", latex: "\\pi" },
+                { symbol: "Sigma", latex: "\\sigma" }
+            ]
+        };
+
+        const subjectSpecificReferences = {
+            basics: {
+                "Getting Started": [
+                    { symbol: "Simple text", latex: "x, y, z" },
+                    { symbol: "Basic math", latex: "2 + 3 = 5" },
+                    { symbol: "Superscript", latex: "x^2" },
+                    { symbol: "Subscript", latex: "H_2O" },
+                    { symbol: "Simple fraction", latex: "\\frac{1}{2}" }
+                ],
+                "Essential Commands": [
+                    { symbol: "Square root", latex: "\\sqrt{4}" },
+                    { symbol: "Text in math", latex: "\\text{speed}" },
+                    { symbol: "Greek pi", latex: "\\pi" },
+                    { symbol: "Equals sign", latex: "=" },
+                    { symbol: "Plus/minus", latex: "+" }
+                ]
+            },
+            mathematics: {
+                "Calculus": [
+                    { symbol: "Derivative", latex: "\\frac{df}{dx}" },
+                    { symbol: "Integral", latex: "\\int f(x) dx" },
+                    { symbol: "Limit", latex: "\\lim_{x \\to a} f(x)" },
+                    { symbol: "Partial derivative", latex: "\\frac{\\partial f}{\\partial x}" },
+                    { symbol: "Infinity", latex: "\\infty" }
+                ],
+                "Advanced": [
+                    { symbol: "Summation", latex: "\\sum_{i=1}^n" },
+                    { symbol: "Binomial", latex: "\\binom{n}{k}" },
+                    { symbol: "Matrix", latex: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}" }
+                ]
+            },
+            physics: {
+                "Vectors & Operators": [
+                    { symbol: "Vector", latex: "\\vec{v}" },
+                    { symbol: "Unit vector", latex: "\\hat{n}" },
+                    { symbol: "Nabla", latex: "\\nabla" },
+                    { symbol: "Dot product", latex: "\\vec{a} \\cdot \\vec{b}" }
+                ],
+                "Special Symbols": [
+                    { symbol: "Epsilon", latex: "\\epsilon" },
+                    { symbol: "Mu", latex: "\\mu" },
+                    { symbol: "Psi", latex: "\\psi" },
+                    { symbol: "Partial", latex: "\\partial" }
+                ]
+            },
+            chemistry: {
+                "Chemical Notation": [
+                    { symbol: "Reaction arrow", latex: "\\rightarrow" },
+                    { symbol: "Equilibrium", latex: "\\rightleftharpoons" },
+                    { symbol: "Concentration", latex: "[A]" },
+                    { symbol: "Reversible", latex: "\\leftrightarrow" }
+                ],
+                "Math Functions": [
+                    { symbol: "Logarithm", latex: "\\log" },
+                    { symbol: "Natural log", latex: "\\ln" },
+                    { symbol: "Large parentheses", latex: "\\left( \\right)" }
+                ]
+            },
+            biology: {
+                "Population & Growth": [
+                    { symbol: "Population size", latex: "N" },
+                    { symbol: "Growth rate", latex: "r" },
+                    { symbol: "Carrying capacity", latex: "K" },
+                    { symbol: "Derivative", latex: "\\frac{dN}{dt}" }
+                ],
+                "Statistics": [
+                    { symbol: "Summation", latex: "\\sum_{i=1}^S" },
+                    { symbol: "Natural log", latex: "\\ln" },
+                    { symbol: "Prime notation", latex: "H'" },
+                    { symbol: "Concentration", latex: "[S]" }
+                ]
+            },
+            economics: {
+                "Economic Variables": [
+                    { symbol: "Change (Delta)", latex: "\\Delta" },
+                    { symbol: "Percent", latex: "\\%" },
+                    { symbol: "Infinity", latex: "\\infty" },
+                    { symbol: "Subscripts", latex: "Q_d, Q_s" }
+                ],
+                "Functions": [
+                    { symbol: "Large parentheses", latex: "\\left( \\right)" },
+                    { symbol: "Overline (mean)", latex: "\\bar{x}" },
+                    { symbol: "Logarithm", latex: "\\log" }
+                ]
+            },
+            psychology: {
+                "Statistics": [
+                    { symbol: "Mean", latex: "\\bar{x}" },
+                    { symbol: "Standard deviation", latex: "\\sigma" },
+                    { symbol: "Summation", latex: "\\sum" },
+                    { symbol: "Mu (population mean)", latex: "\\mu" }
+                ],
+                "Test Statistics": [
+                    { symbol: "Z-score", latex: "z" },
+                    { symbol: "T-statistic", latex: "t" },
+                    { symbol: "Correlation", latex: "r" },
+                    { symbol: "Chi-square", latex: "\\chi^2" }
+                ]
+            },
+            geography: {
+                "Geographic Variables": [
+                    { symbol: "Population", latex: "P_1, P_2" },
+                    { symbol: "Distance", latex: "d_{ij}" },
+                    { symbol: "Interaction", latex: "I_{ij}" },
+                    { symbol: "Constant", latex: "k" }
+                ],
+                "Calculations": [
+                    { symbol: "Rate per 1000", latex: "\\frac{\\text{Rate}}{1000}" },
+                    { symbol: "Index ratio", latex: "\\frac{P_1}{P_2}" }
+                ]
+            },
+            ess: {
+                "Chemical Equations": [
+                    { symbol: "Chemical formulas", latex: "CO_2, H_2O" },
+                    { symbol: "Reaction arrow", latex: "\\rightarrow" },
+                    { symbol: "Subscripts", latex: "C_6H_{12}O_6" },
+                    { symbol: "Light energy", latex: "\\text{light energy}" }
+                ],
+                "Ecological Math": [
+                    { symbol: "Summation", latex: "\\sum" },
+                    { symbol: "Percent", latex: "\\%" },
+                    { symbol: "Efficiency ratio", latex: "\\frac{\\text{Output}}{\\text{Input}}" },
+                    { symbol: "Large parentheses", latex: "\\left( \\right)" }
+                ]
+            },
+            sports: {
+                "Physiological Variables": [
+                    { symbol: "VO₂ max", latex: "VO_2 \\text{max}" },
+                    { symbol: "Heart rate", latex: "HR_{max}, HR_{rest}" },
+                    { symbol: "Body mass index", latex: "BMI" },
+                    { symbol: "Power", latex: "P" }
+                ],
+                "Units & Measurements": [
+                    { symbol: "Units in text", latex: "\\text{kg}, \\text{m}" },
+                    { symbol: "Time units", latex: "\\text{min}, \\text{sec}" },
+                    { symbol: "Volume units", latex: "\\text{ml}, \\text{L}" },
+                    { symbol: "Squared units", latex: "\\text{m}^2" }
+                ]
+            },
+            business: {
+                "Table Structure": [
+                    { symbol: "Basic table", latex: "\\begin{array}{|c|c|} \\hline ... \\end{array}" },
+                    { symbol: "Column alignment", latex: "|l|c|r| (left, center, right)" },
+                    { symbol: "Horizontal line", latex: "\\hline" },
+                    { symbol: "Column separator", latex: "&" },
+                    { symbol: "New row", latex: "\\\\" }
+                ],
+                "Financial Notation": [
+                    { symbol: "Currency", latex: "\\$" },
+                    { symbol: "Percentage", latex: "\\%" },
+                    { symbol: "Bold text", latex: "\\textbf{Total}" },
+                    { symbol: "Fractions", latex: "\\frac{\\text{Numerator}}{\\text{Denominator}}" },
+                    { symbol: "Multiplication", latex: "\\times" }
+                ]
+            }
+        };
+
+        let currentSubject = 'basics';
+        let currentChallengeIndex = 0;
+
+        function initializeApp() {
+            updateSubject('basics');
+            renderPreview();
+            
+            // Add event listener for real-time preview
+            document.getElementById('latexInput').addEventListener('input', renderPreview);
+        }
+
+        function updateSubject(subject) {
+            currentSubject = subject;
+            currentChallengeIndex = 0;
+            
+            // Update active button
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.subject === subject) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Load first challenge
+            loadChallenge();
+            
+            // Update reference section
+            updateReference();
+            
+            // Clear feedback and hints
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('hintBox').innerHTML = '';
+        }
+
+        function loadChallenge() {
+            const challenge = challenges[currentSubject][currentChallengeIndex];
+            document.getElementById('challengeText').textContent = challenge.text;
+            document.getElementById('latexInput').value = '';
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('hintBox').innerHTML = '';
+            
+            // Update challenge counter
+            document.getElementById('challengeCounter').textContent = `${currentChallengeIndex + 1} of 10`;
+            
+            renderPreview();
+            showExpectedOutput();
+        }
+
+        function checkAnswer() {
+            const userInput = document.getElementById('latexInput').value.trim();
+            const correctAnswer = challenges[currentSubject][currentChallengeIndex].answer;
+            const feedback = document.getElementById('feedback');
+            
+            // Simple comparison (could be enhanced with more sophisticated matching)
+            const isCorrect = userInput.toLowerCase().replace(/\s+/g, '') === 
+                             correctAnswer.toLowerCase().replace(/\s+/g, '') ||
+                             correctAnswer.split(' \\text{ or } ').some(alt => 
+                                 userInput.toLowerCase().replace(/\s+/g, '') === 
+                                 alt.toLowerCase().replace(/\s+/g, ''));
+            
+            if (isCorrect) {
+                feedback.innerHTML = '🎉 Correct! Well done!';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.innerHTML = `❌ Not quite right. The correct answer is: <code>${correctAnswer}</code>`;
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function showHint() {
+            const hint = challenges[currentSubject][currentChallengeIndex].hint;
+            const hintBox = document.getElementById('hintBox');
+            hintBox.innerHTML = `💡 <strong>Hint:</strong> ${hint}`;
+            hintBox.className = 'hint-box';
+        }
+
+        function nextChallenge() {
+            currentChallengeIndex = (currentChallengeIndex + 1) % challenges[currentSubject].length;
+            loadChallenge();
+        }
+
+        function renderPreview() {
+            const input = document.getElementById('latexInput').value;
+            const previewBox = document.getElementById('previewBox');
+            
+            if (input.trim() === '') {
+                previewBox.innerHTML = '<span style="color: #6c757d;">Your LaTeX will render here...</span>';
+                return;
+            }
+            
+            // Wrap input in display math mode if not already wrapped
+            let mathInput = input;
+            if (!input.startsWith('$') && !input.startsWith('\\[')) {
+                mathInput = `$$${input}$$`;
+            }
+            
+            previewBox.innerHTML = mathInput;
+            
+            // Re-render MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise([previewBox]).catch((err) => {
+                    previewBox.innerHTML = '<span style="color: #dc3545;">Error rendering LaTeX</span>';
+                });
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('latexInput').value = '';
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('hintBox').innerHTML = '';
+            renderPreview();
+        }
+        
+        function showExpectedOutput() {
+            const challenge = challenges[currentSubject][currentChallengeIndex];
+            const expectedOutputBox = document.getElementById('expectedOutputBox');
+            
+            // Handle multiple correct answers
+            const answers = challenge.answer.split(' \\text{ or } ');
+            const displayAnswer = answers[0]; // Show the first (primary) answer
+            
+            const mathInput = `$$${displayAnswer}$$`;
+            expectedOutputBox.innerHTML = mathInput;
+            
+            // Re-render MathJax for expected output
+            if (window.MathJax) {
+                MathJax.typesetPromise([expectedOutputBox]).catch((err) => {
+                    expectedOutputBox.innerHTML = '<span style="color: #dc3545;">Error rendering expected output</span>';
+                });
+            }
+        }
+
+        function updateReference() {
+            const referenceGrid = document.getElementById('referenceGrid');
+            referenceGrid.innerHTML = '';
+            
+            // Always show base references first
+            Object.entries(baseReferences).forEach(([category, items]) => {
+                const card = document.createElement('div');
+                card.className = 'reference-card';
+                card.innerHTML = `
+                    <h4>${category}</h4>
+                    ${items.map(item => `
+                        <div class="reference-item">
+                            <span>${item.symbol}</span>
+                            <code class="latex-code">${item.latex}</code>
+                        </div>
+                    `).join('')}
+                `;
+                referenceGrid.appendChild(card);
+            });
+            
+            // Then show subject-specific references
+            const subjectRefs = subjectSpecificReferences[currentSubject];
+            if (subjectRefs) {
+                Object.entries(subjectRefs).forEach(([category, items]) => {
+                    const card = document.createElement('div');
+                    card.className = 'reference-card';
+                    card.innerHTML = `
+                        <h4>${category}</h4>
+                        ${items.map(item => `
+                            <div class="reference-item">
+                                <span>${item.symbol}</span>
+                                <code class="latex-code">${item.latex}</code>
+                            </div>
+                        `).join('')}
+                    `;
+                    referenceGrid.appendChild(card);
+                });
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        document.querySelectorAll('.subject-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateSubject(btn.dataset.subject));
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97feb7e0a1a59c5d',t:'MTc1ODAwODQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
