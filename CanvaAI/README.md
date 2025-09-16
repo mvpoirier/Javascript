@@ -1,6 +1,6 @@
 Projects I've made using AI-assisted code, and hosted using [Githack](https://raw.githack.com/)
 
-### Educational
+### Educational 🧠
 - [LaTeX Equation Practice for DP Students](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/latexPractice.html)
 
 ### DP Physics Simulations 🚀
