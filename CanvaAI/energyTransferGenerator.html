@@ -1,0 +1,808 @@
+<!--
+    DP Physics B1 Thermal Energy Transfer
+    
+    Author: Mike Poirier
+    Developed with: Canva AI
+    Initial Date: Novmember 28, 2025
+    License: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+-->
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thermal Energy Transfer Question Generator</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 20px 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 16px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .instructions {
+      font-size: 18px;
+      color: #ffffff;
+      margin-bottom: 24px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .equation-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .equation {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2d3748;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 16px;
+    }
+
+    .equation-description {
+      font-size: 16px;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .main-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      margin-bottom: 24px;
+    }
+
+    .generate-section {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .generate-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      border: none;
+      padding: 18px 48px;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .question-section {
+      display: none;
+    }
+
+    .question-section.active {
+      display: block;
+    }
+
+    .question-type {
+      display: inline-block;
+      background: #667eea;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .given-values {
+      background: #f7fafc;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .given-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 12px;
+    }
+
+    .value-item {
+      font-size: 16px;
+      color: #4a5568;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .value-label {
+      font-weight: 600;
+    }
+
+    .answer-section {
+      margin-bottom: 24px;
+    }
+
+    .answer-label {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 12px;
+    }
+
+    .answer-input-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .answer-input {
+      flex: 1;
+      padding: 14px;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #2d3748;
+      background: #ffffff;
+    }
+
+    .answer-input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .unit-display {
+      font-size: 18px;
+      font-weight: 600;
+      color: #4a5568;
+      min-width: 100px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .submit-btn, .new-question-btn {
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn {
+      background: #667eea;
+      color: #ffffff;
+    }
+
+    .submit-btn:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+    }
+
+    .new-question-btn {
+      background: #718096;
+      color: #ffffff;
+    }
+
+    .new-question-btn:hover {
+      background: #4a5568;
+    }
+
+    .feedback {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }
+
+    .feedback-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feedback-details {
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .working-section {
+      background: #f7fafc;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: #2d3748;
+      line-height: 1.8;
+    }
+
+    .diagram-section {
+      background: #f7fafc;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .simple-diagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      margin: 20px 0;
+    }
+
+    .diagram-block {
+      height: 80px;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      border: 3px solid #2d3748;
+    }
+
+    .hot-side {
+      background: #ff6b6b;
+      border-radius: 8px 0 0 8px;
+      border-right: none;
+    }
+
+    .cold-side {
+      background: #4ecdc4;
+      border-radius: 0 8px 8px 0;
+      border-left: none;
+    }
+
+    .diagram-material {
+      width: 120px;
+      height: 80px;
+      background: repeating-linear-gradient(45deg, #718096, #718096 10px, #4a5568 10px, #4a5568 20px);
+      border-top: 3px solid #2d3748;
+      border-bottom: 3px solid #2d3748;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arrow-flow {
+      color: #ff6b6b;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .footer {
+      text-align: center;
+      color: #ffffff;
+      padding: 24px 20px;
+      margin-top: 32px;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    .footer-link {
+      color: #ffffff;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .footer-link:hover {
+      opacity: 0.8;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container">
+   <header class="header">
+    <h1 class="title" id="main-title">Thermal Energy Transfer Practice</h1>
+    <p class="instructions" id="instructions">Practice solving heat conduction problems. Click to generate a random question and solve for the unknown variable.</p>
+   </header>
+   <div class="equation-box">
+    <div class="equation">
+     Q/t = kA(ΔT/x)
+    </div>
+    <div class="equation-description">
+     Q/t = rate of heat transfer (W)<br>
+      k = thermal conductivity (W/m·K)<br>
+      A = cross-sectional area (m²)<br>
+      ΔT = temperature difference (K or °C)<br>
+      x = length of material (m)
+    </div>
+   </div>
+   <main class="main-card">
+    <div class="generate-section" id="generate-section"><button class="generate-btn" id="generate-btn">Generate Question</button>
+    </div>
+    <div class="question-section" id="question-section">
+     <div class="question-type" id="question-type">
+      Paper 1A Question
+     </div>
+     <div class="diagram-section">
+      <div class="simple-diagram">
+       <div class="diagram-block hot-side" id="diagram-hot">
+        Hot
+       </div>
+       <div class="diagram-material"><span class="arrow-flow">→→→</span>
+       </div>
+       <div class="diagram-block cold-side" id="diagram-cold">
+        Cold
+       </div>
+      </div>
+     </div>
+     <p class="question-text" id="question-text"></p>
+     <div class="given-values">
+      <div class="given-title">
+       Given:
+      </div>
+      <div id="given-list"></div>
+     </div>
+     <div class="answer-section"><label class="answer-label" id="answer-label">Your Answer:</label>
+      <div class="answer-input-group"><input type="number" class="answer-input" id="answer-input" step="any" placeholder="Enter your answer"> <span class="unit-display" id="unit-display"></span>
+      </div>
+     </div>
+     <div class="button-group"><button class="submit-btn" id="submit-btn">Check Answer</button> <button class="new-question-btn" id="new-question-btn">New Question</button>
+     </div>
+     <div class="feedback" id="feedback"></div>
+    </div>
+   </main>
+   <footer class="footer">
+    <div class="footer-text">
+     Developed by Mike Poirier, with Canva AI<br>
+      Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="footer-link">Creative Commons Attribution 4.0 International License</a>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "Thermal Energy Transfer Practice",
+      instruction_text: "Practice solving heat conduction problems. Click to generate a random question and solve for the unknown variable.",
+      generate_button_text: "Generate Question",
+      submit_button_text: "Check Answer",
+      new_question_button_text: "New Question",
+      background_color: "#667eea",
+      secondary_surface_color: "#ffffff",
+      text_color: "#2d3748",
+      primary_action_color: "#667eea",
+      secondary_action_color: "#764ba2",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    let config = {};
+    let currentQuestion = null;
+
+    const questionTypes = [
+      {
+        solve: 'Q/t',
+        name: 'Rate of Heat Transfer',
+        unit: 'W',
+        formula: (k, A, dT, x) => (k * A * dT) / x
+      },
+      {
+        solve: 'k',
+        name: 'Thermal Conductivity',
+        unit: 'W/m·K',
+        formula: (Qt, A, dT, x) => (Qt * x) / (A * dT)
+      },
+      {
+        solve: 'A',
+        name: 'Cross-sectional Area',
+        unit: 'm²',
+        formula: (Qt, k, dT, x) => (Qt * x) / (k * dT)
+      },
+      {
+        solve: 'ΔT',
+        name: 'Temperature Difference',
+        unit: 'K',
+        formula: (Qt, k, A, x) => (Qt * x) / (k * A)
+      },
+      {
+        solve: 'x',
+        name: 'Length',
+        unit: 'm',
+        formula: (Qt, k, A, dT) => (k * A * dT) / Qt
+      }
+    ];
+
+    function generateQuestion() {
+      const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+      const paperType = Math.random() > 0.5 ? 'Paper 1A' : 'Paper 2';
+
+      const k = (Math.random() * 390 + 10).toFixed(1);
+      const A = (Math.random() * 0.99 + 0.01).toFixed(3);
+      const T_hot = Math.floor(Math.random() * 150 + 50);
+      const T_cold = Math.floor(Math.random() * 40 + 0);
+      const dT = T_hot - T_cold;
+      const x = (Math.random() * 0.49 + 0.01).toFixed(3);
+
+      let givenValues = {};
+      let correctAnswer;
+
+      switch(questionType.solve) {
+        case 'Q/t':
+          givenValues = { k, A, T_hot, T_cold, dT, x };
+          correctAnswer = questionType.formula(parseFloat(k), parseFloat(A), dT, parseFloat(x));
+          break;
+        case 'k':
+          const Qt1 = (Math.random() * 10000 + 1000).toFixed(1);
+          givenValues = { 'Q/t': Qt1, A, T_hot, T_cold, dT, x };
+          correctAnswer = questionType.formula(parseFloat(Qt1), parseFloat(A), dT, parseFloat(x));
+          break;
+        case 'A':
+          const Qt2 = (Math.random() * 10000 + 1000).toFixed(1);
+          givenValues = { 'Q/t': Qt2, k, T_hot, T_cold, dT, x };
+          correctAnswer = questionType.formula(parseFloat(Qt2), parseFloat(k), dT, parseFloat(x));
+          break;
+        case 'ΔT':
+          const Qt3 = (Math.random() * 10000 + 1000).toFixed(1);
+          givenValues = { 'Q/t': Qt3, k, A, x };
+          correctAnswer = questionType.formula(parseFloat(Qt3), parseFloat(k), parseFloat(A), parseFloat(x));
+          break;
+        case 'x':
+          const Qt4 = (Math.random() * 10000 + 1000).toFixed(1);
+          givenValues = { 'Q/t': Qt4, k, A, T_hot, T_cold, dT };
+          correctAnswer = questionType.formula(parseFloat(Qt4), parseFloat(k), parseFloat(A), dT);
+          break;
+      }
+
+      const contextScenarios = [
+        "A metal rod conducts heat between two reservoirs.",
+        "Heat flows through a wall between a warm room and cold exterior.",
+        "A copper pipe transfers thermal energy along its length.",
+        "Energy is conducted through an insulating material.",
+        "Heat transfers through a rectangular metal plate."
+      ];
+
+      currentQuestion = {
+        type: questionType,
+        paperType,
+        given: givenValues,
+        answer: correctAnswer,
+        context: contextScenarios[Math.floor(Math.random() * contextScenarios.length)]
+      };
+
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      document.getElementById('generate-section').style.display = 'none';
+      document.getElementById('question-section').classList.add('active');
+
+      document.getElementById('question-type').textContent = `${currentQuestion.paperType} Question`;
+      document.getElementById('question-text').textContent = `${currentQuestion.context} Calculate the ${currentQuestion.type.name.toLowerCase()}.`;
+
+      if (currentQuestion.given.T_hot !== undefined) {
+        document.getElementById('diagram-hot').textContent = `${currentQuestion.given.T_hot}°C`;
+        document.getElementById('diagram-cold').textContent = `${currentQuestion.given.T_cold}°C`;
+      } else {
+        document.getElementById('diagram-hot').textContent = 'Hot';
+        document.getElementById('diagram-cold').textContent = 'Cold';
+      }
+
+      const givenList = document.getElementById('given-list');
+      givenList.innerHTML = '';
+
+      const valueLabels = {
+        'k': 'Thermal conductivity (k)',
+        'A': 'Cross-sectional area (A)',
+        'T_hot': 'Hot side temperature (T₁)',
+        'T_cold': 'Cold side temperature (T₂)',
+        'dT': 'Temperature difference (ΔT)',
+        'x': 'Length (x)',
+        'Q/t': 'Rate of heat transfer (Q/t)'
+      };
+
+      const valueUnits = {
+        'k': 'W/m·K',
+        'A': 'm²',
+        'T_hot': '°C',
+        'T_cold': '°C',
+        'dT': 'K',
+        'x': 'm',
+        'Q/t': 'W'
+      };
+
+      for (const [key, value] of Object.entries(currentQuestion.given)) {
+        const item = document.createElement('div');
+        item.className = 'value-item';
+        item.innerHTML = `
+          <span class="value-label">${valueLabels[key]}:</span>
+          <span>${value} ${valueUnits[key]}</span>
+        `;
+        givenList.appendChild(item);
+      }
+
+      document.getElementById('answer-label').textContent = `Calculate ${currentQuestion.type.name} (${currentQuestion.type.solve}):`;
+      document.getElementById('unit-display').textContent = currentQuestion.type.unit;
+      document.getElementById('answer-input').value = '';
+      
+      const feedback = document.getElementById('feedback');
+      feedback.classList.remove('show', 'correct', 'incorrect');
+      feedback.innerHTML = '';
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseFloat(document.getElementById('answer-input').value);
+      
+      if (isNaN(userAnswer)) {
+        showFeedback(false, 'Please enter a valid number.');
+        return;
+      }
+
+      const tolerance = Math.abs(currentQuestion.answer * 0.02);
+      const isCorrect = Math.abs(userAnswer - currentQuestion.answer) <= tolerance;
+
+      let workingSteps = '';
+      const g = currentQuestion.given;
+
+      switch(currentQuestion.type.solve) {
+        case 'Q/t':
+          workingSteps = `
+Q/t = kA(ΔT/x)
+Q/t = (${g.k})(${g.A})(${g.dT})/(${g.x})
+Q/t = ${currentQuestion.answer.toFixed(2)} W
+          `;
+          break;
+        case 'k':
+          workingSteps = `
+Q/t = kA(ΔT/x)
+k = (Q/t)x / (AΔT)
+k = (${g['Q/t']})(${g.x}) / ((${g.A})(${g.dT}))
+k = ${currentQuestion.answer.toFixed(2)} W/m·K
+          `;
+          break;
+        case 'A':
+          workingSteps = `
+Q/t = kA(ΔT/x)
+A = (Q/t)x / (kΔT)
+A = (${g['Q/t']})(${g.x}) / ((${g.k})(${g.dT}))
+A = ${currentQuestion.answer.toFixed(4)} m²
+          `;
+          break;
+        case 'ΔT':
+          workingSteps = `
+Q/t = kA(ΔT/x)
+ΔT = (Q/t)x / (kA)
+ΔT = (${g['Q/t']})(${g.x}) / ((${g.k})(${g.A}))
+ΔT = ${currentQuestion.answer.toFixed(2)} K
+          `;
+          break;
+        case 'x':
+          workingSteps = `
+Q/t = kA(ΔT/x)
+x = kA(ΔT) / (Q/t)
+x = (${g.k})(${g.A})(${g.dT}) / (${g['Q/t']})
+x = ${currentQuestion.answer.toFixed(4)} m
+          `;
+          break;
+      }
+
+      showFeedback(isCorrect, workingSteps, userAnswer);
+    }
+
+    function showFeedback(isCorrect, working, userAnswer = null) {
+      const feedback = document.getElementById('feedback');
+      feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+
+      if (isCorrect) {
+        feedback.innerHTML = `
+          <div class="feedback-title">✓ Correct!</div>
+          <div class="feedback-details">Your answer of ${userAnswer.toFixed(2)} ${currentQuestion.type.unit} is correct.</div>
+          <div class="working-section">${working}</div>
+        `;
+      } else {
+        feedback.innerHTML = `
+          <div class="feedback-title">✗ ${userAnswer === null ? 'Invalid Input' : 'Incorrect'}</div>
+          <div class="feedback-details">
+            ${userAnswer === null ? working : `The correct answer is ${currentQuestion.answer.toFixed(2)} ${currentQuestion.type.unit}`}
+          </div>
+          ${userAnswer !== null ? `<div class="working-section">${working}</div>` : ''}
+        `;
+      }
+    }
+
+    document.getElementById('generate-btn').addEventListener('click', generateQuestion);
+    document.getElementById('submit-btn').addEventListener('click', checkAnswer);
+    document.getElementById('new-question-btn').addEventListener('click', generateQuestion);
+
+    document.getElementById('answer-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkAnswer();
+      }
+    });
+
+    async function onConfigChange(newConfig) {
+      const baseSize = newConfig.font_size || defaultConfig.font_size;
+      const customFont = newConfig.font_family || defaultConfig.font_family;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      const mainTitle = document.getElementById('main-title');
+      mainTitle.textContent = newConfig.main_title || defaultConfig.main_title;
+      mainTitle.style.fontSize = `${baseSize * 3}px`;
+
+      const instructions = document.getElementById('instructions');
+      instructions.textContent = newConfig.instruction_text || defaultConfig.instruction_text;
+      instructions.style.fontSize = `${baseSize * 1.125}px`;
+
+      document.getElementById('generate-btn').textContent = newConfig.generate_button_text || defaultConfig.generate_button_text;
+      document.getElementById('submit-btn').textContent = newConfig.submit_button_text || defaultConfig.submit_button_text;
+      document.getElementById('new-question-btn').textContent = newConfig.new_question_button_text || defaultConfig.new_question_button_text;
+
+      const backgroundColor = newConfig.background_color || defaultConfig.background_color;
+      const textColor = newConfig.text_color || defaultConfig.text_color;
+      const primaryAction = newConfig.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryAction = newConfig.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.body.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${secondaryAction} 100%)`;
+
+      const generateBtn = document.querySelector('.generate-btn');
+      generateBtn.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${secondaryAction} 100%)`;
+
+      const submitBtn = document.querySelector('.submit-btn');
+      submitBtn.style.background = primaryAction;
+
+      const questionType = document.querySelector('.question-type');
+      if (questionType) {
+        questionType.style.background = primaryAction;
+      }
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_surface_color || defaultConfig.secondary_surface_color,
+              set: (value) => {
+                config.secondary_surface_color = value;
+                window.elementSdk.setConfig({ secondary_surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["instruction_text", config.instruction_text || defaultConfig.instruction_text],
+          ["generate_button_text", config.generate_button_text || defaultConfig.generate_button_text],
+          ["submit_button_text", config.submit_button_text || defaultConfig.submit_button_text],
+          ["new_question_button_text", config.new_question_button_text || defaultConfig.new_question_button_text]
+        ])
+      });
+
+      config = window.elementSdk.config;
+      onConfigChange(config);
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a56b6821420dc13',t:'MTc2NDI5OTg1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
