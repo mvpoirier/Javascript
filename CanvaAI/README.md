@@ -2,7 +2,7 @@ Projects I've made using AI-assisted code, and hosted using [Githack](https://ra
 
 ### 🧠 Educational 
 - [LaTeX Equation Practice for DP Students](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/latexPractice.html)
-- [Statistical Analysis for Scientists](https://raw.githack.com/mvpoirier/Javascript/blob/master/CanvaAI/statisticalAnalysis.html)
+- [Statistical Analysis for Scientists (Mike Holland)](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/statisticalAnalysis.html)
 
 ### 🚀 DP Physics Simulations 
 - [A1 suvat Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/suvatGenerator.html)
