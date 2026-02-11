@@ -8,39 +8,786 @@ Date: February 2026
 ================================================================================
 -->
 
-<!DOCTYPE html><html dir="ltr" lang="en" class="theme light classic"><head><base href="/c121kdhhqtaq8znb/"><meta charset="utf-8"><title>Statistical Analysis for Science</title><meta name="app-name" content="export_website"/><meta name="viewport" content="width=device-width, initial-scale=1"><link href="_assets/a0684b0780c739e9.vendor.ltr.css" rel="stylesheet" integrity="sha512-JwMCpiHdk95MoUTatfaZJwstzeDnWfvWMJiwnSxZfPmgeCe4yvQDQ+ONMQjIy/Ht72r0TmlE+gvZnYRnpdLdVg==" crossorigin="anonymous"><link href="_assets/fb27ec48e16b482f.ltr.css" rel="stylesheet" integrity="sha512-G82AJmuSXRTykoHx626eotZ1Y3uA8zlR3jEfOWGSbfycntzbxSXjdpN0TBoZ1yXgJN7lODDlWGNrnv5S7h6vqQ==" crossorigin="anonymous"><link href="_assets/static_font_4.ltr.css" rel="stylesheet"><link href="_assets/47bf8041fe2f49bf.runtime.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-giogMxH6fInbfTuR6c1TsvmcTW9ABrdui7ZHBC+F18MRmrtbfb69WkdzyCk9Au4RZUmqGI5NqtnCZGwGj7eC5g==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><link href="_assets/fb765918bdc2d19b.s4le6a.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-3VjFGpvNTvgZ+9x5P3x48AnYqgt3wImtyr7Brrkc1siXteKHnrY01r2kGXXPZuXzLfLQStWpxRPP3VEuZGvbQg==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><link href="_assets/fc71351a376c0b87.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-3MllCFemer7nkuIbMXp8rPAIVLVMe04PfYq5Eo3WLUlqZtBagO1N6ggalNL3rc8Q2BVDxupzdP2LlVyMC3K41w==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><link href="_assets/7dc75e9d6cc31085.strings.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-/E+lnkuEerv0gMLPrbXlIYMayk7EPkC6ooMAHV/iyTUQ+i5OmPTDwDlHDq4c/Gyg3YVbX+7Y7e63Ajc8tlkypg==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><link href="_assets/f59a2d4c693b83c5.en.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-v2JKb8odd0gwz9nP0NmA0FbqOoGnqRKtz9HxfIvPKPVZ1HOMJ0A5IaZuw9SdlUlORScNC/tdNY8SzxgspOJrgQ==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><link href="_assets/6c0f23fa57d9578d.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-o1J0rKyQtb9m+vH8E0Hq5J4Ykkbjl2Zki9WVLJQOJDr7MH2A8+6k12uF20H96UUW/LNEFQ7GCT821yU5+qJ7HQ==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"><meta name="referrer" content="strict-origin-when-cross-origin"><meta property="og:title" content="Untitled App"><meta property="og:type" content="website"><link rel="shortcut icon" href="_assets/images/2d0b56e7e51cf11036ad8734bdb67e2d.png"><link rel="icon" href="_assets/images/e53c4bd8da5e491d9ab09e7cf0daf874.png" sizes="192x192"><link rel="apple-touch-icon" href="_assets/images/725b756a69a7d4c235070e51acd85560.png" sizes="180x180"><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">window['__canva_website_bootstrap__'] = JSON.parse('{"A":"ASSISTANT_THREAD_CODELET#d3cb214c-b090-4c6e-8c74-8f97d08f1605","B":"eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoia2lkLTE3NDAwODM2MjAyNzEifQ..jd8aLv5K7NwUnq7T.9oyDh-wiwISB3Mf0y9E-_wVGotiNEPhLHqZjiPHTkFfsD7BzBNkNoXoCwRszDvpUIGcD9wxf5Lr400WKIsJekDGgtb7Dndwbv5ViNUg9ODeguaNpIgB3589ZHNoVDO1EqEsGQu8fxCjx.8cUF3KcBdu6Sxnra6iezfg"}');</script><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">
-      document.addEventListener('contextmenu', (e) => {
-        const isMedia = ['img', 'image', 'video', 'svg', 'picture'].some(
-          tagName => tagName.localeCompare(e.target.tagName, undefined, { sensitivity: 'base' }) === 0,
-        );
-        isMedia && e.preventDefault();
-      });
-    </script><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">
-  const lang = navigator.language ? navigator.language : 'en';
-  window.canva_installFooter = (container) => {
-    if (!(container instanceof HTMLDivElement)) {
-      return;
+<!DOCTYPE html>
+<html lang="en" class="h-full"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistical Analysis Lab Guide</title>
+  <script src="index_data/3.4.17"></script>
+  <script src="index_data/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="index_data/css2.css" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
     }
-    fetch('_footer?lang=' + encodeURIComponent(lang)).then(response => {
-      if (response.status !== 200) {
-        return;
-      }
-      response.text().then(footerStr => {
-        container.innerHTML = '';
-        const div = document.createElement('div');
-        div.innerHTML = footerStr;
-        for (const child of [...div.children]) {
-          if (child.tagName.toLowerCase() !== 'script') {
-            container.append(child);
-          }
-        }
+    * {
+      font-family: 'Outfit', sans-serif;
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+    .card-glow {
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
+    }
+    .data-point {
+      transition: all 0.3s ease;
+    }
+    .data-point:hover {
+      transform: scale(1.3);
+      filter: brightness(1.2);
+    }
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse-animation {
+      animation: pulse-soft 2s ease-in-out infinite;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    .interpretation-card {
+      border-left: 4px solid;
+      transition: all 0.3s ease;
+    }
+    .interpretation-card:hover {
+      transform: translateX(5px);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="index_data/data_sdk.js" type="text/javascript"></script>
+ <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-12{height:3rem}.h-2{height:0.5rem}.h-full{height:100%}.min-h-full{min-height:100%}.w-12{width:3rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-6xl{max-width:72rem}.cursor-pointer{cursor:pointer}.appearance-none{-webkit-appearance:none;appearance:none}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-auto{overflow:auto}.overflow-x-auto{overflow-x:auto}.rounded-2xl{border-radius:1rem}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-amber-500{--tw-border-opacity:1;border-color:rgb(245 158 11 / var(--tw-border-opacity, 1))}.border-blue-500{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.border-emerald-500{--tw-border-opacity:1;border-color:rgb(16 185 129 / var(--tw-border-opacity, 1))}.border-emerald-500\/20{border-color:rgb(16 185 129 / 0.2)}.border-emerald-500\/30{border-color:rgb(16 185 129 / 0.3)}.border-indigo-500\/20{border-color:rgb(99 102 241 / 0.2)}.border-indigo-500\/30{border-color:rgb(99 102 241 / 0.3)}.border-purple-500\/30{border-color:rgb(168 85 247 / 0.3)}.border-red-500{--tw-border-opacity:1;border-color:rgb(239 68 68 / var(--tw-border-opacity, 1))}.border-slate-600{--tw-border-opacity:1;border-color:rgb(71 85 105 / var(--tw-border-opacity, 1))}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.bg-amber-600{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.bg-amber-900\/20{background-color:rgb(120 53 15 / 0.2)}.bg-blue-900\/20{background-color:rgb(30 58 138 / 0.2)}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity, 1))}.bg-emerald-900\/20{background-color:rgb(6 78 59 / 0.2)}.bg-emerald-900\/30{background-color:rgb(6 78 59 / 0.3)}.bg-indigo-900\/30{background-color:rgb(49 46 129 / 0.3)}.bg-indigo-900\/50{background-color:rgb(49 46 129 / 0.5)}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-red-900\/20{background-color:rgb(127 29 29 / 0.2)}.bg-slate-700{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-800\/50{background-color:rgb(30 41 59 / 0.5)}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-400{--tw-gradient-from:#818cf8 var(--tw-gradient-from-position);--tw-gradient-to:rgb(129 140 248 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-indigo-500{--tw-gradient-from:#6366f1 var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-indigo-600{--tw-gradient-from:#4f46e5 var(--tw-gradient-from-position);--tw-gradient-to:rgb(79 70 229 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-900\/30{--tw-gradient-from:rgb(88 28 135 / 0.3) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-800{--tw-gradient-from:#1e293b var(--tw-gradient-from-position);--tw-gradient-to:rgb(30 41 59 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-purple-400{--tw-gradient-to:rgb(192 132 252 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #c084fc var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-pink-400{--tw-gradient-to:#f472b6 var(--tw-gradient-to-position)}.to-pink-900\/30{--tw-gradient-to:rgb(131 24 67 / 0.3) var(--tw-gradient-to-position)}.to-purple-600{--tw-gradient-to:#9333ea var(--tw-gradient-to-position)}.to-slate-800\/50{--tw-gradient-to:rgb(30 41 59 / 0.5) var(--tw-gradient-to-position)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-blue-300{--tw-text-opacity:1;color:rgb(147 197 253 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-cyan-400{--tw-text-opacity:1;color:rgb(34 211 238 / var(--tw-text-opacity, 1))}.text-emerald-200{--tw-text-opacity:1;color:rgb(167 243 208 / var(--tw-text-opacity, 1))}.text-emerald-300{--tw-text-opacity:1;color:rgb(110 231 183 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-indigo-200{--tw-text-opacity:1;color:rgb(199 210 254 / var(--tw-text-opacity, 1))}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity, 1))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-purple-300{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-red-300{--tw-text-opacity:1;color:rgb(252 165 165 / var(--tw-text-opacity, 1))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.accent-emerald-500{accent-color:#10b981}.accent-indigo-500{accent-color:#6366f1}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-amber-500:hover{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.hover\:bg-emerald-500:hover{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.hover\:bg-red-500:hover{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:from-indigo-500:hover{--tw-gradient-from:#6366f1 var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:to-purple-500:hover{--tw-gradient-to:#a855f7 var(--tw-gradient-to-position)}.hover\:shadow-indigo-500\/30:hover{--tw-shadow-color:rgb(99 102 241 / 0.3);--tw-shadow:var(--tw-shadow-colored)}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:p-8{padding:2rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}}@media (min-width: 1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
+ <body class="h-full bg-slate-900 text-white overflow-auto" style="background-color: rgb(15, 23, 42); color: rgb(226, 232, 240);">
+  <div class="min-h-full w-full p-6 md:p-8"><!-- Header -->
+   <header class="text-center mb-8">
+    <div class="inline-flex items-center gap-3 mb-4">
+     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl">
+      📊
+     </div>
+     <h1 id="main-title" class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Statistical Analysis for Scientists</h1>
+    </div>
+    <p class="text-slate-400 max-w-2xl mx-auto">Master data interpretation for your lab reports: Learn when to use R² for relationships vs. Error Bars for precision</p>
+   </header><!-- Navigation Tabs -->
+   <nav class="flex justify-center gap-3 mb-8 flex-wrap"><button onclick="showTab('overview')" id="tab-overview" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:bg-slate-700 tab-active" style="background: linear-gradient(135deg, rgb(99, 102, 241) 0%, rgb(150, 153, 255) 100%);"> 🎯 Overview </button> <button onclick="showTab('r-squared')" id="tab-r-squared" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-800 hover:bg-slate-700"> 📈 R² Analysis </button> <button onclick="showTab('error-bars')" id="tab-error-bars" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-800 hover:bg-slate-700"> 📊 Error Bars </button> <button onclick="showTab('compare')" id="tab-compare" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-800 hover:bg-slate-700"> ⚖️ Compare </button> <button onclick="showTab('practice')" id="tab-practice" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-800 hover:bg-slate-700"> 🧪 Practice </button>
+   </nav><!-- Content Sections -->
+   <main class="max-w-6xl mx-auto"><!-- Overview Section -->
+    <section id="section-overview" class="content-section slide-in">
+     <div class="grid md:grid-cols-2 gap-6 mb-8"><!-- R² Card -->
+      <div class="bg-gradient-to-br from-slate-800 to-slate-800/50 rounded-2xl p-6 card-glow border border-indigo-500/20">
+       <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📈</span>
+        <h3 class="text-xl font-semibold text-indigo-300">R² (Coefficient of Determination)</h3>
+       </div>
+       <div class="space-y-3 text-slate-300">
+        <p><strong class="text-indigo-400">Use for:</strong> Continuous data with scatter plots</p>
+        <p><strong class="text-indigo-400">Question it answers:</strong> "How much of Y's change is explained by X?"</p>
+        <p><strong class="text-indigo-400">Best for:</strong> Physics (F vs a), Chemistry (concentration vs absorbance)</p>
+       </div>
+       <div class="mt-4 p-3 bg-indigo-900/30 rounded-lg">
+        <p class="text-sm text-indigo-200">💡 High R² → Strong relationship, controlled variables</p>
+       </div>
+      </div><!-- Error Bars Card -->
+      <div class="bg-gradient-to-br from-slate-800 to-slate-800/50 rounded-2xl p-6 card-glow border border-emerald-500/20">
+       <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📊</span>
+        <h3 class="text-xl font-semibold text-emerald-300">Error Bars (SD/SEM)</h3>
+       </div>
+       <div class="space-y-3 text-slate-300">
+        <p><strong class="text-emerald-400">Use for:</strong> Discrete/categorical data with bar charts</p>
+        <p><strong class="text-emerald-400">Question it answers:</strong> "How consistent were my repeated trials?"</p>
+        <p><strong class="text-emerald-400">Best for:</strong> Biology (growth comparisons), ecology (population studies)</p>
+       </div>
+       <div class="mt-4 p-3 bg-emerald-900/30 rounded-lg">
+        <p class="text-sm text-emerald-200">💡 Small bars → High precision, reliable measurements</p>
+       </div>
+      </div>
+     </div><!-- Quick Reference Table -->
+     <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
+      <h3 class="text-xl font-semibold mb-4 text-center">🔍 Quick Decision Guide</h3>
+      <div class="overflow-x-auto">
+       <table class="w-full text-sm">
+        <thead>
+         <tr class="border-b border-slate-600">
+          <th class="text-left p-3 text-slate-400">Feature</th>
+          <th class="text-left p-3 text-indigo-400">R² (Continuous)</th>
+          <th class="text-left p-3 text-emerald-400">Error Bars (Discrete)</th>
+         </tr>
+        </thead>
+        <tbody class="text-slate-300">
+         <tr class="border-b border-slate-700">
+          <td class="p-3 font-medium">Data Type</td>
+          <td class="p-3">Scatter plots, line of best fit</td>
+          <td class="p-3">Bar charts, grouped categories</td>
+         </tr>
+         <tr class="border-b border-slate-700">
+          <td class="p-3 font-medium">Science Goal</td>
+          <td class="p-3">Explain strength of relationship</td>
+          <td class="p-3">Explain certainty of measurement</td>
+         </tr>
+         <tr class="border-b border-slate-700">
+          <td class="p-3 font-medium">Analysis Focus</td>
+          <td class="p-3">"How well does my line fit?"</td>
+          <td class="p-3">"How much did trials vary?"</td>
+         </tr>
+         <tr>
+          <td class="p-3 font-medium">Method Evaluation</td>
+          <td class="p-3">Identifies systematic errors</td>
+          <td class="p-3">Identifies random errors</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section><!-- R-Squared Section -->
+    <section id="section-r-squared" class="content-section hidden">
+     <div class="grid lg:grid-cols-2 gap-6"><!-- Interactive Graph -->
+      <div class="bg-slate-800/50 rounded-2xl p-6 border border-indigo-500/20">
+       <h3 id="r-squared-title" class="text-xl font-semibold mb-4 text-indigo-300">📈 R² Interactive Demo</h3><!-- R² Value Display -->
+       <div class="text-center mb-4">
+        <div class="inline-block bg-indigo-900/50 px-6 py-3 rounded-xl"><span class="text-slate-400">R² = </span> <span id="r2-value" class="text-3xl font-bold text-indigo-400">0.95</span>
+        </div>
+       </div><!-- SVG Graph -->
+       <div class="bg-slate-900 rounded-xl p-4 mb-4">
+        <svg id="scatter-plot" viewBox="0 0 400 300" class="w-full"><!-- Grid lines --> <g stroke="#334155" stroke-width="0.5">
+          <line x1="50" y1="250" x2="380" y2="250"></line>
+          <line x1="50" y1="200" x2="380" y2="200" stroke-dasharray="4"></line>
+          <line x1="50" y1="150" x2="380" y2="150" stroke-dasharray="4"></line>
+          <line x1="50" y1="100" x2="380" y2="100" stroke-dasharray="4"></line>
+          <line x1="50" y1="50" x2="380" y2="50" stroke-dasharray="4"></line>
+          <line x1="50" y1="50" x2="50" y2="250"></line>
+         </g> <!-- Axis labels --> <text x="215" y="290" fill="#94a3b8" text-anchor="middle" font-size="12">
+          Independent Variable (X)
+         </text> <text x="20" y="150" fill="#94a3b8" text-anchor="middle" font-size="12" transform="rotate(-90 20 150)">
+          Dependent Variable (Y)
+         </text> <!-- Line of best fit --> <line id="best-fit-line" x1="60" y1="240" x2="370" y2="60" stroke="#818cf8" stroke-width="2" stroke-dasharray="8"></line> <!-- Data points container --> <g id="data-points"></g>
+        </svg>
+       </div><!-- Scatter Control -->
+       <div class="space-y-3"><label class="block text-slate-300">Adjust Data Scatter (Noise Level):</label> <input type="range" id="scatter-slider" min="0" max="100" value="10" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" oninput="updateScatter(this.value)">
+        <div class="flex justify-between text-sm text-slate-500"><span>Perfect Fit (R²≈1.0)</span> <span>High Scatter (R²≈0.3)</span>
+        </div>
+       </div>
+      </div><!-- Interpretation Guide -->
+      <div class="space-y-4">
+       <h3 class="text-xl font-semibold text-indigo-300">🔬 Interpretation Guide</h3>
+       <div class="interpretation-card bg-emerald-900/20 p-4 rounded-xl border-emerald-500">
+        <h4 class="font-semibold text-emerald-400 mb-2">R² &gt; 0.95 — Excellent Fit</h4>
+        <p class="text-slate-300 text-sm">The independent variable explains nearly all variation. Your method has excellent control of variables.</p>
+        <p class="text-emerald-300 text-sm mt-2">📝 Example: Beer-Lambert Law in spectrophotometry</p>
+       </div>
+       <div class="interpretation-card bg-blue-900/20 p-4 rounded-xl border-blue-500">
+        <h4 class="font-semibold text-blue-400 mb-2">R² = 0.70–0.95 — Good Fit</h4>
+        <p class="text-slate-300 text-sm">Strong relationship exists. Some uncontrolled variables may be affecting results.</p>
+        <p class="text-blue-300 text-sm mt-2">📝 Example: Temperature vs. enzyme activity (within optimal range)</p>
+       </div>
+       <div class="interpretation-card bg-amber-900/20 p-4 rounded-xl border-amber-500">
+        <h4 class="font-semibold text-amber-400 mb-2">R² = 0.40–0.70 — Moderate Fit</h4>
+        <p class="text-slate-300 text-sm">Relationship exists but other factors are significant. Review your controlled variables.</p>
+        <p class="text-amber-300 text-sm mt-2">📝 Example: Plant growth vs. single nutrient (many factors involved)</p>
+       </div>
+       <div class="interpretation-card bg-red-900/20 p-4 rounded-xl border-red-500">
+        <h4 class="font-semibold text-red-400 mb-2">R² &lt; 0.40 — Weak Fit</h4>
+        <p class="text-slate-300 text-sm">Little to no linear relationship. Consider: Is the relationship actually linear? Are there systematic errors?</p>
+        <p class="text-red-300 text-sm mt-2">📝 Action: Re-evaluate hypothesis or experimental design</p>
+       </div><!-- Method Evaluation Box -->
+       <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 mt-6">
+        <h4 class="font-semibold text-purple-400 mb-3">⚙️ Method Evaluation Using R²</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+         <li>• <strong>Low R² when expecting high:</strong> Check for systematic errors (calibration, parallax)</li>
+         <li>• <strong>Curved residuals:</strong> Relationship may not be linear—try polynomial fit</li>
+         <li>• <strong>Outliers present:</strong> Identify and explain anomalous results</li>
+         <li>• <strong>High R² but wrong slope:</strong> Check units and calculations</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </section><!-- Error Bars Section -->
+    <section id="section-error-bars" class="content-section hidden">
+     <div class="grid lg:grid-cols-2 gap-6"><!-- Interactive Bar Chart -->
+      <div class="bg-slate-800/50 rounded-2xl p-6 border border-emerald-500/20">
+       <h3 id="error-bars-title" class="text-xl font-semibold mb-4 text-emerald-300">📊 Error Bars Interactive Demo</h3><!-- SVG Bar Chart -->
+       <div class="bg-slate-900 rounded-xl p-4 mb-4">
+        <svg id="bar-chart" viewBox="0 0 400 300" class="w-full"><!-- Grid lines --> <g stroke="#334155" stroke-width="0.5">
+          <line x1="60" y1="250" x2="380" y2="250"></line>
+          <line x1="60" y1="200" x2="380" y2="200" stroke-dasharray="4"></line>
+          <line x1="60" y1="150" x2="380" y2="150" stroke-dasharray="4"></line>
+          <line x1="60" y1="100" x2="380" y2="100" stroke-dasharray="4"></line>
+          <line x1="60" y1="50" x2="380" y2="50" stroke-dasharray="4"></line>
+          <line x1="60" y1="50" x2="60" y2="250"></line>
+         </g> <!-- Y-axis labels --> <text x="50" y="255" fill="#94a3b8" text-anchor="end" font-size="10">
+          0
+         </text> <text x="50" y="205" fill="#94a3b8" text-anchor="end" font-size="10">
+          25
+         </text> <text x="50" y="155" fill="#94a3b8" text-anchor="end" font-size="10">
+          50
+         </text> <text x="50" y="105" fill="#94a3b8" text-anchor="end" font-size="10">
+          75
+         </text> <text x="50" y="55" fill="#94a3b8" text-anchor="end" font-size="10">
+          100
+         </text> <!-- Bars and error bars container --> <g id="bars-container"></g> <!-- X-axis labels --> <text x="120" y="275" fill="#94a3b8" text-anchor="middle" font-size="11">
+          Control
+         </text> <text x="220" y="275" fill="#94a3b8" text-anchor="middle" font-size="11">
+          Treatment A
+         </text> <text x="320" y="275" fill="#94a3b8" text-anchor="middle" font-size="11">
+          Treatment B
+         </text>
+        </svg>
+       </div><!-- Controls -->
+       <div class="space-y-4">
+        <div><label class="block text-slate-300 mb-2">Variability (Error Bar Size):</label> <input type="range" id="error-slider" min="5" max="50" value="15" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500" oninput="updateErrorBars(this.value)">
+         <div class="flex justify-between text-sm text-slate-500 mt-1"><span>High Precision</span> <span>High Variability</span>
+         </div>
+        </div>
+        <div><label class="block text-slate-300 mb-2">Overlap Scenario:</label>
+         <div class="flex gap-2 flex-wrap"><button onclick="setOverlapScenario('distinct')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm transition-colors"> No Overlap </button> <button onclick="setOverlapScenario('partial')" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 rounded-lg text-sm transition-colors"> Partial Overlap </button> <button onclick="setOverlapScenario('full')" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-sm transition-colors"> Full Overlap </button>
+         </div>
+        </div>
+       </div>
+      </div><!-- Interpretation Guide -->
+      <div class="space-y-4">
+       <h3 class="text-xl font-semibold text-emerald-300">🔬 Interpretation Guide</h3>
+       <div class="interpretation-card bg-emerald-900/20 p-4 rounded-xl border-emerald-500">
+        <h4 class="font-semibold text-emerald-400 mb-2">Small Error Bars — High Precision</h4>
+        <p class="text-slate-300 text-sm">Data points are tightly clustered. Your measurement technique is consistent and reliable.</p>
+        <p class="text-emerald-300 text-sm mt-2">✅ Indicates: Good experimental technique, controlled conditions</p>
+       </div>
+       <div class="interpretation-card bg-amber-900/20 p-4 rounded-xl border-amber-500">
+        <h4 class="font-semibold text-amber-400 mb-2">Large Error Bars — High Variability</h4>
+        <p class="text-slate-300 text-sm">Wide spread in your data. Consider random errors or natural biological variation.</p>
+        <p class="text-amber-300 text-sm mt-2">⚠️ Action: Increase sample size (n) or review technique</p>
+       </div>
+       <div class="interpretation-card bg-blue-900/20 p-4 rounded-xl border-blue-500">
+        <h4 class="font-semibold text-blue-400 mb-2">Non-Overlapping Bars</h4>
+        <p class="text-slate-300 text-sm">The difference between groups is likely statistically significant. The treatment had a real effect.</p>
+        <p class="text-blue-300 text-sm mt-2">📝 You can confidently claim a difference exists</p>
+       </div>
+       <div class="interpretation-card bg-red-900/20 p-4 rounded-xl border-red-500">
+        <h4 class="font-semibold text-red-400 mb-2">Overlapping Bars</h4>
+        <p class="text-slate-300 text-sm">The difference may not be statistically significant. The observed difference could be due to chance.</p>
+        <p class="text-red-300 text-sm mt-2">📝 More trials or statistical tests needed to confirm</p>
+       </div><!-- SD vs SEM Box -->
+       <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 mt-6">
+        <h4 class="font-semibold text-purple-400 mb-3">📏 SD vs. SEM: Which to Use?</h4>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+         <div>
+          <p class="text-cyan-400 font-medium">Standard Deviation (SD)</p>
+          <p class="text-slate-300">Shows data spread</p>
+          <p class="text-slate-400">Use for: Describing your sample</p>
+         </div>
+         <div>
+          <p class="text-pink-400 font-medium">Standard Error (SEM)</p>
+          <p class="text-slate-300">Shows precision of mean</p>
+          <p class="text-slate-400">Use for: Comparing means</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Compare Section -->
+    <section id="section-compare" class="content-section hidden">
+     <h3 class="text-2xl font-semibold text-center mb-6">⚖️ Side-by-Side Comparison</h3>
+     <div class="grid md:grid-cols-2 gap-6 mb-8"><!-- Scenario A -->
+      <div class="bg-slate-800/50 rounded-2xl p-6 border border-indigo-500/30">
+       <h4 class="text-lg font-semibold text-indigo-400 mb-4">📌 Scenario A: Physics Lab</h4>
+       <p class="text-slate-300 mb-4">Force vs. Acceleration with R² = 0.99 but large error bars on each point</p>
+       <svg viewBox="0 0 300 200" class="w-full bg-slate-900 rounded-lg p-2 mb-4"><!-- Line --> <line x1="40" y1="170" x2="280" y2="40" stroke="#818cf8" stroke-width="2"></line> <!-- Points with large error bars --> <g>
+         <line x1="70" y1="135" x2="70" y2="175" stroke="#f87171" stroke-width="2"></line>
+         <line x1="65" y1="135" x2="75" y2="135" stroke="#f87171" stroke-width="2"></line>
+         <line x1="65" y1="175" x2="75" y2="175" stroke="#f87171" stroke-width="2"></line>
+         <circle cx="70" cy="155" r="5" fill="#818cf8"></circle>
+        </g> <g>
+         <line x1="130" y1="95" x2="130" y2="145" stroke="#f87171" stroke-width="2"></line>
+         <line x1="125" y1="95" x2="135" y2="95" stroke="#f87171" stroke-width="2"></line>
+         <line x1="125" y1="145" x2="135" y2="145" stroke="#f87171" stroke-width="2"></line>
+         <circle cx="130" cy="120" r="5" fill="#818cf8"></circle>
+        </g> <g>
+         <line x1="190" y1="60" x2="190" y2="110" stroke="#f87171" stroke-width="2"></line>
+         <line x1="185" y1="60" x2="195" y2="60" stroke="#f87171" stroke-width="2"></line>
+         <line x1="185" y1="110" x2="195" y2="110" stroke="#f87171" stroke-width="2"></line>
+         <circle cx="190" cy="85" r="5" fill="#818cf8"></circle>
+        </g> <g>
+         <line x1="250" y1="25" x2="250" y2="75" stroke="#f87171" stroke-width="2"></line>
+         <line x1="245" y1="25" x2="255" y2="25" stroke="#f87171" stroke-width="2"></line>
+         <line x1="245" y1="75" x2="255" y2="75" stroke="#f87171" stroke-width="2"></line>
+         <circle cx="250" cy="50" r="5" fill="#818cf8"></circle>
+        </g> <text x="160" y="195" fill="#94a3b8" text-anchor="middle" font-size="10">
+         R² = 0.99
+        </text>
+       </svg>
+       <div class="bg-indigo-900/30 p-4 rounded-lg">
+        <p class="text-indigo-200 font-medium mb-2">🔍 Analysis:</p>
+        <p class="text-slate-300 text-sm">The theory is perfect (F=ma works), but equipment precision is poor. Each measurement has high uncertainty.</p>
+        <p class="text-amber-300 text-sm mt-2">💡 Method issue: Random errors in force/acceleration measurements. Need better sensors or more trials.</p>
+       </div>
+      </div><!-- Scenario B -->
+      <div class="bg-slate-800/50 rounded-2xl p-6 border border-emerald-500/30">
+       <h4 class="text-lg font-semibold text-emerald-400 mb-4">📌 Scenario B: Biology Lab</h4>
+       <p class="text-slate-300 mb-4">Fertilizer vs. Growth with tiny error bars but R² = 0.45</p>
+       <svg viewBox="0 0 300 200" class="w-full bg-slate-900 rounded-lg p-2 mb-4"><!-- Scattered line --> <line x1="40" y1="140" x2="280" y2="90" stroke="#34d399" stroke-width="2" stroke-dasharray="5"></line> <!-- Points with small error bars, scattered --> <g>
+         <line x1="60" y1="165" x2="60" y2="175" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="60" cy="170" r="4" fill="#34d399"></circle>
+        </g> <g>
+         <line x1="100" y1="105" x2="100" y2="115" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="100" cy="110" r="4" fill="#34d399"></circle>
+        </g> <g>
+         <line x1="140" y1="135" x2="140" y2="145" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="140" cy="140" r="4" fill="#34d399"></circle>
+        </g> <g>
+         <line x1="180" y1="75" x2="180" y2="85" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="180" cy="80" r="4" fill="#34d399"></circle>
+        </g> <g>
+         <line x1="220" y1="120" x2="220" y2="130" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="220" cy="125" r="4" fill="#34d399"></circle>
+        </g> <g>
+         <line x1="260" y1="60" x2="260" y2="70" stroke="#60a5fa" stroke-width="2"></line>
+         <circle cx="260" cy="65" r="4" fill="#34d399"></circle>
+        </g> <text x="160" y="195" fill="#94a3b8" text-anchor="middle" font-size="10">
+         R² = 0.45
+        </text>
+       </svg>
+       <div class="bg-emerald-900/30 p-4 rounded-lg">
+        <p class="text-emerald-200 font-medium mb-2">🔍 Analysis:</p>
+        <p class="text-slate-300 text-sm">Measurements are precise (good
+ technique), but fertilizer isn't the only growth factor. Other 
+variables (light, water, genetics) matter.</p>
+        <p class="text-amber-300 text-sm mt-2">💡 Method issue: Not a precision problem—it's a complexity problem. Need to control more variables.</p>
+       </div>
+      </div>
+     </div><!-- Key Insight -->
+     <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 p-6 rounded-2xl border border-purple-500/30">
+      <h4 class="text-xl font-semibold text-purple-300 mb-4 text-center">🎯 Key Insight for Lab Reports</h4>
+      <div class="grid md:grid-cols-2 gap-6 text-center">
+       <div>
+        <p class="text-2xl mb-2">🎯 R²</p>
+        <p class="text-slate-300">Tells you about your <span class="text-indigo-400 font-semibold">MODEL</span></p>
+        <p class="text-slate-400 text-sm">(Is your hypothesis/theory explaining the data?)</p>
+       </div>
+       <div>
+        <p class="text-2xl mb-2">📊 Error Bars</p>
+        <p class="text-slate-300">Tell you about your <span class="text-emerald-400 font-semibold">MEASUREMENTS</span></p>
+        <p class="text-slate-400 text-sm">(Is your data collection technique reliable?)</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Practice Section -->
+    <section id="section-practice" class="content-section hidden">
+     <h3 class="text-2xl font-semibold text-center mb-6">🧪 Practice Scenarios</h3>
+     <div id="practice-container" class="space-y-6"><!-- Practice questions will be generated here -->
+     </div>
+     <div class="text-center mt-6"><button onclick="generatePractice()" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-indigo-500/30"> 🔄 Generate New Scenarios </button>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'Statistical Analysis for Scientists',
+      r_squared_title: '📈 R² Interactive Demo',
+      error_bars_title: '📊 Error Bars Interactive Demo',
+      background_color: '#0f172a',
+      surface_color: '#1e293b',
+      text_color: '#e2e8f0',
+      primary_action: '#6366f1',
+      secondary_action: '#10b981'
+    };
 
-        (() => { !function(){"use strict";const t={active:"active"},o={modalBackdrop:"modal_backdrop",termsAndConditionsModal:"modal",termsAndConditionsModalCloseButton:"form_close_initial",reportButton:"form_report",privacyPolicyModal:"privacy_policy_modal",privacyPolicyModalCloseButton:"form_close_privacy_policy",termsAndSupportFooterButton:"report_button",privacyPolicyFooterButton:"privacy_policy_button"};!function(){const c=document.getElementById(o.modalBackdrop);null!=c&&(function(c){const e=document.getElementById(o.termsAndConditionsModal),n=document.getElementById(o.termsAndConditionsModalCloseButton),l=document.getElementById(o.reportButton),i=document.getElementById(o.termsAndSupportFooterButton);if(null==e||null==n||null==l||null==i)return;l.onclick=()=>{const{origin:t,pathname:o}=window.location,c=t+o,e=l.dataset.reportUrl+encodeURIComponent(c);window.open(e)};const s=()=>{c.classList.remove(t.active),e.classList.remove(t.active),i.classList.remove(t.active),i.focus(),c.onclick=null};n.onclick=s,i.onclick=()=>{c.classList.add(t.active),c.onclick=s,e.classList.add(t.active),i.classList.add(t.active)}}(c),function(c){const e=document.getElementById(o.privacyPolicyModal),n=document.getElementById(o.privacyPolicyModalCloseButton),l=document.getElementById(o.privacyPolicyFooterButton);if(null==e||null==n||null==l)return;const i=()=>{c.classList.remove(t.active),e.classList.remove(t.active),l.classList.remove(t.active),l.focus(),c.onclick=null};n.onclick=i,l.onclick=()=>{c.classList.add(t.active),c.onclick=i,e.classList.add(t.active),l.classList.add(t.active)}}(c))}()}(); })();
+    let config = { ...defaultConfig };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (value) => {
+                cfg.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => cfg.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                cfg.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (value) => {
+                cfg.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => cfg.primary_action || defaultConfig.primary_action,
+              set: (value) => {
+                cfg.primary_action = value;
+                window.elementSdk.setConfig({ primary_action: value });
+              }
+            },
+            {
+              get: () => cfg.secondary_action || defaultConfig.secondary_action,
+              set: (value) => {
+                cfg.secondary_action = value;
+                window.elementSdk.setConfig({ secondary_action: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['r_squared_title', cfg.r_squared_title || defaultConfig.r_squared_title],
+          ['error_bars_title', cfg.error_bars_title || defaultConfig.error_bars_title]
+        ])
       });
-    });
-  }
-</script><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">
-    window.C_CAPTCHA_IMPLEMENTATION = 'RECAPTCHA';
-</script><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">
-    window.C_CAPTCHA_KEY = '6LdpNmIrAAAAAHQVezN3pBAfDjQQ2qUpo881f24o';
-</script></head><body><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">document.documentElement.classList.replace('adaptive', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script><div id="root"></div><script nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e">(function() {window['__canva_public_path__'] = '_assets\/'; window['bootstrap'] = JSON.parse('{"base":{"A?":"B","L":false,"N":false,"E":"79bf442e5caa2379d4d38e2a73a41b6665f79c9a","K":1770459457,"F":{"A?":"B"},"G":"CLIENT_FULL","I":"A","O":{"A?":"B"},"M":"/_online","U":[],"V":[],"a":{"K":"export_website","H":{}},"d":{"A":"wss://www.canva.com/_stream","B":{"F":"export_website"},"C":8388608},"b":{"A?":"H","C":{"a":"WEB"},"D":{"a":"WEB","c":"en"},"E":{},"P":[],"Q":[],"R":false,"S":false}},"page":{"A":{"B":{"A?":"B","A":1366.0,"B":768.0,"C":"D"},"C":{"A":1366.0,"B":768.0,"C":"D"},"Q":[],"R":[],"P":"en","D":"Untitled App","F":[],"G":{},"Y":{},"a":[],"b":[],"V":[],"W":[],"A":[{"A?":"i","a":"PBCrq69HznS9xdw1","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"w":{"A":[{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false}],"B":[]},"r":[],"E":[{"A?":"BC","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"_":"LB88vxlvF8Vwq6Ys","b":1366.0,"a":768.0,"z":{"A":{"A":"w:JR4G8hDDg","B":1},"B":{}},"y":{"A":{"A?":"S","A":{"A":"https://www.canva-hosted-embed.com/codelet/c121kdhhqtaq8znb","B":0,"C":"F"}},"i":{"A?":"A","A":"c121kdhhqtaq8znb"}}}],"I":[]}],"I":[]},"Z":{"A?":"E","M":"en","e":false,"g":[{"A?":"A","K":"PBCrq69HznS9xdw1","L":"","O":"Untitled App","e":{"A":true}}]},"I":{"A":[{"A":"YACgEZ1cb1Q","B":0,"C":"Arimo","D":[{"style":"BOLD","files":[{"url":"_assets/fonts/98c4d2c0223fc8474641c77f923528e9.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194064},{"url":"_assets/fonts/0bb563f2f60ffd4e62b64cb021c33776.otf","format":"OTF","unicodeRanges":[],"sizeBytes":438516},{"url":"_assets/fonts/9fd726aeae98b22824f0dc8947036e77.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234696}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2116},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":32}}},{"style":"REGULAR","files":[{"url":"_assets/fonts/f8f199f09526f79e87644ed227e0f651.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194188},{"url":"_assets/fonts/4ff8a742aa834e35f10ead140b735c45.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234380},{"url":"_assets/fonts/daee28464eba92254cb149feea6599e3.otf","format":"OTF","unicodeRanges":[],"sizeBytes":436180}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2007},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":64}}},{"style":"BOLD_ITALICS","files":[{"url":"_assets/fonts/4de29305db46625343735e840e3d27aa.otf","format":"OTF","unicodeRanges":[],"sizeBytes":435028},{"url":"_assets/fonts/7fc2786f9023d4d812357cb787e9ad4b.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":237660},{"url":"_assets/fonts/1060345c54d396e76d73f1da7ee200bd.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":203232}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2109},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":33}}},{"style":"ITALICS","files":[{"url":"_assets/fonts/ac9b8a560f98d1757a4565a2419d33c3.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":240632},{"url":"_assets/fonts/79d14bb61301a10c73c6cb293c29b309.otf","format":"OTF","unicodeRanges":[],"sizeBytes":440740},{"url":"_assets/fonts/d257a7100844bc3f98c9021168b6249e.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":201132}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2077},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-425,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":1}}}],"E":false}],"B":[],"C":[],"D":[],"E":[{"A":"https://www.canva-hosted-embed.com/codelet/c121kdhhqtaq8znb","Q":false,"B":"Canva","D":1770459457151,"E":"\x3ciframe src=\\"_assets/remote/embed/codelet/c121kdhhqtaq8znb/index.html\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768}],"F":[],"G":[]},"B":[{"A":"YACgEZ1cb1Q","B":0,"C":"Arimo","D":[{"style":"BOLD","files":[{"url":"_assets/fonts/98c4d2c0223fc8474641c77f923528e9.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194064},{"url":"_assets/fonts/0bb563f2f60ffd4e62b64cb021c33776.otf","format":"OTF","unicodeRanges":[],"sizeBytes":438516},{"url":"_assets/fonts/9fd726aeae98b22824f0dc8947036e77.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234696}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2116},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":32}}},{"style":"REGULAR","files":[{"url":"_assets/fonts/f8f199f09526f79e87644ed227e0f651.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194188},{"url":"_assets/fonts/4ff8a742aa834e35f10ead140b735c45.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234380},{"url":"_assets/fonts/daee28464eba92254cb149feea6599e3.otf","format":"OTF","unicodeRanges":[],"sizeBytes":436180}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2007},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":64}}},{"style":"BOLD_ITALICS","files":[{"url":"_assets/fonts/4de29305db46625343735e840e3d27aa.otf","format":"OTF","unicodeRanges":[],"sizeBytes":435028},{"url":"_assets/fonts/7fc2786f9023d4d812357cb787e9ad4b.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":237660},{"url":"_assets/fonts/1060345c54d396e76d73f1da7ee200bd.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":203232}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2109},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":33}}},{"style":"ITALICS","files":[{"url":"_assets/fonts/ac9b8a560f98d1757a4565a2419d33c3.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":240632},{"url":"_assets/fonts/79d14bb61301a10c73c6cb293c29b309.otf","format":"OTF","unicodeRanges":[],"sizeBytes":440740},{"url":"_assets/fonts/d257a7100844bc3f98c9021168b6249e.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":201132}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2077},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-425,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":1}}}],"E":false}],"E":[],"F":[],"G":[],"H":[{"A":"https://www.canva-hosted-embed.com/codelet/c121kdhhqtaq8znb","Q":false,"B":"Canva","D":1770459457151,"E":"\x3ciframe src=\\"_assets/remote/embed/codelet/c121kdhhqtaq8znb/index.html\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768}],"S":[],"K":{},"Q":{"A":false,"B":true,"M":true},"R":false,"W":false,"U":true,"V":true},"ui":{"N":false,"A":true,"B":"A","C":false,"D":false,"K":"A","I":true,"J":false,"P":false,"Q":false}}'); window['flags'] = JSON.parse('{"3114cbb6":true,"5c5bcac3":50.0,"fb4bf44e":true,"1bdb7e8a":true,"4073adf":true,"978ce15d":150000.0,"bad95a53":true,"5eb77351":true,"61af18e7":true,"b424ff7e":true,"646956e3":true,"6d44eea4":true,"a5f31b0e":true,"a9a5cacb":true,"6e74853e":true,"c524a276":true,"87cb5bb0":true}'); window['cmsg'] = window['cmsg'] || { locale: "en", strings: {} };})();</script><script crossorigin="anonymous" src="_assets/47bf8041fe2f49bf.runtime.js" defer integrity="sha512-giogMxH6fInbfTuR6c1TsvmcTW9ABrdui7ZHBC+F18MRmrtbfb69WkdzyCk9Au4RZUmqGI5NqtnCZGwGj7eC5g==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script><script crossorigin="anonymous" src="_assets/fb765918bdc2d19b.s4le6a.vendor.js" defer integrity="sha512-3VjFGpvNTvgZ+9x5P3x48AnYqgt3wImtyr7Brrkc1siXteKHnrY01r2kGXXPZuXzLfLQStWpxRPP3VEuZGvbQg==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script><script crossorigin="anonymous" src="_assets/fc71351a376c0b87.vendor.js" defer integrity="sha512-3MllCFemer7nkuIbMXp8rPAIVLVMe04PfYq5Eo3WLUlqZtBagO1N6ggalNL3rc8Q2BVDxupzdP2LlVyMC3K41w==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script><script crossorigin="anonymous" src="_assets/7dc75e9d6cc31085.strings.js" integrity="sha512-/E+lnkuEerv0gMLPrbXlIYMayk7EPkC6ooMAHV/iyTUQ+i5OmPTDwDlHDq4c/Gyg3YVbX+7Y7e63Ajc8tlkypg==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script><script crossorigin="anonymous" src="_assets/f59a2d4c693b83c5.en.js" integrity="sha512-v2JKb8odd0gwz9nP0NmA0FbqOoGnqRKtz9HxfIvPKPVZ1HOMJ0A5IaZuw9SdlUlORScNC/tdNY8SzxgspOJrgQ==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script><script crossorigin="anonymous" src="_assets/6c0f23fa57d9578d.js" defer integrity="sha512-o1J0rKyQtb9m+vH8E0Hq5J4Ykkbjl2Zki9WVLJQOJDr7MH2A8+6k12uF20H96UUW/LNEFQ7GCT821yU5+qJ7HQ==" nonce="c1129bc5-c895-4211-a0fa-a4c409ebc97e"></script></body></html>
+    }
+
+    function applyConfig() {
+      // Apply text content
+      document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('r-squared-title').textContent = config.r_squared_title || defaultConfig.r_squared_title;
+      document.getElementById('error-bars-title').textContent = config.error_bars_title || defaultConfig.error_bars_title;
+      
+      // Apply colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action || defaultConfig.primary_action;
+      const secondaryColor = config.secondary_action || defaultConfig.secondary_action;
+      
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
+      
+      // Update tab active styles
+      document.querySelectorAll('.tab-active').forEach(tab => {
+        tab.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${adjustColor(primaryColor, 20)} 100%)`;
+      });
+    }
+
+    function adjustColor(hex, percent) {
+      const num = parseInt(hex.replace('#', ''), 16);
+      const amt = Math.round(2.55 * percent);
+      const R = Math.min(255, (num >> 16) + amt);
+      const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+      const B = Math.min(255, (num & 0x0000FF) + amt);
+      return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+    }
+
+    // Tab navigation
+    function showTab(tabName) {
+      // Hide all sections
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('bg-slate-800');
+      });
+      
+      // Show selected section
+      const section = document.getElementById(`section-${tabName}`);
+      if (section) {
+        section.classList.remove('hidden');
+        section.classList.add('slide-in');
+      }
+      
+      // Add active class to selected tab
+      const tab = document.getElementById(`tab-${tabName}`);
+      if (tab) {
+        tab.classList.add('tab-active');
+        tab.classList.remove('bg-slate-800');
+      }
+      
+      // Initialize visualizations if needed
+      if (tabName === 'r-squared') {
+        updateScatter(document.getElementById('scatter-slider').value);
+      } else if (tabName === 'error-bars') {
+        updateErrorBars(document.getElementById('error-slider').value);
+      } else if (tabName === 'practice') {
+        if (document.getElementById('practice-container').children.length === 0) {
+          generatePractice();
+        }
+      }
+    }
+
+    // R² Scatter Plot
+    function updateScatter(noiseLevel) {
+      const container = document.getElementById('data-points');
+      container.innerHTML = '';
+      
+      const noise = noiseLevel / 100;
+      const points = [];
+      
+      // Generate points along line with noise
+      for (let i = 0; i < 12; i++) {
+        const x = 70 + (i * 26);
+        const idealY = 235 - (i * 15);
+        const actualY = idealY + (Math.random() - 0.5) * noise * 150;
+        points.push({ x, y: Math.max(55, Math.min(245, actualY)) });
+      }
+      
+      // Calculate R²
+      const meanY = points.reduce((sum, p) => sum + p.y, 0) / points.length;
+      const ssTotal = points.reduce((sum, p) => sum + Math.pow(p.y - meanY, 2), 0);
+      const ssResidual = points.reduce((sum, p, i) => {
+        const predictedY = 235 - (i * 15);
+        return sum + Math.pow(p.y - predictedY, 2);
+      }, 0);
+      const r2 = Math.max(0, 1 - (ssResidual / ssTotal));
+      
+      document.getElementById('r2-value').textContent = r2.toFixed(2);
+      
+      // Color based on R²
+      let pointColor = '#818cf8';
+      if (r2 < 0.4) pointColor = '#f87171';
+      else if (r2 < 0.7) pointColor = '#fbbf24';
+      else if (r2 < 0.95) pointColor = '#60a5fa';
+      else pointColor = '#34d399';
+      
+      // Draw points
+      points.forEach((p, i) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', p.x);
+        circle.setAttribute('cy', p.y);
+        circle.setAttribute('r', '6');
+        circle.setAttribute('fill', pointColor);
+        circle.setAttribute('class', 'data-point');
+        circle.style.animationDelay = `${i * 50}ms`;
+        container.appendChild(circle);
+      });
+    }
+
+    // Error Bars Chart
+    let barData = [
+      { label: 'Control', mean: 45, sd: 15 },
+      { label: 'Treatment A', mean: 70, sd: 15 },
+      { label: 'Treatment B', mean: 85, sd: 15 }
+    ];
+
+    function updateErrorBars(sdValue) {
+      barData = barData.map(d => ({ ...d, sd: parseInt(sdValue) }));
+      renderBarChart();
+    }
+
+    function setOverlapScenario(scenario) {
+      const sd = parseInt(document.getElementById('error-slider').value);
+      if (scenario === 'distinct') {
+        barData = [
+          { label: 'Control', mean: 35, sd },
+          { label: 'Treatment A', mean: 60, sd },
+          { label: 'Treatment B', mean: 85, sd }
+        ];
+      } else if (scenario === 'partial') {
+        barData = [
+          { label: 'Control', mean: 45, sd },
+          { label: 'Treatment A', mean: 55, sd },
+          { label: 'Treatment B', mean: 75, sd }
+        ];
+      } else if (scenario === 'full') {
+        barData = [
+          { label: 'Control', mean: 50, sd },
+          { label: 'Treatment A', mean: 55, sd },
+          { label: 'Treatment B', mean: 52, sd }
+        ];
+      }
+      renderBarChart();
+    }
+
+    function renderBarChart() {
+      const container = document.getElementById('bars-container');
+      container.innerHTML = '';
+      
+      const colors = ['#6366f1', '#10b981', '#f59e0b'];
+      const xPositions = [120, 220, 320];
+      const barWidth = 50;
+      
+      barData.forEach((d, i) => {
+        const barHeight = d.mean * 2;
+        const y = 250 - barHeight;
+        const errorTop = Math.max(50, y - d.sd);
+        const errorBottom = Math.min(250, y + d.sd);
+        
+        // Bar
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', xPositions[i] - barWidth/2);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', barWidth);
+        rect.setAttribute('height', barHeight);
+        rect.setAttribute('fill', colors[i]);
+        rect.setAttribute('rx', '4');
+        container.appendChild(rect);
+        
+        // Error bar vertical line
+        const errorLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        errorLine.setAttribute('x1', xPositions[i]);
+        errorLine.setAttribute('y1', errorTop);
+        errorLine.setAttribute('x2', xPositions[i]);
+        errorLine.setAttribute('y2', errorBottom);
+        errorLine.setAttribute('stroke', '#ffffff');
+        errorLine.setAttribute('stroke-width', '2');
+        container.appendChild(errorLine);
+        
+        // Error bar top cap
+        const topCap = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        topCap.setAttribute('x1', xPositions[i] - 8);
+        topCap.setAttribute('y1', errorTop);
+        topCap.setAttribute('x2', xPositions[i] + 8);
+        topCap.setAttribute('y2', errorTop);
+        topCap.setAttribute('stroke', '#ffffff');
+        topCap.setAttribute('stroke-width', '2');
+        container.appendChild(topCap);
+        
+        // Error bar bottom cap
+        const bottomCap = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        bottomCap.setAttribute('x1', xPositions[i] - 8);
+        bottomCap.setAttribute('y1', errorBottom);
+        bottomCap.setAttribute('x2', xPositions[i] + 8);
+        bottomCap.setAttribute('y2', errorBottom);
+        bottomCap.setAttribute('stroke', '#ffffff');
+        bottomCap.setAttribute('stroke-width', '2');
+        container.appendChild(bottomCap);
+      });
+    }
+
+    // Practice Questions - Using Real Genetic Database Scenarios
+    const practiceScenarios = [
+      {
+        context: "Height vs. Arm Span (Continuous Data)",
+        description: "A Year 10 student plots height (cm) against arm span (cm) for 24 students. They get R² = 0.94 with a tight scatter of points around the line.",
+        question: "What does this strong relationship tell us about human proportions?",
+        answer: "Excellent result! R² = 0.94 shows arm span is an excellent predictor of height—this reflects the biological principle that humans maintain fairly consistent proportions (da Vinci's proportions). The tight scatter shows good measurement technique. This is reliable data for your database analysis.",
+        type: "success",
+        dataset: "height_armspan"
+      },
+      {
+        context: "Biological Sex vs. Hand Length (Discrete → Continuous)",
+        description: "Comparing hand length (cm) between males and females. Males: mean 19.2 cm ± 0.8. Females: mean 17.8 cm ± 0.7. Error bars barely overlap.",
+        question: "Is there a real difference between males and females in hand length?",
+        answer: "Yes—the non-overlapping error bars suggest a statistically significant difference. Males tend to have longer hands, which aligns with overall size differences. The small error bars (± 0.7-0.8) show consistent measurements. You can confidently say this difference is real, not due to measurement error.",
+        type: "overlap",
+        dataset: "sex_hand_length"
+      },
+      {
+        context: "Forearm Length vs. Hand Length (Continuous Data)",
+        description: "Plotting forearm length against hand length for 24 students shows R² = 0.68. Points are somewhat scattered around the line.",
+        question: "Why might R² be moderate rather than high, and what does this mean?",
+        answer: "R² = 0.68 is moderate—forearm and hand do correlate (both limb measurements), but the relationship isn't perfect. Other factors affect hand size independently: bone density, muscle mass, or genetics. This suggests hand length depends on multiple variables beyond just forearm length. Good enough to show a relationship, but don't expect perfect prediction.",
+        type: "model",
+        dataset: "forearm_hand"
+      },
+      {
+        context: "Detached Earlobes vs. Widow's Peak (Discrete Data)",
+        description: "Comparing frequencies: Students with detached earlobes: 14/24 (58%). Students with widow's peak: 8/24 (33%). Error bars based on binomial proportions show significant overlap.",
+        question: "Are detached earlobes and widow's peak linked genetically?",
+        answer: "The overlapping error bars and frequencies don't suggest a strong correlation—you'd need to cross-tabulate to check. If they were linked (same gene), you'd expect students with one to often have the other. The lack of clear separation suggests they're inherited independently, as expected from different genes.",
+        type: "overlap",
+        dataset: "discrete_traits"
+      },
+      {
+        context: "Height vs. Neck Circumference (Continuous Data)",
+        description: "Plotting height against neck circumference for 24 students shows R² = 0.52 with considerable scatter. One student has an unusually large neck circumference for their height.",
+        question: "What factors might explain the low R² and the outlier?",
+        answer: "R² = 0.52 is weak—height alone doesn't predict neck size well because neck circumference depends on muscle mass, body composition, and fat distribution. The outlier might be: 1) An error (recheck the measurement), 2) An athlete with muscular neck, or 3) Natural variation. Consider controlling for sex or fitness level to improve R².",
+        type: "anomaly",
+        dataset: "height_neck"
+      },
+      {
+        context: "Tongue Rolling Ability vs. PTC Tasting (Discrete Data)",
+        description: "Comparing ability: Can roll tongue: 18/24. Can taste PTC: 16/24. Cross-tabulation shows 12 students can do both. Error bars on each trait are small.",
+        question: "Do the error bars suggest these traits are independently assorted?",
+        answer: "Small error bars on each trait (high precision in counting) are good. To test independence: If random, you'd expect ~12 could do both. You got exactly 12! This suggests the traits ARE independently inherited—different genes control tongue rolling vs. PTC tasting. Small error bars give confidence in your frequency counts.",
+        type: "overlap",
+        dataset: "discrete_traits_independent"
+      },
+      {
+        context: "Leg Length vs. Lower Leg Length (Continuous Data)",
+        description: "Plotting total leg length against lower leg length for 24 students shows R² = 0.88. The relationship is strong and consistent.",
+        question: "Why is R² high for this pair, and how does this help validate your measurements?",
+        answer: "R² = 0.88 is excellent because lower leg length is literally a component of total leg length—mathematically it must correlate. This high R² validates your measurement technique: if measurements were poor, R² would be lower. Use this as a positive control to confirm your measuring method is reliable.",
+        type: "success",
+        dataset: "leg_segments"
+      },
+      {
+        context: "Waist Circumference vs. Height (Continuous Data)",
+        description: "Comparing waist circumference to height for 24 students (mixed diet/activity levels) shows R² = 0.35 with high scatter.",
+        question: "What does this weak correlation reveal about human variation?",
+        answer: "R² = 0.35 is weak—height is a poor predictor of waist size because diet, exercise, body composition, and genetic predisposition matter more. Taller people aren't necessarily slimmer. This shows that some traits are influenced by lifestyle/environment (waist) while height is mostly genetic. Consider separating by sex or fitness level for analysis.",
+        type: "model",
+        dataset: "waist_height"
+      }
+    ];
+
+    function generatePractice() {
+      const container = document.getElementById('practice-container');
+      container.innerHTML = '';
+      
+      // Shuffle and pick 3
+      const shuffled = [...practiceScenarios].sort(() => Math.random() - 0.5);
+      const selected = shuffled.slice(0, 3);
+      
+      selected.forEach((scenario, index) => {
+        const colors = {
+          success: 'emerald',
+          investigate: 'amber',
+          model: 'purple',
+          overlap: 'red',
+          anomaly: 'blue',
+          precision: 'orange'
+        };
+        const color = colors[scenario.type] || 'indigo';
+        
+        const card = document.createElement('div');
+        card.className = `bg-slate-800/50 rounded-2xl p-6 border border-${color}-500/30 slide-in`;
+        card.style.animationDelay = `${index * 150}ms`;
+        
+        card.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-${color}-500/20 flex items-center justify-center text-${color}-400 font-bold flex-shrink-0">
+              ${index + 1}
+            </div>
+            <div class="flex-1">
+              <span class="text-xs uppercase tracking-wider text-${color}-400 font-medium">${scenario.context}</span>
+              <p class="text-slate-200 mt-2">${scenario.description}</p>
+              <p class="text-white font-semibold mt-3">❓ ${scenario.question}</p>
+              
+              <div class="mt-4">
+                <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.textContent = this.textContent === '👁️ Show Answer' ? '🙈 Hide Answer' : '👁️ Show Answer'" 
+                  class="px-4 py-2 bg-${color}-600/30 hover:bg-${color}-600/50 rounded-lg text-sm transition-colors text-${color}-300">
+                  👁️ Show Answer
+                </button>
+                <div class="hidden mt-3 p-4 bg-slate-700/50 rounded-lg">
+                  <p class="text-slate-300">${scenario.answer}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    // Initialize
+    showTab('overview');
+    applyConfig();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cc003ad303efede',t:'MTc3MDc3MjcyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: medium; visibility: hidden;"></iframe>
+</body></html>
