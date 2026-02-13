@@ -1,10 +1,11 @@
 Projects I've made using AI-assisted code, and hosted using [Githack](https://raw.githack.com/). Noted if created by other authors.
 
-### 🧠 Educational 
+### 🧠 Educational & Science-Related
 - [LaTeX Equation Practice for DP Students](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/latexPractice.html)
 - [Statistical Analysis for Scientists (by Mike Holland)](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/statisticalAnalysis.html)
 
-### 🚀 DP Physics Simulations 
+### 🚀 DP Physics Simulations & Interactives
+- [DP Physics Paper 1B Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/physicsPaper1BPractice.html)
 - [A1 suvat Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/suvatGenerator.html)
 - [A2 Dynamic Frictional Forces](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/dynamicFriction.html)
 - [A5 Relativistic Velocity Calculator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/relativisticVelocity.html)
