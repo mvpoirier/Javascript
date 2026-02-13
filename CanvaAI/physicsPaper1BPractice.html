@@ -1,21 +1,31 @@
 <!--
 Created by Mike Poirier using Canva AI (Updated: February 13, 2025)
 
-Multiple Choice (MC):
-Conceptual questions on measurements, uncertainties, error propagation, line of best fit, and significant figures
-Mix of theory-based questions about physics principles
+1. Multiple Choice: 22 Conceptual Questions
+Systematic Errors (zero error, calibration)
+Random Errors (measurement scatter)
+Precision vs Accuracy
+Parallax Error
+Measurements & Significant Figures
+Uncertainty Calculations (powers, addition)
+Line of Best Fit & Gradient
+Instrument Types (ruler, vernier calipers, micrometer, digital balance, thermometer)
+Error Bars & Outliers
+Data Recording Best Practices
+Averaging & Reducing Errors
 
-Data Analysis:
-Graph-based questions with real plotted data points and error bars
-Calculate gradient of best fit line or y-intercept
-Includes max/min uncertainty lines for error analysis
+2. Data Analysis: Procedurally Generated (Unlimited)
+3 scenario types: Pendulum (Length vs Period²), Electrical (Voltage vs Current), Springs (Mass vs Extension)
+Each generates: 6 data points with error bars, best fit line, max/min uncertainty lines
+Question types: Calculate gradient OR y-intercept of best fit line
+~50% chance either gradient or intercept question
 
-Uncertainties:
-Percentage and absolute uncertainty calculations
-Addition/subtraction of uncertainties
-Multiplication and power rule uncertainties
-Combined uncertainty problems
-Each section generates questions procedurally, so you'll get varied scenarios within these types every time you click "New Question"!
+3. Uncertainties: Procedurally Generated (Unlimited)
+3 calculation types that randomly generate:
+Addition of absolute uncertainties
+Multiplication (percentage uncertainty addition)
+Power rule uncertainties (multiply % by power)
+Each generates unique numeric values within realistic physics ranges
 -->
 
 <!doctype html>
@@ -68,71 +78,54 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full bg-slate-900 text-white overflow-auto">
-  <div id="app" class="h-full w-full p-4 md:p-6"><!-- Header -->
+  <div id="app" class="h-full w-full p-4 md:p-6">
    <header class="text-center mb-6">
     <h1 id="main-title" class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">DP Physics Paper 1B Practice (FE2025)</h1>
     <p class="text-slate-400 mt-2">Created by Mike Poirier with Canva AI (Updated: 2026-02-13)</p>
-   </header><!-- Navigation Tabs -->
+   </header>
    <nav class="flex flex-wrap justify-center gap-2 mb-6"><button onclick="switchTab('mc')" id="tab-mc" class="tab-active px-4 py-2 rounded-lg font-medium transition-all">Multiple Choice</button> <button onclick="switchTab('data')" id="tab-data" class="px-4 py-2 rounded-lg font-medium bg-slate-700 hover:bg-slate-600 transition-all">Data Analysis</button> <button onclick="switchTab('uncertainty')" id="tab-uncertainty" class="px-4 py-2 rounded-lg font-medium bg-slate-700 hover:bg-slate-600 transition-all">Uncertainties</button>
-   </nav><!-- Score Display -->
+   </nav>
    <div class="flex justify-center gap-6 mb-6 text-sm">
     <div class="bg-slate-800 px-4 py-2 rounded-lg"><span class="text-slate-400">Score:</span> <span id="score" class="font-bold text-green-400 ml-1">0</span> <span class="text-slate-500">/</span> <span id="total" class="text-slate-400">0</span>
     </div>
     <div class="bg-slate-800 px-4 py-2 rounded-lg"><span class="text-slate-400">Streak:</span> <span id="streak" class="font-bold text-yellow-400 ml-1">0</span> <span class="text-yellow-400">🔥</span>
     </div>
-   </div><!-- Question Container -->
-   <main id="question-container" class="max-w-3xl mx-auto"><!-- Questions loaded here -->
-   </main><!-- Controls -->
+   </div>
+   <main id="question-container" class="max-w-3xl mx-auto">
+   </main>
    <div class="flex justify-center gap-4 mt-6 mb-8"><button onclick="generateQuestion()" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-lg font-semibold transition-all transform hover:scale-105"> New Question </button> <button onclick="showExplanation()" id="explain-btn" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-semibold transition-all hidden"> Show Explanation </button>
    </div>
   </div>
   <script>
-    const defaultConfig = {
-      app_title: 'IB Physics Paper 1B Practice'
-    };
-
+    const defaultConfig = { app_title: 'DP Physics Paper 1B Practice (FE2025)' };
     let config = { ...defaultConfig };
     let currentTab = 'mc';
     let currentQuestion = null;
-    let score = 0;
-    let total = 0;
-    let streak = 0;
-    let answered = false;
+    let score = 0, total = 0, streak = 0, answered = false;
 
     const mcConceptual = [
-      {
-        topic: "Measurements",
-        question: "A student measures the diameter of a wire as 0.52 mm using a micrometer with a precision of ±0.01 mm. What is the percentage uncertainty?",
-        options: ["1.9%", "2.0%", "0.52%", "0.019%"],
-        correct: 0,
-        explanation: "Percentage uncertainty = (absolute uncertainty / measured value) × 100% = (0.01 / 0.52) × 100% = 1.92% ≈ 1.9%"
-      },
-      {
-        topic: "Uncertainties",
-        question: "If y = x³, and the percentage uncertainty in x is 2%, what is the percentage uncertainty in y?",
-        options: ["2%", "4%", "6%", "8%"],
-        correct: 2,
-        explanation: "For powers, multiply the percentage uncertainty by the power: 2% × 3 = 6%"
-      },
-      {
-        topic: "Error Propagation",
-        question: "Two lengths are measured as L₁ = (5.0 ± 0.1) m and L₂ = (3.0 ± 0.1) m. What is the uncertainty in L₁ + L₂?",
-        options: ["±0.1 m", "±0.14 m", "±0.2 m", "±0.05 m"],
-        correct: 2,
-        explanation: "For addition/subtraction, add absolute uncertainties: 0.1 + 0.1 = 0.2 m"
-      },
-      {
-        topic: "Line of Best Fit",
-        question: "When drawing a line of best fit through data points, which statement is correct?",
-        options: [
-          "The line must pass through the origin",
-          "The line must pass through all data points",
-          "The line should have roughly equal numbers of points above and below",
-          "The line must pass through the first and last data points"
-        ],
-        correct: 2,
-        explanation: "A line of best fit should minimize the overall distance to all points, typically resulting in roughly equal scatter above and below the line."
-      }
+      { topic: "Systematic Errors", question: "A balance has a zero error of +0.5 g. How does this affect measurements?", options: ["All measurements will be 0.5 g too high", "All measurements will be 0.5 g too low", "Measurements alternate between high and low", "Cannot determine without knowing mass"], correct: 0, explanation: "A zero error of +0.5 g means it reads 0.5 g when empty. All measurements will be 0.5 g higher than true values. This is systematic error." },
+      { topic: "Random Errors", question: "Period measured 5 times: 1.96 s, 2.04 s, 1.99 s, 2.01 s, 2.02 s. What causes variation?", options: ["Systematic - stopwatch is faulty", "Random - unpredictable timing fluctuations", "Parallax - reading incorrectly", "Personal - observer incompetence"], correct: 1, explanation: "Measurements scatter randomly around ~2.0 s. Random error causes unpredictable variations that average out." },
+      { topic: "Precision vs Accuracy", question: "Scale reads 102, 103, 102, 103 g for 100 g object. Which is true?", options: ["Accurate but not precise", "Precise but not accurate", "Both accurate and precise", "Neither accurate nor precise"], correct: 1, explanation: "Precise = close together. Accurate = close to true value. Scale is precise but 2-3 g too high, so not accurate." },
+      { topic: "Parallax Error", question: "Reading graduated cylinder from above instead of eye level causes what error?", options: ["Systematic - always read too high", "Random - unpredictable variation", "Systematic - always read too low", "No error - no parallax effect"], correct: 2, explanation: "Reading from above makes meniscus appear higher, so volume reads too low. This is systematic error." },
+      { topic: "Measurements", question: "Wire diameter 0.52 mm using micrometer with ±0.01 mm precision. Percentage uncertainty?", options: ["1.9%", "2.0%", "0.52%", "0.019%"], correct: 0, explanation: "% uncertainty = (0.01 / 0.52) × 100% = 1.92% ≈ 1.9%" },
+      { topic: "Powers and Uncertainty", question: "If y = x³ and % uncertainty in x is 2%, what is % uncertainty in y?", options: ["2%", "4%", "6%", "8%"], correct: 2, explanation: "For powers, multiply % uncertainty by power: 2% × 3 = 6%" },
+      { topic: "Addition of Uncertainties", question: "L₁ = (5.0 ± 0.1) m and L₂ = (3.0 ± 0.1) m. Uncertainty in L₁ + L₂?", options: ["±0.1 m", "±0.14 m", "±0.2 m", "±0.05 m"], correct: 2, explanation: "For addition, add absolute uncertainties: 0.1 + 0.1 = 0.2 m" },
+      { topic: "Line of Best Fit", question: "When drawing line of best fit, which is correct?", options: ["Must pass through origin", "Must pass through all points", "Should have equal scatter above and below", "Must pass through first and last points"], correct: 2, explanation: "Best fit line minimizes overall distance to all points, resulting in roughly equal scatter on both sides." },
+      { topic: "Significant Figures", question: "Result 23.456789 from least precise 3 s.f. measurement. Express as:", options: ["23.5", "23.46", "23.457", "23.4568"], correct: 0, explanation: "Final answer matches least precise measurement's s.f.: 23.5 (3 s.f.)" },
+      { topic: "Zero Error", question: "Which describes a zero error?", options: ["Random fluctuations in readings", "Reading when instrument should show zero", "Parallax error varying between measurements", "Statistical scatter in data"], correct: 1, explanation: "Zero error = instrument reading something when it should read zero. This is systematic error." },
+      { topic: "Error Bars", question: "What do error bars on a graph represent?", options: ["Range of possible true values", "Systematic errors only", "Standard deviation of mean", "Calculation mistakes"], correct: 0, explanation: "Error bars show uncertainty interval - range within which true value is likely to lie." },
+      { topic: "Averaging Measurements", question: "Why repeat measurements and average them?", options: ["Eliminate all systematic errors", "Reduce random errors by averaging them out", "Ensure SI units", "Increase instrument precision"], correct: 1, explanation: "Averaging reduces random error. More measurements = closer to true value. Systematic errors cannot be reduced." },
+      { topic: "Ruler Uncertainty", question: "Ruler with 1 mm markings. Approximate uncertainty in single measurement?", options: ["±0.1 mm", "±0.5 mm", "±1 mm", "±2 mm"], correct: 1, explanation: "For 1 mm divisions, uncertainty ≈ ±0.5 mm (half of smallest division)." },
+      { topic: "Comparing Uncertainties", question: "Which has smallest percentage uncertainty?", options: ["(2.0 ± 0.1) m", "(10.0 ± 0.5) m", "(50.0 ± 1.0) m", "(100.0 ± 2.0) m"], correct: 3, explanation: "% uncertainties: (a) 5%, (b) 5%, (c) 2%, (d) 2%. Both (c) and (d) are 2%." },
+      { topic: "Finding Gradient", question: "To find line gradient on graph, you should:", options: ["Use any two points on line", "Use points far apart to reduce errors", "Use first and last data points", "Average all points"], correct: 1, explanation: "Use points far apart on best fit line. Large change makes small reading errors less significant." },
+      { topic: "Y-Intercept", question: "Most reliable method for y-intercept when line doesn't cross y-axis?", options: ["Read where line crosses y-axis", "Extrapolate line to x = 0", "Calculate using known gradient", "All equally reliable"], correct: 2, explanation: "Calculate: y-intercept = y - mx using known gradient. Avoids extrapolation errors." },
+      { topic: "Vernier Calipers", question: "Vernier: main 2.3 cm, Vernier 4, each division 0.01 cm. Reading?", options: ["2.3 cm", "2.34 cm", "2.70 cm", "2.04 cm"], correct: 1, explanation: "Reading = main scale + (Vernier × division) = 2.3 + (4 × 0.01) = 2.34 cm" },
+      { topic: "Micrometer", question: "Micrometer: main 3 mm, thimble 27, each division 0.01 mm. Reading?", options: ["3.00 mm", "3.27 mm", "0.27 mm", "Cannot determine"], correct: 1, explanation: "Reading = main scale + (thimble × 0.01 mm) = 3.0 + (27 × 0.01) = 3.27 mm" },
+      { topic: "Reducing Random Errors", question: "Most effective at reducing random errors?", options: ["Recalibrating instrument", "Using expensive instrument", "Taking multiple measurements and averaging", "Well-trained observer"], correct: 2, explanation: "Multiple measurements + averaging directly reduces random error effect." },
+      { topic: "Outliers", question: "If one data point is far from others (outlier), what to do?", options: ["Ignore it completely", "Check if genuine error, then decide", "Always include in best fit", "Remove without checking"], correct: 1, explanation: "Investigate first. Outliers might be genuine, transcription errors, or equipment malfunction. Only remove after verification." },
+      { topic: "Instrument Precision", question: "Digital balance displays to 0.01 g. Its precision is:", options: ["0.01 g", "±0.005 g", "0.001 g", "Depends on calibration"], correct: 0, explanation: "Instrument precision = smallest division displayed. For 0.01 g, precision is ±0.01 g." },
+      { topic: "Recording Data", question: "Thermometer reads 23.7°C with uncertainty ±0.5°C. How to record?", options: ["23.7°C", "(23.7 ± 0.5)°C", "23.70 ± 0.50°C", "23.7 ± 0.05°C"], correct: 1, explanation: "Record: (value ± uncertainty) with units. (23.7 ± 0.5)°C shows both clearly." }
     ];
 
     function generateDataQuestion() {
@@ -141,10 +134,8 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
         { xLabel: 'Voltage (V)', yLabel: 'Current (mA)', trueGradient: 0.1, unit: 'mA/V' },
         { xLabel: 'Mass (kg)', yLabel: 'Extension (cm)', trueGradient: 2.5, unit: 'cm/kg' }
       ];
-      
       const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
       const intercept = (Math.random() - 0.5) * 2;
-      
       const dataPoints = [];
       for (let i = 1; i <= 6; i++) {
         const x = i * 0.5;
@@ -154,16 +145,13 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
         const yErr = Math.abs(scatter) + 0.1;
         dataPoints.push({ x, y: Math.round(y * 100) / 100, yErr: Math.round(yErr * 100) / 100 });
       }
-      
       const n = dataPoints.length;
       const sumX = dataPoints.reduce((a, p) => a + p.x, 0);
       const sumY = dataPoints.reduce((a, p) => a + p.y, 0);
       const sumXY = dataPoints.reduce((a, p) => a + p.x * p.y, 0);
       const sumX2 = dataPoints.reduce((a, p) => a + p.x * p.x, 0);
-      
       const gradient = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
       const yIntercept = (sumY - gradient * sumX) / n;
-      
       const firstPoint = dataPoints[0];
       const lastPoint = dataPoints[dataPoints.length - 1];
       const maxGrad = ((lastPoint.y + lastPoint.yErr) - (firstPoint.y - firstPoint.yErr)) / (lastPoint.x - firstPoint.x);
@@ -171,54 +159,27 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
       
       const types = ['gradient', 'intercept'];
       const type = types[Math.floor(Math.random() * types.length)];
-      
       let question, options, correct, explanation;
-      
       if (type === 'gradient') {
         question = `Using the data shown, calculate the gradient of the line of best fit.`;
         const gradRound = Math.round(gradient * 10) / 10;
-        options = [
-          gradRound.toFixed(1),
-          (gradRound * 1.15).toFixed(1),
-          (gradRound * 0.85).toFixed(1),
-          (gradRound * 1.3).toFixed(1)
-        ].sort(() => Math.random() - 0.5);
+        options = [gradRound.toFixed(1), (gradRound * 1.15).toFixed(1), (gradRound * 0.85).toFixed(1), (gradRound * 1.3).toFixed(1)].sort(() => Math.random() - 0.5);
         correct = options.indexOf(gradRound.toFixed(1));
-        explanation = `Gradient = Δy/Δx. Using two points on the best fit line: gradient ≈ ${gradRound.toFixed(1)} ${scenario.unit}`;
+        explanation = `Gradient = Δy/Δx. Using two points on best fit line: gradient ≈ ${gradRound.toFixed(1)} ${scenario.unit}`;
       } else {
         question = `What is the y-intercept of the line of best fit?`;
         const intRound = Math.round(yIntercept * 10) / 10;
-        options = [
-          intRound.toFixed(1),
-          (intRound + 0.5).toFixed(1),
-          (intRound - 0.5).toFixed(1),
-          (intRound + 1.0).toFixed(1)
-        ].sort(() => Math.random() - 0.5);
+        options = [intRound.toFixed(1), (intRound + 0.5).toFixed(1), (intRound - 0.5).toFixed(1), (intRound + 1.0).toFixed(1)].sort(() => Math.random() - 0.5);
         correct = options.indexOf(intRound.toFixed(1));
-        explanation = `The y-intercept is where the line crosses the y-axis (x = 0). Extrapolating: y-intercept ≈ ${intRound.toFixed(1)}`;
+        explanation = `Y-intercept is where line crosses y-axis (x = 0). Extrapolating: y-intercept ≈ ${intRound.toFixed(1)}`;
       }
-      
-      return {
-        type: 'data',
-        scenario,
-        dataPoints,
-        gradient,
-        yIntercept,
-        maxGrad,
-        minGrad,
-        question,
-        options,
-        correct,
-        explanation
-      };
+      return { type: 'data', scenario, dataPoints, gradient, yIntercept, maxGrad, minGrad, question, options, correct, explanation };
     }
 
     function generateUncertaintyQuestion() {
       const types = ['addition', 'multiplication', 'power'];
       const type = types[Math.floor(Math.random() * types.length)];
-      
       let question, options, correct, explanation;
-      
       if (type === 'addition') {
         const a1 = (Math.random() * 10 + 5).toFixed(1);
         const da1 = (Math.random() * 0.3 + 0.1).toFixed(2);
@@ -227,12 +188,7 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
         const sum = (parseFloat(a1) + parseFloat(b1)).toFixed(1);
         const dsum = (parseFloat(da1) + parseFloat(db1)).toFixed(2);
         question = `Calculate A + B and its uncertainty if A = (${a1} ± ${da1}) cm and B = (${b1} ± ${db1}) cm.`;
-        options = [
-          `(${sum} ± ${dsum}) cm`,
-          `(${sum} ± ${(parseFloat(dsum) / 2).toFixed(2)}) cm`,
-          `(${sum} ± ${(parseFloat(dsum) * 2).toFixed(2)}) cm`,
-          `(${sum} ± ${Math.max(parseFloat(da1), parseFloat(db1)).toFixed(2)}) cm`
-        ].sort(() => Math.random() - 0.5);
+        options = [`(${sum} ± ${dsum}) cm`, `(${sum} ± ${(parseFloat(dsum) / 2).toFixed(2)}) cm`, `(${sum} ± ${(parseFloat(dsum) * 2).toFixed(2)}) cm`, `(${sum} ± ${Math.max(parseFloat(da1), parseFloat(db1)).toFixed(2)}) cm`].sort(() => Math.random() - 0.5);
         correct = options.indexOf(`(${sum} ± ${dsum}) cm`);
         explanation = `For addition: add absolute uncertainties. ${a1} + ${b1} = ${sum} cm. Uncertainty = ${da1} + ${db1} = ${dsum} cm`;
       } else if (type === 'multiplication') {
@@ -243,32 +199,21 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
         const pm1 = (parseFloat(dm1) / parseFloat(m1) * 100).toFixed(1);
         const pm2 = (parseFloat(dm2) / parseFloat(m2) * 100).toFixed(1);
         const ptot = (parseFloat(pm1) + parseFloat(pm2)).toFixed(1);
-        question = `If x = (${m1} ± ${dm1}) m and y = (${m2} ± ${dm2}) m, what is the percentage uncertainty in xy?`;
-        options = [
-          `${ptot}%`,
-          `${pm1}%`,
-          `${pm2}%`,
-          `${(parseFloat(ptot) / 2).toFixed(1)}%`
-        ].sort(() => Math.random() - 0.5);
+        question = `If x = (${m1} ± ${dm1}) m and y = (${m2} ± ${dm2}) m, what is % uncertainty in xy?`;
+        options = [`${ptot}%`, `${pm1}%`, `${pm2}%`, `${(parseFloat(ptot) / 2).toFixed(1)}%`].sort(() => Math.random() - 0.5);
         correct = options.indexOf(`${ptot}%`);
-        explanation = `For multiplication, add percentage uncertainties. %unc in x = ${pm1}%, %unc in y = ${pm2}%. Total = ${ptot}%`;
+        explanation = `For multiplication, add % uncertainties. %unc in x = ${pm1}%, %unc in y = ${pm2}%. Total = ${ptot}%`;
       } else {
         const base = (Math.random() * 5 + 2).toFixed(1);
         const dbase = (Math.random() * 0.2 + 0.1).toFixed(2);
         const power = Math.floor(Math.random() * 3) + 2;
         const pbase = (parseFloat(dbase) / parseFloat(base) * 100).toFixed(1);
         const presult = (parseFloat(pbase) * power).toFixed(1);
-        question = `If r = (${base} ± ${dbase}) m, what is the percentage uncertainty in r${power === 2 ? '²' : '³'}?`;
-        options = [
-          `${presult}%`,
-          `${pbase}%`,
-          `${(parseFloat(presult) / 2).toFixed(1)}%`,
-          `${(parseFloat(presult) * 2).toFixed(1)}%`
-        ].sort(() => Math.random() - 0.5);
+        question = `If r = (${base} ± ${dbase}) m, what is % uncertainty in r${power === 2 ? '²' : '³'}?`;
+        options = [`${presult}%`, `${pbase}%`, `${(parseFloat(presult) / 2).toFixed(1)}%`, `${(parseFloat(presult) * 2).toFixed(1)}%`].sort(() => Math.random() - 0.5);
         correct = options.indexOf(`${presult}%`);
-        explanation = `For powers, multiply percentage uncertainty by the power. %unc in r = ${pbase}%. %unc in r${power === 2 ? '²' : '³'} = ${power} × ${pbase}% = ${presult}%`;
+        explanation = `For powers, multiply % uncertainty by power. %unc in r = ${pbase}%. %unc in r${power === 2 ? '²' : '³'} = ${power} × ${pbase}% = ${presult}%`;
       }
-      
       return { type: 'uncertainty', question, options, correct, explanation };
     }
 
@@ -298,64 +243,39 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
 
     function renderDataQuestion(q) {
       const container = document.getElementById('question-container');
-      
-      const padding = 60;
-      const width = 500;
-      const height = 350;
+      const padding = 60, width = 500, height = 350;
       const xMax = Math.max(...q.dataPoints.map(p => p.x)) * 1.2;
       const yMax = Math.max(...q.dataPoints.map(p => p.y + p.yErr)) * 1.2;
       const yMin = Math.min(0, Math.min(...q.dataPoints.map(p => p.y - p.yErr)) * 1.2);
-      
       const scaleX = (x) => padding + (x / xMax) * (width - 2 * padding);
       const scaleY = (y) => height - padding - ((y - yMin) / (yMax - yMin)) * (height - 2 * padding);
-      
-      const points = q.dataPoints.map(p => ({
-        cx: scaleX(p.x),
-        cy: scaleY(p.y),
-        errTop: scaleY(p.y + p.yErr),
-        errBot: scaleY(p.y - p.yErr)
-      }));
-      
-      const x1 = 0, x2 = xMax;
-      const y1 = q.yIntercept, y2 = q.gradient * x2 + q.yIntercept;
-      
-      const firstP = q.dataPoints[0];
-      const lastP = q.dataPoints[q.dataPoints.length - 1];
+      const points = q.dataPoints.map(p => ({ cx: scaleX(p.x), cy: scaleY(p.y), errTop: scaleY(p.y + p.yErr), errBot: scaleY(p.y - p.yErr) }));
+      const x1 = 0, x2 = xMax, y1 = q.yIntercept, y2 = q.gradient * x2 + q.yIntercept;
+      const firstP = q.dataPoints[0], lastP = q.dataPoints[q.dataPoints.length - 1];
       
       container.innerHTML = `
         <div class="question-card rounded-xl p-6 fade-in">
           <div class="flex items-center gap-2 mb-4">
             <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm font-medium">Data Analysis</span>
           </div>
-          
           <div class="graph-container">
             <svg viewBox="0 0 ${width} ${height}" class="w-full max-w-2xl mx-auto border border-slate-300 rounded">
               ${[0, 0.25, 0.5, 0.75, 1].map(f => `
                 <line x1="${padding}" y1="${padding + f * (height - 2 * padding)}" x2="${width - padding}" y2="${padding + f * (height - 2 * padding)}" stroke="#e5e7eb" stroke-width="0.5"/>
                 <line x1="${padding + f * (width - 2 * padding)}" y1="${padding}" x2="${padding + f * (width - 2 * padding)}" y2="${height - padding}" stroke="#e5e7eb" stroke-width="0.5"/>
               `).join('')}
-              
               <line x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke="#1f2937" stroke-width="2"/>
               <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}" stroke="#1f2937" stroke-width="2"/>
-              
               <text x="${width / 2}" y="${height - 8}" text-anchor="middle" fill="#1f2937" font-size="13" font-weight="600">${q.scenario.xLabel}</text>
               <text x="18" y="${height / 2}" text-anchor="middle" fill="#1f2937" font-size="13" font-weight="600" transform="rotate(-90, 18, ${height / 2})">${q.scenario.yLabel}</text>
-              
               ${[0, 0.25, 0.5, 0.75, 1].map((f) => {
                 const xVal = (f * xMax).toFixed(1);
                 const yVal = (yMin + f * (yMax - yMin)).toFixed(1);
-                return `
-                  <text x="${padding + f * (width - 2 * padding)}" y="${height - padding + 18}" text-anchor="middle" fill="#374151" font-size="10">${xVal}</text>
-                  <text x="${padding - 12}" y="${height - padding - f * (height - 2 * padding) + 4}" text-anchor="end" fill="#374151" font-size="10">${yVal}</text>
-                `;
+                return `<text x="${padding + f * (width - 2 * padding)}" y="${height - padding + 18}" text-anchor="middle" fill="#374151" font-size="10">${xVal}</text><text x="${padding - 12}" y="${height - padding - f * (height - 2 * padding) + 4}" text-anchor="end" fill="#374151" font-size="10">${yVal}</text>`;
               }).join('')}
-              
               <line x1="${scaleX(x1)}" y1="${scaleY(y1)}" x2="${scaleX(x2)}" y2="${scaleY(y2)}" class="best-fit-line"/>
-              
               <line x1="${scaleX(firstP.x)}" y1="${scaleY(firstP.y - firstP.yErr)}" x2="${scaleX(lastP.x)}" y2="${scaleY(lastP.y + lastP.yErr)}" class="max-line"/>
-              
               <line x1="${scaleX(firstP.x)}" y1="${scaleY(firstP.y + firstP.yErr)}" x2="${scaleX(lastP.x)}" y2="${scaleY(lastP.y - lastP.yErr)}" class="min-line"/>
-              
               ${points.map((p, i) => `
                 <line x1="${p.cx}" y1="${p.errTop}" x2="${p.cx}" y2="${p.errBot}" class="error-bar"/>
                 <line x1="${p.cx - 4}" y1="${p.errTop}" x2="${p.cx + 4}" y2="${p.errTop}" class="error-bar"/>
@@ -364,7 +284,6 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
                 <text x="${p.cx}" y="${p.cy - 14}" text-anchor="middle" fill="#1f2937" font-size="9" font-weight="500">(${q.dataPoints[i].x.toFixed(1)},${q.dataPoints[i].y.toFixed(1)})</text>
               `).join('')}
             </svg>
-            
             <div class="mt-6 p-4 bg-white rounded border border-slate-200 flex flex-wrap justify-center gap-8 text-xs text-slate-700 font-medium">
               <div class="flex items-center gap-2">
                 <svg width="24" height="3"><line x1="0" y1="1" x2="24" y2="1" stroke="#22c55e" stroke-width="2"/></svg>
@@ -380,30 +299,23 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
               </div>
             </div>
           </div>
-          
           <div class="bg-slate-800 rounded-lg p-4 mb-6 overflow-x-auto mt-4">
             <table class="w-full text-sm mono">
-              <thead>
-                <tr class="text-slate-400">
-                  <th class="py-2 px-3">${q.scenario.xLabel.split(' ')[0]}</th>
-                  <th class="py-2 px-3">${q.scenario.yLabel.split(' ')[0]}</th>
-                  <th class="py-2 px-3">±Δy</th>
-                </tr>
-              </thead>
+              <thead><tr class="text-slate-400">
+                <th class="py-2 px-3">${q.scenario.xLabel.split(' ')[0]}</th>
+                <th class="py-2 px-3">${q.scenario.yLabel.split(' ')[0]}</th>
+                <th class="py-2 px-3">±Δy</th>
+              </tr></thead>
               <tbody>
-                ${q.dataPoints.map(p => `
-                  <tr class="border-t border-slate-700">
-                    <td class="py-2 px-3 text-center">${p.x.toFixed(2)}</td>
-                    <td class="py-2 px-3 text-center">${p.y.toFixed(2)}</td>
-                    <td class="py-2 px-3 text-center text-slate-400">±${p.yErr.toFixed(2)}</td>
-                  </tr>
-                `).join('')}
+                ${q.dataPoints.map(p => `<tr class="border-t border-slate-700">
+                  <td class="py-2 px-3 text-center">${p.x.toFixed(2)}</td>
+                  <td class="py-2 px-3 text-center">${p.y.toFixed(2)}</td>
+                  <td class="py-2 px-3 text-center text-slate-400">±${p.yErr.toFixed(2)}</td>
+                </tr>`).join('')}
               </tbody>
             </table>
           </div>
-          
           <p class="text-lg mb-6 leading-relaxed">${q.question}</p>
-          
           <div class="space-y-3" id="options">
             ${q.options.map((opt, i) => `
               <button onclick="selectOption(${i})" class="option-btn w-full text-left p-4 rounded-lg border border-slate-600 bg-slate-800/50 transition-all flex items-center gap-3">
@@ -412,7 +324,6 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
               </button>
             `).join('')}
           </div>
-          
           <div id="explanation" class="hidden mt-6 p-4 rounded-lg bg-slate-800 border-l-4 border-emerald-500">
             <p class="font-semibold text-emerald-300 mb-2">Explanation:</p>
             <p class="text-slate-300">${q.explanation}</p>
@@ -448,51 +359,27 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
     function selectOption(index) {
       if (answered) return;
       answered = true;
-      
       const buttons = document.querySelectorAll('.option-btn');
       const isCorrect = index === currentQuestion.correct;
-      
       buttons.forEach((btn, i) => {
-        if (i === currentQuestion.correct) {
-          btn.classList.add('correct');
-        } else if (i === index && !isCorrect) {
-          btn.classList.add('incorrect');
-        }
+        if (i === currentQuestion.correct) btn.classList.add('correct');
+        else if (i === index && !isCorrect) btn.classList.add('incorrect');
       });
-      
       total++;
-      if (isCorrect) {
-        score++;
-        streak++;
-      } else {
-        streak = 0;
-      }
-      
+      if (isCorrect) { score++; streak++; } else streak = 0;
       updateScore();
       document.getElementById('explain-btn').classList.remove('hidden');
     }
 
-    function showExplanation() {
-      document.getElementById('explanation').classList.remove('hidden');
-    }
-
-    function updateScore() {
-      document.getElementById('score').textContent = score;
-      document.getElementById('total').textContent = total;
-      document.getElementById('streak').textContent = streak;
-    }
+    function showExplanation() { document.getElementById('explanation').classList.remove('hidden'); }
+    function updateScore() { document.getElementById('score').textContent = score; document.getElementById('total').textContent = total; document.getElementById('streak').textContent = streak; }
 
     function switchTab(tab) {
       currentTab = tab;
       ['mc', 'data', 'uncertainty'].forEach(t => {
         const tabEl = document.getElementById(`tab-${t}`);
-        if (t === tab) {
-          tabEl.classList.add('tab-active');
-          tabEl.classList.remove('bg-slate-700', 'hover:bg-slate-600');
-        } else {
-          tabEl.classList.remove('tab-active');
-          tabEl.classList.add('bg-slate-700', 'hover:bg-slate-600');
-        }
+        if (t === tab) { tabEl.classList.add('tab-active'); tabEl.classList.remove('bg-slate-700', 'hover:bg-slate-600'); }
+        else { tabEl.classList.remove('tab-active'); tabEl.classList.add('bg-slate-700', 'hover:bg-slate-600'); }
       });
       generateQuestion();
     }
@@ -500,7 +387,6 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
     function generateQuestion() {
       answered = false;
       document.getElementById('explain-btn').classList.add('hidden');
-      
       switch(currentTab) {
         case 'mc':
           currentQuestion = mcConceptual[Math.floor(Math.random() * mcConceptual.length)];
@@ -531,15 +417,10 @@ Each section generates questions procedurally, so you'll get varied scenarios wi
     }
 
     if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities,
-        mapToEditPanelValues
-      });
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
     }
     
     generateQuestion();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd0b8931706f8d4',t:'MTc3MDk0NzkwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd144c4b16e3fa0',t:'MTc3MDk1MzY1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
