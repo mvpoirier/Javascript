@@ -7,6 +7,7 @@ Projects I've made using AI-assisted code, and hosted using [Githack](https://ra
 ### 🚀 DP Physics Simulations & Interactives
 - [DP Physics Paper 1B Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/physicsPaper1BPractice.html)
 - [A1 suvat Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/suvatGenerator.html)
+- [A1 Projectile Motion Question Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/projectileMotion.html)
 - [A2 Dynamic Frictional Forces](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/dynamicFriction.html)
 - [A5 Relativistic Velocity Calculator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/relativisticVelocity.html)
 - [A5 Spacetime Intervals & Graphs](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/spacetimeGraph.html)
